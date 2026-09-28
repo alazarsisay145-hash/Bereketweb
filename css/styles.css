@@ -165,11 +165,10 @@ button { font-family: inherit; cursor: pointer; }
   letter-spacing: -0.5px;
   line-height: 1.05;
   display: flex;
-  flex-direction: column;
+  align-items: baseline;
+  gap: 8px;
 }
-.brand-text em { display: inline; }
 .brand-text em { font-style: italic; color: var(--gold); }
-.brand-text { flex-direction: row; align-items: baseline; gap: 8px; }
 .brand-text small {
   font-size: 0.6rem;
   font-weight: 600;
