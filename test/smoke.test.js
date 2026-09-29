@@ -78,8 +78,9 @@ check('no inline event handlers', !/\son[a-z]+="/i.test(html));
   .forEach((c) => check(`category filter "${c}"`, new RegExp(`data-category="${c}"`).test(html)));
 
 const ldMatch = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
+check('has a JSON-LD block', Boolean(ldMatch));
 let ld = {};
-try { ld = JSON.parse(ldMatch[1]); } catch (e) { /* reported below */ }
+try { ld = ldMatch ? JSON.parse(ldMatch[1]) : {}; } catch (e) { check(`JSON-LD parses (${e.message})`, false); }
 const ldTypes = [].concat(ld['@type'] || []);
 check('JSON-LD is valid Restaurant/FoodEstablishment', ldTypes.includes('Restaurant') && ldTypes.includes('FoodEstablishment'));
 check('JSON-LD serves juice, smoothies, salads', ld.servesCuisine === 'Juice, Smoothies, Salads');
@@ -98,8 +99,15 @@ check('interior photo used in Our Space', /space-image[\s\S]*?assets\/img\/inter
 
 /* --- menu data --- */
 console.log('\nMenu:');
+// Evaluate main.js with a minimal DOM stub and read its top-level constants.
 const sandbox = {};
-vm.runInNewContext(js.split('(function () {')[0] + '\nthis.MENU_ITEMS = MENU_ITEMS; this.FORMSPREE_ENDPOINT = FORMSPREE_ENDPOINT;', sandbox);
+try {
+  const stub = { querySelector: () => null, querySelectorAll: () => [], getElementById: () => null, addEventListener: () => {}, documentElement: {} };
+  vm.runInNewContext(`${js}\nthis.MENU_ITEMS = MENU_ITEMS; this.FORMSPREE_ENDPOINT = FORMSPREE_ENDPOINT;`,
+    Object.assign(sandbox, { document: stub, window: { localStorage: { getItem: () => null, setItem: () => {} } } }));
+} catch (e) {
+  check(`assets/js/main.js evaluates (${e.message})`, false);
+}
 const items = sandbox.MENU_ITEMS || [];
 check(`MENU_ITEMS is an array with items (found ${items.length})`, Array.isArray(items) && items.length >= 4);
 check('every item has id, name, description, price, category, image',
