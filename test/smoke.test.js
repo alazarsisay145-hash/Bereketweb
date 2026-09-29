@@ -46,7 +46,7 @@ check('loads assets/js/main.js with defer', /<script src="assets\/js\/main\.js" 
 check('no inline event handlers (on*=) in HTML', !/\son[a-z]+\s*=/i.test(html));
 check('no inline event handlers in generated JS markup', !/on(click|input|change|submit)=/i.test(js));
 check('no inline style attributes', !/\sstyle=/i.test(html));
-const inlineScripts = [...html.matchAll(/<script>([\s\S]*?)<\/script>/g)].map((m) => m[1]);
+const inlineScripts = [...html.matchAll(/<script>([\s\S]*?)<\/script\s*>/gi)].map((m) => m[1]);
 const cspHashes = inlineScripts.map((code) => `'sha256-${crypto.createHash('sha256').update(code).digest('base64')}'`);
 check('every inline script is allowed by the CSP hash', cspHashes.every((hash) => html.includes(hash)));
 

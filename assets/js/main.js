@@ -210,6 +210,7 @@
       'menu.item15.desc': 'ትኩስ ወቅታዊ ፍራፍሬዎች።',
 
       'booking.label': 'ቆይታዎን ያቅዱ',
+      'cta.planStay': 'ቆይታዎን ያቅዱ',
       'booking.title': 'ቆይታዎን ያስይዙ።',
       'booking.text': 'የቦታ ማስያዣ ጥያቄ ይላኩልን፤ ቡድናችን ክፍት መሆኑን በኢሜይል ወይም በስልክ ያረጋግጥልዎታል።',
       'booking.name': 'ሙሉ ስም *',
@@ -374,6 +375,7 @@
      Language
   ------------------------------------------------------------------ */
   const englishFromDom = {};
+  const englishHtmlFromDom = {};
   let language = 'en';
 
   function t(key, vars) {
@@ -400,7 +402,7 @@
     });
     $$('[data-i18n-html]').forEach((node) => {
       const key = node.dataset.i18nHtml;
-      if (!(key in englishFromDom)) englishFromDom[key] = node.innerHTML.trim().replace(/\s+/g, ' ');
+      if (!(key in englishHtmlFromDom)) englishHtmlFromDom[key] = node.cloneNode(true);
     });
     $$('[data-i18n-attr]').forEach((node) => {
       parseAttrBindings(node.dataset.i18nAttr).forEach(([attr, key]) => {
@@ -417,9 +419,16 @@
     $$('[data-i18n]').forEach((node) => {
       node.textContent = t(node.dataset.i18n);
     });
-    // Only trusted, static dictionary strings are written as HTML.
+    // Only trusted, static dictionary strings are written as HTML; English
+    // markup is restored from the original DOM nodes.
     $$('[data-i18n-html]').forEach((node) => {
-      node.innerHTML = t(node.dataset.i18nHtml);
+      const key = node.dataset.i18nHtml;
+      const markup = language === 'en' ? undefined : (I18N[language] || {})[key];
+      if (markup !== undefined) {
+        node.innerHTML = markup;
+      } else if (englishHtmlFromDom[key]) {
+        node.replaceChildren(...englishHtmlFromDom[key].cloneNode(true).childNodes);
+      }
     });
     $$('[data-i18n-attr]').forEach((node) => {
       parseAttrBindings(node.dataset.i18nAttr).forEach(([attr, key]) => node.setAttribute(attr, t(key)));
