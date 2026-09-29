@@ -1,7 +1,7 @@
 {
   "name": "bereketweb",
   "version": "1.0.0",
-  "description": "Bereket Juice & Salad — fresh juice, smoothies, burgers and fruit salads in Hawassa, Ethiopia.",
+  "description": "Bereket Juice & Salad — fresh juices, smoothies and fruit salads in Hawassa, Ethiopia.",
   "private": true,
   "scripts": {
     "start": "npx --yes serve .",

@@ -1,0 +1,18 @@
+{
+  "name": "Bereket Juice & Salad",
+  "short_name": "Bereket",
+  "description": "Fresh juices, smoothies and fruit salads made to order in Hawassa.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0d0d0d",
+  "theme_color": "#0d0d0d",
+  "icons": [
+    {
+      "src": "assets/img/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
