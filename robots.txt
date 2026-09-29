@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://alazarsisay145-hash.github.io/Bereketweb/sitemap.xml
