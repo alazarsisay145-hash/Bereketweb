@@ -1,320 +1,3445 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bereket Juice &amp; Salad — Fresh Juice, Smoothies &amp; Burgers in Hawassa</title>
-  <meta name="description" content="Bereket Juice &amp; Salad in Hawassa, Ethiopia. Freshly squeezed mango, avocado and spris juices, smoothies, shakes, burgers and fruit salads. Order for pickup via WhatsApp.">
-  <meta name="keywords" content="Bereket Juice, Hawassa juice, spris, fresh juice Ethiopia, fruit salad Hawassa, burger Hawassa">
-  <meta name="theme-color" content="#3e9e5a">
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
-  <link rel="apple-touch-icon" href="assets/favicon.svg">
-  <link rel="canonical" href="https://alazarsisay145-hash.github.io/Bereketweb/">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Open Graph -->
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Bereket Juice &amp; Salad — Hawassa">
-  <meta property="og:description" content="Freshness you can see. Flavor you can taste. Fresh juices, smoothies, burgers &amp; fruit salads in Hawassa. Order via WhatsApp.">
-  <meta property="og:image" content="assets/logo.svg">
-  <meta property="og:url" content="https://alazarsisay145-hash.github.io/Bereketweb/">
-  <meta name="twitter:card" content="summary_large_image">
+  <title>Habesha Haven | Hotel & Café</title>
 
-  <link rel="stylesheet" href="css/styles.css">
+  <meta
+    name="description"
+    content="Habesha Haven — a premium Ethiopian hotel and café experience."
+  />
 
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Restaurant",
-    "name": "Bereket Juice & Salad",
-    "image": "assets/logo.svg",
-    "servesCuisine": ["Juice", "Smoothies", "Burgers", "Fruit Salad", "Ethiopian"],
-    "priceRange": "ETB 110 - ETB 420",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Hawassa",
-      "addressRegion": "Sidama",
-      "addressCountry": "ET"
-    },
-    "geo": { "@type": "GeoCoordinates", "latitude": 7.0504, "longitude": 38.4955 },
-    "url": "https://alazarsisay145-hash.github.io/Bereketweb/",
-    "openingHoursSpecification": [{
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-      "opens": "07:00",
-      "closes": "21:00"
-    }]
-  }
-  </script>
+  <meta name="theme-color" content="#f5f7f2" />
+
+  <style>
+    /* =========================================================
+       HABESHA HAVEN
+       Single-file Hotel + Café Demo
+       HTML + CSS + JavaScript
+    ========================================================= */
+
+    :root {
+      --green: #315d48;
+      --green-dark: #1d3c30;
+      --green-light: #6d927d;
+      --cream: #f6f5ef;
+      --white: rgba(255,255,255,.72);
+      --white-strong: rgba(255,255,255,.9);
+      --brown: #98765a;
+      --text: #1c2822;
+      --muted: #6d756f;
+      --border: rgba(255,255,255,.65);
+      --shadow: 0 20px 60px rgba(36,57,46,.12);
+      --radius: 28px;
+      --transition: .35s cubic-bezier(.2,.8,.2,1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(116,154,129,.18), transparent 30%),
+        radial-gradient(circle at 90% 30%, rgba(184,151,116,.12), transparent 28%),
+        var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(rgba(255,255,255,.18) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.18) 1px, transparent 1px);
+      background-size: 70px 70px;
+      opacity: .15;
+      z-index: -1;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 36px));
+      margin-inline: auto;
+    }
+
+    /* =========================================================
+       GLASS
+    ========================================================= */
+
+    .glass {
+      background: var(--white);
+      border: 1px solid var(--border);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      box-shadow: var(--shadow);
+    }
+
+    /* =========================================================
+       DEMO BADGE
+    ========================================================= */
+
+    .demo-badge {
+      position: fixed;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1000;
+
+      padding: 7px 13px;
+      border-radius: 999px;
+
+      background: rgba(255,255,255,.76);
+      border: 1px solid rgba(255,255,255,.8);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      color: var(--green-dark);
+
+      box-shadow: 0 10px 30px rgba(0,0,0,.08);
+    }
+
+    /* =========================================================
+       NAVIGATION
+    ========================================================= */
+
+    header {
+      position: fixed;
+      top: 52px;
+      left: 0;
+      width: 100%;
+      z-index: 900;
+    }
+
+    .navbar {
+      width: min(1180px, calc(100% - 36px));
+      margin: auto;
+      padding: 12px 14px 12px 20px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      border-radius: 22px;
+      background: rgba(255,255,255,.67);
+      border: 1px solid rgba(255,255,255,.75);
+
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+
+      box-shadow: 0 15px 50px rgba(31,56,44,.10);
+      transition: var(--transition);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 800;
+    }
+
+    .logo-mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+
+      color: white;
+      background:
+        linear-gradient(135deg, var(--green), #73977f);
+
+      box-shadow: 0 10px 25px rgba(49,93,72,.22);
+    }
+
+    .logo-text strong {
+      display: block;
+      font-size: 15px;
+      letter-spacing: -.02em;
+    }
+
+    .logo-text span {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .nav-links a {
+      position: relative;
+      color: #4e5953;
+      font-size: 13px;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: var(--green);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .lang-btn,
+    .cart-btn,
+    .menu-toggle {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+
+      background: rgba(255,255,255,.62);
+      border: 1px solid rgba(255,255,255,.8);
+      color: var(--green-dark);
+
+      transition: var(--transition);
+    }
+
+    .lang-btn:hover,
+    .cart-btn:hover,
+    .menu-toggle:hover {
+      transform: translateY(-2px);
+      background: white;
+    }
+
+    .cart-btn {
+      position: relative;
+    }
+
+    .cart-count {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+
+      min-width: 18px;
+      height: 18px;
+      padding: 0 5px;
+
+      display: grid;
+      place-items: center;
+
+      border-radius: 999px;
+      background: var(--green);
+      color: white;
+      font-size: 9px;
+      font-weight: 800;
+    }
+
+    .primary-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+
+      padding: 13px 20px;
+      border-radius: 15px;
+
+      background: var(--green);
+      color: white;
+
+      font-size: 13px;
+      font-weight: 750;
+
+      box-shadow: 0 12px 28px rgba(49,93,72,.22);
+      transition: var(--transition);
+    }
+
+    .primary-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 17px 35px rgba(49,93,72,.28);
+    }
+
+    .secondary-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+
+      padding: 13px 20px;
+      border-radius: 15px;
+
+      background: rgba(255,255,255,.58);
+      border: 1px solid rgba(255,255,255,.85);
+
+      color: var(--green-dark);
+      font-size: 13px;
+      font-weight: 750;
+
+      backdrop-filter: blur(15px);
+      transition: var(--transition);
+    }
+
+    .secondary-btn:hover {
+      transform: translateY(-3px);
+      background: white;
+    }
+
+    .menu-toggle {
+      display: none;
+    }
+
+    /* =========================================================
+       HERO
+    ========================================================= */
+
+    .hero {
+      min-height: 900px;
+      padding-top: 170px;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+
+      background:
+        linear-gradient(
+          90deg,
+          rgba(20,40,30,.78),
+          rgba(20,40,30,.38),
+          rgba(20,40,30,.10)
+        ),
+        url("https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=2000&q=85")
+        center/cover;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0;
+      height: 260px;
+      background: linear-gradient(transparent, var(--cream));
+      z-index: -1;
+    }
+
+    .hero-content {
+      max-width: 700px;
+      color: white;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+
+      padding: 7px 12px;
+      border-radius: 999px;
+
+      background: rgba(255,255,255,.13);
+      border: 1px solid rgba(255,255,255,.25);
+
+      backdrop-filter: blur(16px);
+
+      font-size: 11px;
+      font-weight: 750;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #b7d2be;
+      box-shadow: 0 0 0 5px rgba(183,210,190,.13);
+    }
+
+    .hero h1 {
+      margin-top: 22px;
+
+      font-size: clamp(48px, 7vw, 86px);
+      line-height: .98;
+      letter-spacing: -.065em;
+    }
+
+    .hero h1 span {
+      color: #d8e6dc;
+    }
+
+    .hero p {
+      max-width: 580px;
+      margin-top: 25px;
+
+      color: rgba(255,255,255,.82);
+      font-size: 17px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 11px;
+      margin-top: 30px;
+    }
+
+    .hero .secondary-btn {
+      color: white;
+      background: rgba(255,255,255,.12);
+      border-color: rgba(255,255,255,.25);
+    }
+
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 50px;
+    }
+
+    .stat {
+      padding: 13px 18px;
+      border-radius: 17px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.2);
+      backdrop-filter: blur(18px);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 18px;
+    }
+
+    .stat span {
+      color: rgba(255,255,255,.68);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+    }
+
+    /* Floating glass card */
+
+    .floating-card {
+      position: absolute;
+      right: 8%;
+      bottom: 160px;
+
+      width: 250px;
+      padding: 18px;
+      border-radius: 24px;
+
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.3);
+
+      backdrop-filter: blur(22px);
+      color: white;
+
+      box-shadow: 0 25px 70px rgba(0,0,0,.2);
+
+      animation: float 5s ease-in-out infinite;
+    }
+
+    .floating-card img {
+      width: 100%;
+      height: 135px;
+      object-fit: cover;
+      border-radius: 17px;
+      margin-bottom: 13px;
+    }
+
+    .floating-card strong {
+      font-size: 14px;
+    }
+
+    .floating-card small {
+      display: block;
+      color: rgba(255,255,255,.7);
+      margin-top: 4px;
+    }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    /* =========================================================
+       SECTIONS
+    ========================================================= */
+
+    section {
+      padding: 105px 0;
+    }
+
+    .section-heading {
+      max-width: 650px;
+      margin-bottom: 45px;
+    }
+
+    .section-heading.center {
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .section-label {
+      color: var(--green);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    .section-heading h2 {
+      margin-top: 9px;
+      font-size: clamp(34px, 5vw, 56px);
+      line-height: 1.05;
+      letter-spacing: -.055em;
+    }
+
+    .section-heading p {
+      margin-top: 15px;
+      color: var(--muted);
+    }
+
+    /* =========================================================
+       EXPERIENCE CARDS
+    ========================================================= */
+
+    .experience-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+    }
+
+    .experience-card {
+      min-height: 230px;
+      padding: 25px;
+
+      border-radius: var(--radius);
+      transition: var(--transition);
+    }
+
+    .experience-card:hover {
+      transform: translateY(-7px);
+    }
+
+    .experience-icon {
+      width: 50px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+
+      border-radius: 16px;
+      background: rgba(49,93,72,.10);
+      color: var(--green);
+      font-size: 21px;
+    }
+
+    .experience-card h3 {
+      margin-top: 28px;
+      font-size: 18px;
+    }
+
+    .experience-card p {
+      margin-top: 9px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* =========================================================
+       ROOMS
+    ========================================================= */
+
+    .rooms-section {
+      background: rgba(255,255,255,.25);
+    }
+
+    .rooms-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .room-card {
+      overflow: hidden;
+      border-radius: var(--radius);
+      transition: var(--transition);
+    }
+
+    .room-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .room-image {
+      position: relative;
+      height: 270px;
+      overflow: hidden;
+    }
+
+    .room-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .8s ease;
+    }
+
+    .room-card:hover .room-image img {
+      transform: scale(1.07);
+    }
+
+    .room-tag {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+
+      padding: 7px 11px;
+      border-radius: 999px;
+
+      background: rgba(255,255,255,.78);
+      backdrop-filter: blur(15px);
+
+      font-size: 10px;
+      font-weight: 800;
+      color: var(--green-dark);
+    }
+
+    .room-body {
+      padding: 21px;
+    }
+
+    .room-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .room-title h3 {
+      font-size: 19px;
+    }
+
+    .price {
+      color: var(--green);
+      font-size: 14px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .price small {
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .room-body p {
+      margin-top: 9px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 16px;
+    }
+
+    .feature {
+      padding: 6px 9px;
+      border-radius: 9px;
+      background: rgba(49,93,72,.07);
+      color: #53645b;
+      font-size: 10px;
+      font-weight: 650;
+    }
+
+    .room-actions {
+      margin-top: 19px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .room-actions button {
+      flex: 1;
+    }
+
+    /* =========================================================
+       COFFEE SECTION
+    ========================================================= */
+
+    .coffee-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+      align-items: center;
+    }
+
+    .coffee-image {
+      min-height: 540px;
+      border-radius: 35px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .coffee-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .coffee-overlay {
+      position: absolute;
+      left: 22px;
+      bottom: 22px;
+      right: 22px;
+
+      padding: 19px;
+      border-radius: 21px;
+
+      background: rgba(255,255,255,.16);
+      border: 1px solid rgba(255,255,255,.35);
+      backdrop-filter: blur(20px);
+
+      color: white;
+    }
+
+    .coffee-overlay small {
+      opacity: .75;
+    }
+
+    .coffee-copy {
+      padding: 25px;
+    }
+
+    .coffee-copy h2 {
+      margin-top: 10px;
+      font-size: clamp(36px, 5vw, 57px);
+      line-height: 1;
+      letter-spacing: -.055em;
+    }
+
+    .coffee-copy p {
+      margin-top: 18px;
+      color: var(--muted);
+    }
+
+    .coffee-points {
+      margin-top: 25px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .coffee-point {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .check {
+      width: 26px;
+      height: 26px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+
+      border-radius: 50%;
+      background: rgba(49,93,72,.10);
+      color: var(--green);
+      font-size: 12px;
+    }
+
+    /* =========================================================
+       MENU
+    ========================================================= */
+
+    .menu-section {
+      background:
+        linear-gradient(
+          135deg,
+          rgba(49,93,72,.06),
+          rgba(255,255,255,.28)
+        );
+    }
+
+    .menu-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+
+    .menu-search {
+      flex: 1;
+      min-width: 230px;
+      position: relative;
+    }
+
+    .menu-search input {
+      width: 100%;
+      padding: 14px 18px;
+      border-radius: 15px;
+
+      background: rgba(255,255,255,.65);
+      border: 1px solid rgba(255,255,255,.85);
+
+      outline: none;
+      color: var(--text);
+
+      backdrop-filter: blur(15px);
+    }
+
+    .category-btn {
+      padding: 12px 15px;
+      border-radius: 13px;
+
+      background: rgba(255,255,255,.55);
+      border: 1px solid rgba(255,255,255,.8);
+
+      color: #536058;
+      font-size: 12px;
+      font-weight: 700;
+
+      transition: var(--transition);
+    }
+
+    .category-btn.active,
+    .category-btn:hover {
+      color: white;
+      background: var(--green);
+    }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .menu-item {
+      overflow: hidden;
+      border-radius: 22px;
+      transition: var(--transition);
+    }
+
+    .menu-item:hover {
+      transform: translateY(-6px);
+    }
+
+    .menu-image {
+      height: 190px;
+      overflow: hidden;
+    }
+
+    .menu-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .7s ease;
+    }
+
+    .menu-item:hover img {
+      transform: scale(1.06);
+    }
+
+    .menu-body {
+      padding: 17px;
+    }
+
+    .menu-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .menu-top h3 {
+      font-size: 16px;
+    }
+
+    .menu-price {
+      color: var(--green);
+      font-weight: 850;
+      font-size: 14px;
+    }
+
+    .menu-body p {
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .add-btn {
+      width: 100%;
+      margin-top: 14px;
+      padding: 11px;
+      border-radius: 12px;
+      background: rgba(49,93,72,.09);
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 800;
+      transition: var(--transition);
+    }
+
+    .add-btn:hover {
+      background: var(--green);
+      color: white;
+    }
+
+    /* =========================================================
+       BOOKING
+    ========================================================= */
+
+    .booking-section {
+      position: relative;
+    }
+
+    .booking-box {
+      padding: 35px;
+      border-radius: 32px;
+    }
+
+    .booking-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      align-items: end;
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .field label {
+      font-size: 11px;
+      font-weight: 800;
+      color: #56635b;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      width: 100%;
+      border: 1px solid rgba(49,93,72,.11);
+      background: rgba(255,255,255,.72);
+      padding: 13px;
+      border-radius: 13px;
+      outline: none;
+      color: var(--text);
+    }
+
+    .field textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .booking-full {
+      grid-column: 1 / -1;
+    }
+
+    .booking-result {
+      margin-top: 17px;
+      padding: 15px;
+      border-radius: 16px;
+      background: rgba(49,93,72,.07);
+      color: var(--green-dark);
+      display: none;
+    }
+
+    .booking-result.show {
+      display: block;
+    }
+
+    .demo-note {
+      margin-top: 18px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      background: rgba(184,151,116,.10);
+      border: 1px solid rgba(184,151,116,.15);
+      color: #715d4a;
+      font-size: 11px;
+    }
+
+    /* =========================================================
+       CART
+    ========================================================= */
+
+    .cart-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: min(390px, 100%);
+      height: 100vh;
+
+      z-index: 1500;
+
+      transform: translateX(110%);
+      transition: transform .4s cubic-bezier(.2,.8,.2,1);
+
+      padding: 25px;
+
+      background: rgba(248,248,244,.92);
+      border-left: 1px solid rgba(255,255,255,.9);
+
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+
+      box-shadow: -25px 0 70px rgba(0,0,0,.12);
+    }
+
+    .cart-panel.open {
+      transform: translateX(0);
+    }
+
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .close-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.8);
+    }
+
+    .cart-items {
+      margin-top: 25px;
+      display: grid;
+      gap: 12px;
+      max-height: 55vh;
+      overflow-y: auto;
+    }
+
+    .cart-item {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+
+      padding: 10px;
+      border-radius: 15px;
+      background: rgba(255,255,255,.68);
+    }
+
+    .cart-item img {
+      width: 55px;
+      height: 55px;
+      object-fit: cover;
+      border-radius: 11px;
+    }
+
+    .cart-item-info {
+      flex: 1;
+    }
+
+    .cart-item-info strong {
+      display: block;
+      font-size: 12px;
+    }
+
+    .cart-item-info small {
+      color: var(--muted);
+    }
+
+    .quantity {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 5px;
+    }
+
+    .quantity button {
+      width: 22px;
+      height: 22px;
+      border-radius: 7px;
+      background: rgba(49,93,72,.09);
+      color: var(--green);
+    }
+
+    .cart-total {
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(0,0,0,.07);
+      display: flex;
+      justify-content: space-between;
+      font-weight: 850;
+    }
+
+    .cart-checkout {
+      width: 100%;
+      margin-top: 15px;
+    }
+
+    .cart-empty {
+      padding: 40px 10px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    /* =========================================================
+       MODAL
+    ========================================================= */
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+
+      display: none;
+      place-items: center;
+
+      padding: 20px;
+
+      background: rgba(18,30,24,.38);
+      backdrop-filter: blur(10px);
+    }
+
+    .modal.open {
+      display: grid;
+    }
+
+    .modal-box {
+      width: min(560px, 100%);
+      max-height: 90vh;
+      overflow-y: auto;
+
+      padding: 28px;
+      border-radius: 28px;
+
+      background: rgba(250,250,246,.94);
+      border: 1px solid rgba(255,255,255,.9);
+
+      box-shadow: 0 30px 100px rgba(0,0,0,.2);
+
+      animation: modalIn .35s ease;
+    }
+
+    @keyframes modalIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px) scale(.97);
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 15px;
+    }
+
+    .modal-header h2 {
+      font-size: 25px;
+      letter-spacing: -.04em;
+    }
+
+    /* =========================================================
+       CTA
+    ========================================================= */
+
+    .cta {
+      padding-bottom: 110px;
+    }
+
+    .cta-box {
+      position: relative;
+      overflow: hidden;
+
+      padding: 60px;
+      border-radius: 35px;
+
+      background:
+        linear-gradient(
+          135deg,
+          rgba(38,72,55,.96),
+          rgba(65,103,81,.92)
+        );
+
+      color: white;
+      box-shadow: 0 30px 80px rgba(49,93,72,.18);
+    }
+
+    .cta-box::after {
+      content: "";
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      right: -100px;
+      top: -100px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.08);
+    }
+
+    .cta-box h2 {
+      max-width: 650px;
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: 1;
+      letter-spacing: -.055em;
+    }
+
+    .cta-box p {
+      max-width: 570px;
+      margin-top: 15px;
+      color: rgba(255,255,255,.73);
+    }
+
+    .cta-box .hero-buttons {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* =========================================================
+       FOOTER
+    ========================================================= */
+
+    footer {
+      padding: 55px 0 30px;
+      background: #172a21;
+      color: white;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 35px;
+    }
+
+    footer .logo-text span {
+      color: rgba(255,255,255,.45);
+    }
+
+    .footer-description {
+      max-width: 350px;
+      margin-top: 15px;
+      color: rgba(255,255,255,.57);
+      font-size: 13px;
+    }
+
+    .footer-column h4 {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+
+    .footer-column a,
+    .footer-column p {
+      display: block;
+      margin-top: 10px;
+      color: rgba(255,255,255,.56);
+      font-size: 12px;
+    }
+
+    .footer-bottom {
+      margin-top: 45px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255,255,255,.1);
+
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+
+      color: rgba(255,255,255,.43);
+      font-size: 11px;
+    }
+
+    .footer-demo {
+      color: #d8e6dc;
+      font-weight: 700;
+    }
+
+    /* =========================================================
+       MOBILE MENU
+    ========================================================= */
+
+    .mobile-menu {
+      position: fixed;
+      top: 112px;
+      left: 18px;
+      right: 18px;
+      z-index: 850;
+
+      padding: 18px;
+      border-radius: 22px;
+
+      background: rgba(250,250,247,.94);
+      border: 1px solid white;
+      backdrop-filter: blur(25px);
+
+      display: none;
+    }
+
+    .mobile-menu.open {
+      display: grid;
+      animation: menuIn .3s ease;
+    }
+
+    .mobile-menu a {
+      padding: 13px;
+      border-radius: 12px;
+      font-weight: 700;
+    }
+
+    .mobile-menu a:hover {
+      background: rgba(49,93,72,.08);
+    }
+
+    @keyframes menuIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    /* =========================================================
+       SCROLL ANIMATION
+    ========================================================= */
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(25px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* =========================================================
+       RESPONSIVE
+    ========================================================= */
+
+    @media (max-width: 1000px) {
+
+      .nav-links,
+      header .primary-btn {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: grid;
+      }
+
+      .experience-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .rooms-grid,
+      .menu-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .floating-card {
+        right: 3%;
+        bottom: 110px;
+      }
+
+      .booking-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 700px) {
+
+      .demo-badge {
+        top: 7px;
+        font-size: 9px;
+      }
+
+      header {
+        top: 39px;
+      }
+
+      .navbar {
+        width: calc(100% - 22px);
+        padding: 9px 10px 9px 14px;
+      }
+
+      .logo-mark {
+        width: 37px;
+        height: 37px;
+      }
+
+      .logo-text strong {
+        font-size: 13px;
+      }
+
+      .hero {
+        min-height: 820px;
+        padding-top: 140px;
+      }
+
+      .hero-bg {
+        background-position: 62% center;
+      }
+
+      .hero h1 {
+        font-size: clamp(43px, 13vw, 65px);
+      }
+
+      .hero p {
+        font-size: 14px;
+      }
+
+      .floating-card {
+        display: none;
+      }
+
+      section {
+        padding: 75px 0;
+      }
+
+      .experience-grid,
+      .rooms-grid,
+      .menu-grid,
+      .coffee-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .coffee-image {
+        min-height: 390px;
+      }
+
+      .booking-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .booking-box {
+        padding: 20px;
+      }
+
+      .cta-box {
+        padding: 35px 25px;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 430px) {
+
+      .container {
+        width: min(100% - 24px, 1180px);
+      }
+
+      .hero-buttons {
+        display: grid;
+      }
+
+      .hero-buttons > * {
+        width: 100%;
+      }
+
+      .hero-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .stat:last-child {
+        grid-column: 1 / -1;
+      }
+
+      .menu-controls {
+        display: grid;
+      }
+
+      .menu-search {
+        min-width: 0;
+      }
+
+      .category-btn {
+        width: 100%;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
 </head>
-<body>
-  <a class="skip-link" href="#menu">Skip to menu</a>
 
-  <!-- ======= Header ======= -->
-  <header class="site-header" id="top">
-    <nav class="nav container" aria-label="Main navigation">
-      <a class="brand" href="#top" aria-label="Bereket Juice &amp; Salad — home">
-        <img src="assets/favicon.svg" alt="" width="44" height="44" class="brand-mark">
-        <span class="brand-text">Bere<em>Ket</em><small>Juice &amp; Salad</small></span>
+<body>
+
+  <!-- =========================================================
+       GLOBAL DEMO INDICATOR
+  ========================================================== -->
+
+  <div class="demo-badge">
+    DEMO • Sample data & simulated interactions
+  </div>
+
+  <!-- =========================================================
+       NAVIGATION
+  ========================================================== -->
+
+  <header>
+    <nav class="navbar">
+
+      <a href="#home" class="logo">
+        <div class="logo-mark">HH</div>
+
+        <div class="logo-text">
+          <strong>Habesha Haven</strong>
+          <span>Hotel & Café</span>
+        </div>
       </a>
 
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#top" class="nav-link is-active">Home</a></li>
-        <li><a href="#signature" class="nav-link">Popular</a></li>
-        <li><a href="#menu" class="nav-link">Menu</a></li>
-        <li><a href="#place" class="nav-link">Our Place</a></li>
-        <li><a href="#contact" class="nav-link">Contact</a></li>
-      </ul>
+      <div class="nav-links">
+        <a href="#home">Home</a>
+        <a href="#rooms">Rooms</a>
+        <a href="#menu">Café & Menu</a>
+        <a href="#booking">Booking</a>
+        <a href="#contact">Contact</a>
+      </div>
 
       <div class="nav-actions">
-        <button class="cart-btn" id="cartBtn" aria-label="Open your order" aria-haspopup="dialog">
-          <svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
-          <span class="cart-count" id="cartCount" aria-hidden="true">0</span>
+
+        <button
+          class="lang-btn"
+          id="languageBtn"
+          aria-label="Change language"
+        >
+          EN
         </button>
-        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
-          <span></span><span></span><span></span>
+
+        <button
+          class="cart-btn"
+          id="cartButton"
+          aria-label="Open cart"
+        >
+          🛒
+          <span class="cart-count" id="cartCount">0</span>
         </button>
+
+        <button
+          class="menu-toggle"
+          id="menuToggle"
+          aria-label="Open navigation"
+        >
+          ☰
+        </button>
+
+        <a href="#booking" class="primary-btn">
+          Book Now
+        </a>
+
       </div>
     </nav>
   </header>
 
-  <main>
-    <!-- ======= Hero ======= -->
-    <section class="hero" aria-labelledby="heroTitle">
-      <div class="container hero-grid">
-        <div class="hero-copy reveal">
-          <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Hawassa, Ethiopia</p>
-          <h1 id="heroTitle">Bereket <span class="grad">Juice</span></h1>
-          <p class="hero-tagline">Freshness you can see.<br>Flavor you can taste.</p>
-          <p class="hero-sub">Freshly squeezed juices, layered spris, smoothies, burgers and fruit
-            salads — made to order every day in the heart of Hawassa.</p>
-          <div class="hero-cta">
-            <a class="btn btn-primary" id="heroWhatsapp" href="#" target="_blank" rel="noopener">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5 0 1.47 1.07 2.9 1.22 3.1.15.2 2.1 3.2 5.1 4.49.71.31 1.27.49 1.7.63.72.23 1.37.2 1.88.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35zM12.05 21.8h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.85 9.85 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.9-9.88a9.83 9.83 0 0 1 7 2.9 9.83 9.83 0 0 1 2.89 7c0 5.45-4.44 9.88-9.9 9.88zm8.42-18.3A11.8 11.8 0 0 0 12.04 0C5.46 0 .1 5.35.1 11.92c0 2.1.55 4.15 1.6 5.96L0 24l6.27-1.64a11.94 11.94 0 0 0 5.77 1.47h.01c6.58 0 11.94-5.35 11.94-11.92 0-3.18-1.24-6.17-3.52-8.42z"/></svg>
-              Order on WhatsApp
-            </a>
-            <a class="btn btn-ghost" href="#menu">Explore Menu</a>
-          </div>
-          <ul class="hero-trust" aria-label="Highlights">
-            <li>🍹 100% fresh fruit</li>
-            <li>🥭 Pressed to order</li>
-            <li>⚡ Ready in minutes</li>
-          </ul>
-        </div>
+  <!-- MOBILE MENU -->
 
-        <div class="hero-visual reveal delay-1">
-          <figure class="hero-frame glass">
-            <img src="assets/hero-drinks.svg" alt="Layered spris, mango and avocado juices at Bereket Juice &amp; Salad" width="800" height="600">
-          </figure>
-          <div class="glass-chip chip-a float-soft">
-            <span class="chip-emoji" aria-hidden="true">🍹</span>
-            <span><strong>Signature Spris</strong><small>ETB 185</small></span>
-          </div>
-          <div class="glass-chip chip-b float-soft-delay">
-            <span class="chip-emoji" aria-hidden="true">🍃</span>
-            <span><strong>Freshly made</strong><small>in Hawassa</small></span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ======= Signature ======= -->
-    <section class="section signature" id="signature" aria-labelledby="signatureTitle">
-      <div class="container">
-        <header class="section-head reveal">
-          <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Customer favorites</p>
-          <h2 id="signatureTitle">Signature &amp; Popular</h2>
-          <p class="section-sub">The three orders Hawassa keeps coming back for.</p>
-        </header>
-        <div class="signature-grid" id="signatureGrid"><!-- rendered by JS --></div>
-      </div>
-    </section>
-
-    <!-- ======= Menu ======= -->
-    <section class="section menu" id="menu" aria-labelledby="menuTitle">
-      <div class="container">
-        <header class="section-head reveal">
-          <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Made fresh daily</p>
-          <h2 id="menuTitle">Our Menu</h2>
-          <p class="section-sub">Every juice pressed when you order it. Every burger built to order.</p>
-        </header>
-
-        <div class="filters reveal" role="tablist" aria-label="Menu categories" id="menuFilters">
-          <button class="filter is-active" role="tab" aria-selected="true" data-filter="all">All</button>
-          <button class="filter" role="tab" aria-selected="false" data-filter="juices">Fresh Juices</button>
-          <button class="filter" role="tab" aria-selected="false" data-filter="smoothies">Smoothies</button>
-          <button class="filter" role="tab" aria-selected="false" data-filter="shakes">Shakes</button>
-          <button class="filter" role="tab" aria-selected="false" data-filter="burgers">Burgers</button>
-          <button class="filter" role="tab" aria-selected="false" data-filter="salads">Salads</button>
-          <button class="filter" role="tab" aria-selected="false" data-filter="combos">Combos</button>
-        </div>
-
-        <div class="menu-grid" id="menuGrid" aria-live="polite"><!-- rendered by JS --></div>
-      </div>
-    </section>
-
-    <!-- ======= Our Place ======= -->
-    <section class="section place" id="place" aria-labelledby="placeTitle">
-      <div class="container place-grid">
-        <div class="place-copy reveal">
-          <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Our place</p>
-          <h2 id="placeTitle">A fresh corner of Hawassa</h2>
-          <p>Bereket Juice &amp; Salad is a family-run juice house near the shores of Lake Hawassa.
-            Fruit arrives from local farms every morning — mangoes, avocados, papayas and bananas —
-            and leaves the counter as layered spris, cold smoothies and generous fruit salads.</p>
-          <p>Come for a quick fresh-pressed glass, stay for a burger and the lake breeze.</p>
-          <ul class="place-facts">
-            <li><strong>Open every day</strong><span>7:00 AM – 9:00 PM</span></li>
-            <li><strong>Fresh fruit daily</strong><span>from Sidama farms</span></li>
-            <li><strong>Pickup orders</strong><span>via WhatsApp</span></li>
-          </ul>
-        </div>
-        <div class="place-visual reveal delay-1">
-          <figure class="glass place-card-img">
-            <img src="assets/menu/spris.svg" alt="Layered spris juice" loading="lazy" width="800" height="600">
-            <figcaption>Layered spris — the house classic</figcaption>
-          </figure>
-          <figure class="glass place-card-img offset">
-            <img src="assets/menu/fruit-salad.svg" alt="Fresh fruit salad bowl" loading="lazy" width="800" height="600">
-            <figcaption>Fruit salads, cut to order</figcaption>
-          </figure>
-        </div>
-      </div>
-    </section>
-
-    <!-- ======= Guest house (coming soon, small) ======= -->
-    <section class="guesthouse" aria-labelledby="ghTitle">
-      <div class="container">
-        <div class="gh-strip glass reveal">
-          <span class="gh-emoji" aria-hidden="true">🏡</span>
-          <div class="gh-copy">
-            <h2 id="ghTitle">Bereket Guest House — <span class="soon">coming soon</span></h2>
-            <p>We're preparing comfortable rooms right above the juice house. Follow us on TikTok or
-              message us on WhatsApp for opening updates.</p>
-          </div>
-          <div class="gh-actions">
-            <a class="btn btn-small btn-ghost" href="https://www.tiktok.com/@bereketjuice" target="_blank" rel="noopener">TikTok</a>
-            <a class="btn btn-small btn-primary gh-whatsapp" href="#" target="_blank" rel="noopener">WhatsApp</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ======= Contact ======= -->
-    <section class="section contact" id="contact" aria-labelledby="contactTitle">
-      <div class="container">
-        <header class="section-head reveal">
-          <p class="eyebrow"><span class="dot" aria-hidden="true"></span> Visit us</p>
-          <h2 id="contactTitle">Find Bereket</h2>
-          <p class="section-sub">In the center of Hawassa — a short walk from the lakeside.</p>
-        </header>
-
-        <div class="contact-grid">
-          <div class="contact-card glass reveal">
-            <span class="contact-icon" aria-hidden="true">📍</span>
-            <h3>Address</h3>
-            <p>Piassa, Hawassa<br>Sidama, Ethiopia</p>
-            <a class="text-link" href="https://maps.google.com/?q=Hawassa,+Ethiopia" target="_blank" rel="noopener">Open in Maps →</a>
-          </div>
-          <div class="contact-card glass reveal delay-1">
-            <span class="contact-icon" aria-hidden="true">🕒</span>
-            <h3>Opening hours</h3>
-            <p>Monday – Sunday<br>7:00 AM – 9:00 PM</p>
-            <span class="text-link muted">Fresh fruit arrives at dawn</span>
-          </div>
-          <div class="contact-card glass reveal delay-2">
-            <span class="contact-icon" aria-hidden="true">💬</span>
-            <h3>Order &amp; contact</h3>
-            <p>Pickup orders via WhatsApp<br><span class="phone-display">+251 9XX XXX XXX</span></p>
-            <a class="text-link contact-whatsapp" href="#" target="_blank" rel="noopener">Chat on WhatsApp →</a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- ======= Footer ======= -->
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      <div class="footer-brand">
-        <img src="assets/logo.svg" alt="Bereket Juice &amp; Salad logo" width="88" height="88" loading="lazy">
-        <p>Freshness you can see.<br>Flavor you can taste.</p>
-      </div>
-      <nav class="footer-links" aria-label="Footer navigation">
-        <h3>Explore</h3>
-        <a href="#signature">Popular</a>
-        <a href="#menu">Menu</a>
-        <a href="#place">Our Place</a>
-        <a href="#contact">Contact</a>
-      </nav>
-      <div class="footer-links">
-        <h3>Follow</h3>
-        <a href="https://www.tiktok.com/@bereketjuice" target="_blank" rel="noopener">TikTok</a>
-        <a href="#" class="footer-whatsapp" target="_blank" rel="noopener">WhatsApp</a>
-      </div>
-      <div class="footer-links">
-        <h3>Visit</h3>
-        <p>Piassa, Hawassa<br>Sidama, Ethiopia<br>7:00 AM – 9:00 PM</p>
-      </div>
-    </div>
-    <p class="footer-note container">© <span id="year">2026</span> Bereket Juice &amp; Salad, Hawassa. Made with fresh fruit 🍊</p>
-  </footer>
-
-  <!-- ======= Cart drawer ======= -->
-  <div class="drawer-backdrop" id="drawerBackdrop" hidden></div>
-  <aside class="cart-drawer" id="cartDrawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" hidden>
-    <header class="drawer-head">
-      <h2 id="drawerTitle">Your order</h2>
-      <button class="icon-btn" id="drawerClose" aria-label="Close order panel">✕</button>
-    </header>
-
-    <div class="drawer-body">
-      <div class="cart-empty" id="cartEmpty">
-        <span aria-hidden="true">🧺</span>
-        <p>Your basket is empty.<br>Add something fresh from the menu!</p>
-        <a class="btn btn-ghost btn-small" href="#menu" id="emptyBrowse">Browse menu</a>
-      </div>
-
-      <ul class="cart-items" id="cartItems"></ul>
-
-      <div class="cart-form" id="cartForm">
-        <label for="custName">Your name</label>
-        <input type="text" id="custName" name="name" autocomplete="name" placeholder="e.g. Selam" maxlength="60">
-        <label for="pickupTime">Pickup time</label>
-        <input type="text" id="pickupTime" name="pickup" placeholder="e.g. Today, 4:30 PM" maxlength="60">
-      </div>
-    </div>
-
-    <footer class="drawer-foot" id="drawerFoot">
-      <div class="cart-total">
-        <span>Total</span>
-        <strong id="cartTotal">ETB 0</strong>
-      </div>
-      <button class="btn btn-primary btn-block" id="checkoutBtn">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.5 0 1.47 1.07 2.9 1.22 3.1.15.2 2.1 3.2 5.1 4.49.71.31 1.27.49 1.7.63.72.23 1.37.2 1.88.12.57-.09 1.76-.72 2.01-1.42.25-.7.25-1.29.17-1.42-.07-.13-.27-.2-.57-.35zM12.05 21.8h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.85 9.85 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.9-9.88a9.83 9.83 0 0 1 7 2.9 9.83 9.83 0 0 1 2.89 7c0 5.45-4.44 9.88-9.9 9.88zm8.42-18.3A11.8 11.8 0 0 0 12.04 0C5.46 0 .1 5.35.1 11.92c0 2.1.55 4.15 1.6 5.96L0 24l6.27-1.64a11.94 11.94 0 0 0 5.77 1.47h.01c6.58 0 11.94-5.35 11.94-11.92 0-3.18-1.24-6.17-3.52-8.42z"/></svg>
-        Order via WhatsApp
-      </button>
-      <p class="drawer-hint">Sends your order as a WhatsApp message — we confirm right away.</p>
-    </footer>
-  </aside>
-
-  <!-- ======= Product modal ======= -->
-  <div class="modal-backdrop" id="modalBackdrop" hidden></div>
-  <div class="product-modal glass" id="productModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
-    <button class="icon-btn modal-close" id="modalClose" aria-label="Close product details">✕</button>
-    <img id="modalImg" src="" alt="" width="800" height="600">
-    <div class="modal-body">
-      <span class="modal-badge" id="modalBadge" hidden></span>
-      <h2 id="modalTitle"></h2>
-      <p id="modalDesc"></p>
-      <div class="modal-foot">
-        <strong id="modalPrice"></strong>
-        <button class="btn btn-primary" id="modalAdd">Add to order</button>
-      </div>
-    </div>
+  <div class="mobile-menu glass" id="mobileMenu">
+    <a href="#home">Home</a>
+    <a href="#rooms">Rooms</a>
+    <a href="#menu">Café & Menu</a>
+    <a href="#booking">Booking</a>
+    <a href="#contact">Contact</a>
   </div>
 
-  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <!-- =========================================================
+       HERO
+  ========================================================== -->
 
-  <script src="js/main.js"></script>
+  <main id="home">
+
+    <section class="hero">
+
+      <div class="hero-bg"></div>
+
+      <div class="container">
+
+        <div class="hero-content reveal">
+
+          <div class="eyebrow">
+            <span class="eyebrow-dot"></span>
+            Ethiopian Hospitality
+          </div>
+
+          <h1>
+            Stay.
+            <span>Taste.</span>
+            Experience Ethiopia.
+          </h1>
+
+          <p>
+            A modern hospitality experience combining comfortable rooms,
+            Ethiopian warmth, specialty coffee and a beautifully curated café.
+          </p>
+
+          <div class="hero-buttons">
+
+            <a href="#booking" class="primary-btn">
+              Book a Room →
+            </a>
+
+            <a href="#menu" class="secondary-btn">
+              Explore Menu
+            </a>
+
+          </div>
+
+          <div class="hero-stats">
+
+            <div class="stat">
+              <strong>★★★★★</strong>
+              <span>Guest Experience</span>
+            </div>
+
+            <div class="stat">
+              <strong>10+</strong>
+              <span>Rooms</span>
+            </div>
+
+            <div class="stat">
+              <strong>24/7</strong>
+              <span>Hospitality</span>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="floating-card">
+
+        <img
+          src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=700&q=80"
+          alt="Hotel interior"
+        />
+
+        <strong>A quiet place to feel at home.</strong>
+        <small>Modern comfort • Ethiopian hospitality</small>
+
+      </div>
+
+    </section>
+
+    <!-- =======================================================
+         EXPERIENCE
+    ======================================================== -->
+
+    <section>
+
+      <div class="container">
+
+        <div class="section-heading reveal">
+
+          <div class="section-label">
+            The Experience
+          </div>
+
+          <h2>
+            More than a stay.
+          </h2>
+
+          <p>
+            Designed around comfort, culture and memorable everyday moments.
+          </p>
+
+        </div>
+
+        <div class="experience-grid">
+
+          <article class="experience-card glass reveal">
+            <div class="experience-icon">🛏</div>
+            <h3>Comfortable Rooms</h3>
+            <p>
+              Thoughtfully designed spaces for business and leisure travelers.
+            </p>
+          </article>
+
+          <article class="experience-card glass reveal">
+            <div class="experience-icon">☕</div>
+            <h3>Ethiopian Coffee</h3>
+            <p>
+              Experience the rich tradition and character of Ethiopian coffee.
+            </p>
+          </article>
+
+          <article class="experience-card glass reveal">
+            <div class="experience-icon">🍽</div>
+            <h3>Fresh Café</h3>
+            <p>
+              Ethiopian favorites, modern dishes, coffee and refreshing drinks.
+            </p>
+          </article>
+
+          <article class="experience-card glass reveal">
+            <div class="experience-icon">✦</div>
+            <h3>Warm Hospitality</h3>
+            <p>
+              A calm and welcoming environment inspired by Ethiopian culture.
+            </p>
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =======================================================
+         ROOMS
+    ======================================================== -->
+
+    <section class="rooms-section" id="rooms">
+
+      <div class="container">
+
+        <div class="section-heading reveal">
+
+          <div class="section-label">
+            Stay With Us
+          </div>
+
+          <h2>
+            Rooms designed for rest.
+          </h2>
+
+          <p>
+            Sample rooms and pricing are displayed for this demo website.
+          </p>
+
+        </div>
+
+        <div class="rooms-grid">
+
+          <!-- ROOM 1 -->
+
+          <article class="room-card glass reveal">
+
+            <div class="room-image">
+
+              <img
+                src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=1000&q=85"
+                alt="Deluxe hotel room"
+                loading="lazy"
+              />
+
+              <span class="room-tag">
+                DEMO ROOM
+              </span>
+
+            </div>
+
+            <div class="room-body">
+
+              <div class="room-title">
+                <h3>Haven Deluxe</h3>
+
+                <div class="price">
+                  ETB 2,450
+                  <small>/night</small>
+                </div>
+              </div>
+
+              <p>
+                A comfortable modern room designed for relaxing stays.
+              </p>
+
+              <div class="features">
+                <span class="feature">King Bed</span>
+                <span class="feature">Wi-Fi</span>
+                <span class="feature">TV</span>
+                <span class="feature">Breakfast</span>
+              </div>
+
+              <div class="room-actions">
+
+                <button
+                  class="secondary-btn"
+                  onclick="openRoomDetails('Haven Deluxe',2450)"
+                >
+                  Details
+                </button>
+
+                <button
+                  class="primary-btn"
+                  onclick="selectRoom('Haven Deluxe')"
+                >
+                  Book
+                </button>
+
+              </div>
+
+            </div>
+
+          </article>
+
+          <!-- ROOM 2 -->
+
+          <article class="room-card glass reveal">
+
+            <div class="room-image">
+
+              <img
+                src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=1000&q=85"
+                alt="Garden suite"
+                loading="lazy"
+              />
+
+              <span class="room-tag">
+                DEMO ROOM
+              </span>
+
+            </div>
+
+            <div class="room-body">
+
+              <div class="room-title">
+                <h3>Garden Suite</h3>
+
+                <div class="price">
+                  ETB 3,800
+                  <small>/night</small>
+                </div>
+              </div>
+
+              <p>
+                A spacious suite with a calm garden-inspired atmosphere.
+              </p>
+
+              <div class="features">
+                <span class="feature">King Bed</span>
+                <span class="feature">Garden View</span>
+                <span class="feature">Lounge</span>
+                <span class="feature">Breakfast</span>
+              </div>
+
+              <div class="room-actions">
+
+                <button
+                  class="secondary-btn"
+                  onclick="openRoomDetails('Garden Suite',3800)"
+                >
+                  Details
+                </button>
+
+                <button
+                  class="primary-btn"
+                  onclick="selectRoom('Garden Suite')"
+                >
+                  Book
+                </button>
+
+              </div>
+
+            </div>
+
+          </article>
+
+          <!-- ROOM 3 -->
+
+          <article class="room-card glass reveal">
+
+            <div class="room-image">
+
+              <img
+                src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=1000&q=85"
+                alt="Executive hotel room"
+                loading="lazy"
+              />
+
+              <span class="room-tag">
+                DEMO ROOM
+              </span>
+
+            </div>
+
+            <div class="room-body">
+
+              <div class="room-title">
+                <h3>Executive Room</h3>
+
+                <div class="price">
+                  ETB 4,900
+                  <small>/night</small>
+                </div>
+              </div>
+
+              <p>
+                Premium accommodation with additional workspace and comfort.
+              </p>
+
+              <div class="features">
+                <span class="feature">King Bed</span>
+                <span class="feature">City View</span>
+                <span class="feature">Workspace</span>
+                <span class="feature">Breakfast</span>
+              </div>
+
+              <div class="room-actions">
+
+                <button
+                  class="secondary-btn"
+                  onclick="openRoomDetails('Executive Room',4900)"
+                >
+                  Details
+                </button>
+
+                <button
+                  class="primary-btn"
+                  onclick="selectRoom('Executive Room')"
+                >
+                  Book
+                </button>
+
+              </div>
+
+            </div>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =======================================================
+         COFFEE
+    ======================================================== -->
+
+    <section>
+
+      <div class="container">
+
+        <div class="coffee-layout">
+
+          <div class="coffee-image reveal">
+
+            <img
+              src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=1200&q=85"
+              alt="Ethiopian coffee"
+              loading="lazy"
+            />
+
+            <div class="coffee-overlay">
+              <small>ETHIOPIAN COFFEE EXPERIENCE</small>
+              <strong>From bean to cup.</strong>
+            </div>
+
+          </div>
+
+          <div class="coffee-copy reveal">
+
+            <div class="section-label">
+              Café Culture
+            </div>
+
+            <h2>
+              Coffee is more than a drink.
+            </h2>
+
+            <p>
+              Ethiopia is the birthplace of coffee. Our café experience
+              celebrates that heritage while bringing it into a modern,
+              relaxed environment.
+            </p>
+
+            <div class="coffee-points">
+
+              <div class="coffee-point">
+                <div class="check">✓</div>
+                <div>
+                  <strong>Ethiopian Coffee</strong>
+                  <p>Rich aromas and distinctive local character.</p>
+                </div>
+              </div>
+
+              <div class="coffee-point">
+                <div class="check">✓</div>
+                <div>
+                  <strong>Fresh Café Menu</strong>
+                  <p>Breakfast, Ethiopian dishes and modern favorites.</p>
+                </div>
+              </div>
+
+              <div class="coffee-point">
+                <div class="check">✓</div>
+                <div>
+                  <strong>Relaxed Atmosphere</strong>
+                  <p>A comfortable space to meet, work or unwind.</p>
+                </div>
+              </div>
+
+            </div>
+
+            <a href="#menu" class="primary-btn" style="margin-top:25px;">
+              Explore the Menu →
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =======================================================
+         MENU
+    ======================================================== -->
+
+    <section class="menu-section" id="menu">
+
+      <div class="container">
+
+        <div class="section-heading center reveal">
+
+          <div class="section-label">
+            Café Menu
+          </div>
+
+          <h2>
+            Taste Ethiopia.
+          </h2>
+
+          <p>
+            Demo menu — items and prices shown here are sample data.
+          </p>
+
+        </div>
+
+        <div class="menu-controls reveal">
+
+          <div class="menu-search">
+            <input
+              type="search"
+              id="menuSearch"
+              placeholder="Search the menu..."
+              aria-label="Search menu"
+            />
+          </div>
+
+          <button class="category-btn active" data-category="all">
+            All
+          </button>
+
+          <button class="category-btn" data-category="breakfast">
+            Breakfast
+          </button>
+
+          <button class="category-btn" data-category="ethiopian">
+            Ethiopian
+          </button>
+
+          <button class="category-btn" data-category="coffee">
+            Coffee
+          </button>
+
+          <button class="category-btn" data-category="drinks">
+            Drinks
+          </button>
+
+          <button class="category-btn" data-category="dessert">
+            Dessert
+          </button>
+
+        </div>
+
+        <div class="menu-grid" id="menuGrid"></div>
+
+      </div>
+
+    </section>
+
+    <!-- =======================================================
+         BOOKING
+    ======================================================== -->
+
+    <section class="booking-section" id="booking">
+
+      <div class="container">
+
+        <div class="booking-box glass reveal">
+
+          <div class="section-heading">
+
+            <div class="section-label">
+              Plan Your Stay
+            </div>
+
+            <h2>
+              Book your experience.
+            </h2>
+
+            <p>
+              Submit a simulated booking request using the form below.
+            </p>
+
+          </div>
+
+          <form id="bookingForm">
+
+            <div class="booking-grid">
+
+              <div class="field">
+                <label for="name">Full Name *</label>
+                <input
+                  id="name"
+                  name="name"
+                  required
+                  placeholder="Your name"
+                />
+              </div>
+
+              <div class="field">
+                <label for="email">Email *</label>
+                <input
+                  id="email"
+                  type="email"
+                  name="email"
+                  required
+                  placeholder="you@example.com"
+                />
+              </div>
+
+              <div class="field">
+                <label for="phone">Phone *</label>
+                <input
+                  id="phone"
+                  name="phone"
+                  required
+                  placeholder="+251 ..."
+                />
+              </div>
+
+              <div class="field">
+                <label for="guests">Guests</label>
+                <select id="guests">
+                  <option>1 Guest</option>
+                  <option selected>2 Guests</option>
+                  <option>3 Guests</option>
+                  <option>4 Guests</option>
+                  <option>5+ Guests</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="checkin">Check-in *</label>
+                <input
+                  id="checkin"
+                  type="date"
+                  required
+                />
+              </div>
+
+              <div class="field">
+                <label for="checkout">Check-out *</label>
+                <input
+                  id="checkout"
+                  type="date"
+                  required
+                />
+              </div>
+
+              <div class="field">
+                <label for="room">Room Type</label>
+                <select id="room">
+                  <option value="Haven Deluxe">Haven Deluxe — ETB 2,450</option>
+                  <option value="Garden Suite">Garden Suite — ETB 3,800</option>
+                  <option value="Executive Room">Executive Room — ETB 4,900</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="requests">Special Requests</label>
+                <input
+                  id="requests"
+                  placeholder="Optional"
+                />
+              </div>
+
+              <div class="booking-full">
+
+                <button
+                  class="primary-btn"
+                  type="submit"
+                >
+                  Submit Demo Booking →
+                </button>
+
+                <div
+                  class="booking-result"
+                  id="bookingResult"
+                ></div>
+
+                <div class="demo-note">
+                  <strong>DEMO:</strong>
+                  This booking form uses sample room data and simulated
+                  interactions. No real reservation or payment is processed.
+                </div>
+
+              </div>
+
+            </div>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =======================================================
+         CTA
+    ======================================================== -->
+
+    <section class="cta">
+
+      <div class="container">
+
+        <div class="cta-box reveal">
+
+          <div class="section-label" style="color:#c7dccd;">
+            Habesha Haven
+          </div>
+
+          <h2>
+            A place to stay. A place to connect.
+          </h2>
+
+          <p>
+            Experience modern comfort with the warmth of Ethiopian hospitality.
+          </p>
+
+          <div class="hero-buttons">
+
+            <a href="#booking" class="secondary-btn">
+              Plan Your Stay
+            </a>
+
+            <a href="#menu" class="secondary-btn">
+              View Café Menu
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- =========================================================
+       FOOTER
+  ========================================================== -->
+
+  <footer id="contact">
+
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <div>
+
+          <a href="#home" class="logo">
+
+            <div class="logo-mark">
+              HH
+            </div>
+
+            <div class="logo-text">
+
+              <strong style="color:white;">
+                Habesha Haven
+              </strong>
+
+              <span>
+                Hotel & Café
+              </span>
+
+            </div>
+
+          </a>
+
+          <p class="footer-description">
+            A premium Ethiopian hotel and café concept focused on comfort,
+            culture and hospitality.
+          </p>
+
+        </div>
+
+        <div class="footer-column">
+
+          <h4>Explore</h4>
+
+          <a href="#rooms">Rooms</a>
+          <a href="#menu">Menu</a>
+          <a href="#booking">Booking</a>
+          <a href="#contact">Contact</a>
+
+        </div>
+
+        <div class="footer-column">
+
+          <h4>Contact</h4>
+
+          <p>📍 Ethiopia</p>
+          <p>☎ +251 XX XXX XXXX</p>
+          <p>✉ hello@habeshahaven.com</p>
+
+        </div>
+
+        <div class="footer-column">
+
+          <h4>Hours</h4>
+
+          <p>Café: 7:00 AM – 10:00 PM</p>
+          <p>Hotel: 24/7</p>
+          <p>Demo information</p>
+
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+
+        <span>
+          © 2026 Habesha Haven. Demo website.
+        </span>
+
+        <span class="footer-demo">
+          DEMO • Sample data & simulated interactions
+        </span>
+
+      </div>
+
+    </div>
+
+  </footer>
+
+  <!-- =========================================================
+       CART
+  ========================================================== -->
+
+  <aside
+    class="cart-panel"
+    id="cartPanel"
+    aria-label="Shopping cart"
+  >
+
+    <div class="cart-header">
+
+      <div>
+        <div class="section-label">
+          Café
+        </div>
+
+        <h2>Your Order</h2>
+      </div>
+
+      <button
+        class="close-btn"
+        id="closeCart"
+        aria-label="Close cart"
+      >
+        ✕
+      </button>
+
+    </div>
+
+    <div
+      class="cart-items"
+      id="cartItems"
+    ></div>
+
+    <div class="cart-total">
+
+      <span>Total</span>
+
+      <span id="cartTotal">
+        ETB 0
+      </span>
+
+    </div>
+
+    <button
+      class="primary-btn cart-checkout"
+      id="checkoutBtn"
+    >
+      Place Demo Order
+    </button>
+
+    <div class="demo-note">
+      <strong>DEMO:</strong>
+      This is a simulated order. No real food order or payment is processed.
+    </div>
+
+  </aside>
+
+  <!-- =========================================================
+       MODAL
+  ========================================================== -->
+
+  <div class="modal" id="modal">
+
+    <div class="modal-box">
+
+      <div class="modal-header">
+
+        <div id="modalContent"></div>
+
+        <button
+          class="close-btn"
+          onclick="closeModal()"
+          aria-label="Close"
+        >
+          ✕
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- =========================================================
+       JAVASCRIPT
+  ========================================================== -->
+
+  <script>
+
+    /* =========================================================
+       DEMO CONFIGURATION
+    ========================================================= */
+
+    const DEMO_MODE = true;
+
+    const DEMO_MESSAGES = {
+      global:
+        "Demo website — sample data and simulated interactions.",
+
+      booking:
+        "This is a simulated booking. No real reservation or payment has been processed.",
+
+      order:
+        "This is a simulated order. No real food order or payment has been processed.",
+
+      contact:
+        "This demo stores messages locally. No message has been sent."
+    };
+
+    /* =========================================================
+       MENU DATA
+    ========================================================= */
+
+    const menuItems = [
+
+      {
+        id: 1,
+        name: "Ethiopian Coffee Ceremony",
+        category: "coffee",
+        price: 250,
+        description: "Traditional Ethiopian coffee experience.",
+        image: "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=700&q=80"
+      },
+
+      {
+        id: 2,
+        name: "Macchiato",
+        category: "coffee",
+        price: 180,
+        description: "Rich espresso with steamed milk.",
+        image: "https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?auto=format&fit=crop&w=700&q=80"
+      },
+
+      {
+        id: 3,
+        name: "Cappuccino",
+        category: "coffee",
+        price: 220,
+        description: "Smooth espresso with creamy foam.",
+        image: "https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&w=700&q=80"
+      },
+
+      {
+        id: 4,
+        name: "Chechebsa",
+        category: "breakfast",
+        price: 220,
+        description: "Traditional Ethiopian breakfast with honey and butter.",
+        image: "https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?auto=format&fit=crop&w=700&q=80"
+      },
+
+      {
+        id: 5,
+        name: "Foul",
+        category: "breakfast",
+        price: 190,
+        description: "Seasoned fava beans served with fresh toppings.",
+        image: "https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=700&q=80"
+      },
+
+      {
+        id: 6,
+        name: "Tibs",
+        category: "ethiopian",
+        price: 450,
+        description: "Sautéed beef with Ethiopian spices.",
+        image: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=700&q=80"
+      },
+
+      {
+        id: 7,
+        name: "Shiro",
+        category: "ethiopian",
+        price: 280,
+        description: "Traditional chickpea stew served with injera.",
+        image: "https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=700&q=80"
+      },
+
+      {
+        id: 8,
+        name: "Firfir",
+        category: "ethiopian",
+        price: 250,
+        description: "Spiced injera pieces with berbere.",
+        image: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=700&q=80"
+      },
+
+      {
+        id: 9,
+        name: "Vegetable Pasta",
+        category: "ethiopian",
+        price: 320,
+        description: "Fresh pasta with seasonal vegetables.",
+        image: "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=700&q=80"
+      },
+
+      {
+        id: 10,
+        name: "Fresh Mango Juice",
+        category: "drinks",
+        price: 180,
+        description: "Freshly prepared mango juice.",
+        image: "https://images.unsplash.com/photo-1546173159-315724a31696?auto=format&fit=crop&w=700&q=80"
+      },
+
+      {
+        id: 11,
+        name: "Fresh Avocado Juice",
+        category: "drinks",
+        price: 200,
+        description: "Creamy fresh avocado juice.",
+        image: "https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?auto=format&fit=crop&w=700&q=80"
+      },
+
+      {
+        id: 12,
+        name: "Lemon Mint",
+        category: "drinks",
+        price: 150,
+        description: "Refreshing lemon and fresh mint.",
+        image: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=700&q=80"
+      },
+
+      {
+        id: 13,
+        name: "Chocolate Cake",
+        category: "dessert",
+        price: 240,
+        description: "Rich chocolate cake.",
+        image: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=700&q=80"
+      },
+
+      {
+        id: 14,
+        name: "Cheesecake",
+        category: "dessert",
+        price: 260,
+        description: "Creamy cheesecake with a soft crust.",
+        image: "https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=700&q=80"
+      },
+
+      {
+        id: 15,
+        name: "Fruit Bowl",
+        category: "breakfast",
+        price: 210,
+        description: "Fresh seasonal fruit selection.",
+        image: "https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&fit=crop&w=700&q=80"
+      }
+
+    ];
+
+    /* =========================================================
+       STATE
+    ========================================================= */
+
+    let cart =
+      JSON.parse(localStorage.getItem("habeshaCart")) || [];
+
+    let activeCategory = "all";
+
+    /* =========================================================
+       ELEMENTS
+    ========================================================= */
+
+    const menuGrid =
+      document.getElementById("menuGrid");
+
+    const menuSearch =
+      document.getElementById("menuSearch");
+
+    const cartPanel =
+      document.getElementById("cartPanel");
+
+    const cartItems =
+      document.getElementById("cartItems");
+
+    const cartCount =
+      document.getElementById("cartCount");
+
+    const cartTotal =
+      document.getElementById("cartTotal");
+
+    /* =========================================================
+       MENU RENDER
+    ========================================================= */
+
+    function renderMenu() {
+
+      const search =
+        menuSearch.value
+          .toLowerCase()
+          .trim();
+
+      const filtered =
+        menuItems.filter(item => {
+
+          const categoryMatch =
+            activeCategory === "all" ||
+            item.category === activeCategory;
+
+          const searchMatch =
+            item.name.toLowerCase().includes(search) ||
+            item.description.toLowerCase().includes(search);
+
+          return categoryMatch && searchMatch;
+
+        });
+
+      if (!filtered.length) {
+
+        menuGrid.innerHTML = `
+          <div class="glass"
+               style="grid-column:1/-1;padding:40px;text-align:center;border-radius:25px;">
+            <strong>No menu items found.</strong>
+            <p style="color:#777;margin-top:6px;">
+              Try another search.
+            </p>
+          </div>
+        `;
+
+        return;
+      }
+
+      menuGrid.innerHTML =
+        filtered.map(item => `
+
+          <article class="menu-item glass">
+
+            <div class="menu-image">
+
+              <img
+                src="${item.image}"
+                alt="${item.name}"
+                loading="lazy"
+              />
+
+            </div>
+
+            <div class="menu-body">
+
+              <div class="menu-top">
+
+                <h3>
+                  ${item.name}
+                </h3>
+
+                <span class="menu-price">
+                  ETB ${item.price.toLocaleString()}
+                </span>
+
+              </div>
+
+              <p>
+                ${item.description}
+              </p>
+
+              <button
+                class="add-btn"
+                onclick="addToCart(${item.id})"
+              >
+                + Add to Order
+              </button>
+
+            </div>
+
+          </article>
+
+        `).join("");
+
+    }
+
+    /* =========================================================
+       CATEGORY FILTER
+    ========================================================= */
+
+    document
+      .querySelectorAll(".category-btn")
+      .forEach(button => {
+
+        button.addEventListener("click", () => {
+
+          document
+            .querySelectorAll(".category-btn")
+            .forEach(btn =>
+              btn.classList.remove("active")
+            );
+
+          button.classList.add("active");
+
+          activeCategory =
+            button.dataset.category;
+
+          renderMenu();
+
+        });
+
+      });
+
+    menuSearch.addEventListener(
+      "input",
+      renderMenu
+    );
+
+    /* =========================================================
+       CART
+    ========================================================= */
+
+    function addToCart(id) {
+
+      const item =
+        menuItems.find(item => item.id === id);
+
+      if (!item) return;
+
+      const existing =
+        cart.find(item => item.id === id);
+
+      if (existing) {
+        existing.quantity++;
+      } else {
+        cart.push({
+          ...item,
+          quantity: 1
+        });
+      }
+
+      saveCart();
+      renderCart();
+
+      cartPanel.classList.add("open");
+
+    }
+
+    function saveCart() {
+
+      localStorage.setItem(
+        "habeshaCart",
+        JSON.stringify(cart)
+      );
+
+    }
+
+    function changeQuantity(id, amount) {
+
+      const item =
+        cart.find(item => item.id === id);
+
+      if (!item) return;
+
+      item.quantity += amount;
+
+      if (item.quantity <= 0) {
+
+        cart =
+          cart.filter(item => item.id !== id);
+
+      }
+
+      saveCart();
+      renderCart();
+
+    }
+
+    function renderCart() {
+
+      const totalItems =
+        cart.reduce(
+          (sum, item) =>
+            sum + item.quantity,
+          0
+        );
+
+      cartCount.textContent =
+        totalItems;
+
+      if (!cart.length) {
+
+        cartItems.innerHTML = `
+          <div class="cart-empty">
+            <div style="font-size:35px;">☕</div>
+            <p>Your demo order is empty.</p>
+            <small>Add something delicious from the menu.</small>
+          </div>
+        `;
+
+        cartTotal.textContent =
+          "ETB 0";
+
+        return;
+
+      }
+
+      cartItems.innerHTML =
+        cart.map(item => `
+
+          <div class="cart-item">
+
+            <img
+              src="${item.image}"
+              alt="${item.name}"
+            />
+
+            <div class="cart-item-info">
+
+              <strong>
+                ${item.name}
+              </strong>
+
+              <small>
+                ETB ${item.price.toLocaleString()}
+              </small>
+
+              <div class="quantity">
+
+                <button
+                  onclick="changeQuantity(${item.id},-1)"
+                >
+                  −
+                </button>
+
+                <span>
+                  ${item.quantity}
+                </span>
+
+                <button
+                  onclick="changeQuantity(${item.id},1)"
+                >
+                  +
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        `).join("");
+
+      const total =
+        cart.reduce(
+          (sum, item) =>
+            sum + item.price * item.quantity,
+          0
+        );
+
+      cartTotal.textContent =
+        `ETB ${total.toLocaleString()}`;
+
+    }
+
+    document
+      .getElementById("cartButton")
+      .addEventListener("click", () => {
+
+        cartPanel.classList.add("open");
+
+      });
+
+    document
+      .getElementById("closeCart")
+      .addEventListener("click", () => {
+
+        cartPanel.classList.remove("open");
+
+      });
+
+    document
+      .getElementById("checkoutBtn")
+      .addEventListener("click", () => {
+
+        if (!cart.length) {
+
+          openModal(`
+            <div class="section-label">DEMO ORDER</div>
+            <h2 style="margin-top:8px;">
+              Your order is empty
+            </h2>
+            <p style="margin-top:12px;color:#68736d;">
+              Add menu items before submitting a demo order.
+            </p>
+          `);
+
+          return;
+
+        }
+
+        openModal(`
+          <div class="section-label">
+            DEMO ORDER
+          </div>
+
+          <h2 style="margin-top:8px;">
+            Demo order received
+          </h2>
+
+          <p style="margin-top:12px;color:#68736d;">
+            This is a simulated order for demonstration purposes.
+            No real food order or payment has been processed.
+          </p>
+
+          <button
+            class="primary-btn"
+            style="margin-top:22px;"
+            onclick="closeModal(); cart=[]; saveCart(); renderCart(); cartPanel.classList.remove('open');"
+          >
+            Continue Browsing
+          </button>
+        `);
+
+      });
+
+    /* =========================================================
+       BOOKING
+    ========================================================= */
+
+    const roomPrices = {
+      "Haven Deluxe": 2450,
+      "Garden Suite": 3800,
+      "Executive Room": 4900
+    };
+
+    function selectRoom(roomName) {
+
+      document.getElementById("room").value =
+        roomName;
+
+      document
+        .getElementById("booking")
+        .scrollIntoView({
+          behavior: "smooth"
+        });
+
+    }
+
+    function calculateNights() {
+
+      const checkin =
+        document.getElementById("checkin").value;
+
+      const checkout =
+        document.getElementById("checkout").value;
+
+      if (!checkin || !checkout)
+        return 0;
+
+      const start =
+        new Date(checkin);
+
+      const end =
+        new Date(checkout);
+
+      const difference =
+        end - start;
+
+      return Math.max(
+        0,
+        Math.ceil(
+          difference /
+          (1000 * 60 * 60 * 24)
+        )
+      );
+
+    }
+
+    document
+      .getElementById("bookingForm")
+      .addEventListener("submit", event => {
+
+        event.preventDefault();
+
+        const name =
+          document.getElementById("name").value.trim();
+
+        const email =
+          document.getElementById("email").value.trim();
+
+        const phone =
+          document.getElementById("phone").value.trim();
+
+        const checkin =
+          document.getElementById("checkin").value;
+
+        const checkout =
+          document.getElementById("checkout").value;
+
+        const room =
+          document.getElementById("room").value;
+
+        const nights =
+          calculateNights();
+
+        if (nights <= 0) {
+
+          alert(
+            "Please select a valid check-in and check-out date."
+          );
+
+          return;
+
+        }
+
+        const total =
+          nights * roomPrices[room];
+
+        const booking = {
+
+          name,
+          email,
+          phone,
+          checkin,
+          checkout,
+          room,
+          nights,
+          estimatedTotal: total,
+          createdAt:
+            new Date().toISOString(),
+
+          demo: true
+
+        };
+
+        localStorage.setItem(
+          "habeshaDemoBooking",
+          JSON.stringify(booking)
+        );
+
+        const result =
+          document.getElementById("bookingResult");
+
+        result.innerHTML = `
+          <strong>
+            Demo booking request received.
+          </strong>
+
+          <br><br>
+
+          ${nights} night(s) —
+          ${room}
+
+          <br>
+
+          Estimated demo total:
+          <strong>
+            ETB ${total.toLocaleString()}
+          </strong>
+
+          <br><br>
+
+          <small>
+            ${DEMO_MESSAGES.booking}
+          </small>
+        `;
+
+        result.classList.add("show");
+
+        result.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+
+      });
+
+    /* =========================================================
+       ROOM DETAILS
+    ========================================================= */
+
+    function openRoomDetails(
+      room,
+      price
+    ) {
+
+      openModal(`
+
+        <div class="section-label">
+          DEMO ROOM
+        </div>
+
+        <h2 style="margin-top:8px;">
+          ${room}
+        </h2>
+
+        <p style="margin-top:10px;color:#68736d;">
+          ETB ${price.toLocaleString()} / night
+        </p>
+
+        <div class="features"
+             style="margin-top:20px;">
+
+          <span class="feature">
+            King Bed
+          </span>
+
+          <span class="feature">
+            Wi-Fi
+          </span>
+
+          <span class="feature">
+            Breakfast
+          </span>
+
+          <span class="feature">
+            Private Bathroom
+          </span>
+
+        </div>
+
+        <p style="margin-top:20px;color:#68736d;">
+          This room information is sample demo data.
+          Connect the website to a real hotel inventory system
+          before using it for live reservations.
+        </p>
+
+        <button
+          class="primary-btn"
+          style="margin-top:22px;"
+          onclick="closeModal();selectRoom('${room}')"
+        >
+          Book This Room
+        </button>
+
+      `);
+
+    }
+
+    /* =========================================================
+       MODAL
+    ========================================================= */
+
+    function openModal(content) {
+
+      document.getElementById(
+        "modalContent"
+      ).innerHTML = content;
+
+      document
+        .getElementById("modal")
+        .classList.add("open");
+
+    }
+
+    function closeModal() {
+
+      document
+        .getElementById("modal")
+        .classList.remove("open");
+
+    }
+
+    document
+      .getElementById("modal")
+      .addEventListener("click", event => {
+
+        if (
+          event.target.id === "modal"
+        ) {
+
+          closeModal();
+
+        }
+
+      });
+
+    /* =========================================================
+       MOBILE NAVIGATION
+    ========================================================= */
+
+    const menuToggle =
+      document.getElementById("menuToggle");
+
+    const mobileMenu =
+      document.getElementById("mobileMenu");
+
+    menuToggle.addEventListener(
+      "click",
+      () => {
+
+        mobileMenu.classList.toggle(
+          "open"
+        );
+
+      }
+    );
+
+    document
+      .querySelectorAll(".mobile-menu a")
+      .forEach(link => {
+
+        link.addEventListener(
+          "click",
+          () => {
+
+            mobileMenu.classList.remove(
+              "open"
+            );
+
+          }
+        );
+
+      });
+
+    /* =========================================================
+       LANGUAGE DEMO
+    ========================================================= */
+
+    let language =
+      localStorage.getItem(
+        "habeshaLanguage"
+      ) || "EN";
+
+    document.getElementById(
+      "languageBtn"
+    ).textContent = language;
+
+    document
+      .getElementById("languageBtn")
+      .addEventListener("click", () => {
+
+        language =
+          language === "EN"
+            ? "አማ"
+            : "EN";
+
+        localStorage.setItem(
+          "habeshaLanguage",
+          language
+        );
+
+        document.getElementById(
+          "languageBtn"
+        ).textContent = language;
+
+        if (language === "አማ") {
+
+          openModal(`
+            <div class="section-label">
+              አማርኛ
+            </div>
+
+            <h2 style="margin-top:8px;">
+              የሃበሻ ሄቨን
+            </h2>
+
+            <p style="margin-top:12px;color:#68736d;">
+              ይህ የድረ-ገጹ የማሳያ ስሪት ነው።
+              የሚታዩት መረጃዎች የሙከራ መረጃዎች ናቸው።
+            </p>
+
+            <button
+              class="primary-btn"
+              style="margin-top:20px;"
+              onclick="closeModal()"
+            >
+              ዝጋ
+            </button>
+          `);
+
+        }
+
+      });
+
+    /* =========================================================
+       DATE SETUP
+    ========================================================= */
+
+    const today =
+      new Date();
+
+    const tomorrow =
+      new Date(today);
+
+    tomorrow.setDate(
+      today.getDate() + 1
+    );
+
+    const formatDate =
+      date =>
+        date.toISOString()
+          .split("T")[0];
+
+    document.getElementById(
+      "checkin"
+    ).min = formatDate(today);
+
+    document.getElementById(
+      "checkout"
+    ).min = formatDate(tomorrow);
+
+    document.getElementById(
+      "checkin"
+    ).addEventListener(
+      "change",
+      event => {
+
+        const selected =
+          new Date(event.target.value);
+
+        selected.setDate(
+          selected.getDate() + 1
+        );
+
+        document.getElementById(
+          "checkout"
+        ).min = formatDate(selected);
+
+      }
+    );
+
+    /* =========================================================
+       SCROLL REVEAL
+    ========================================================= */
+
+    const observer =
+      new IntersectionObserver(
+        entries => {
+
+          entries.forEach(entry => {
+
+            if (
+              entry.isIntersecting
+            ) {
+
+              entry.target.classList.add(
+                "visible"
+              );
+
+              observer.unobserve(
+                entry.target
+              );
+
+            }
+
+          });
+
+        },
+        {
+          threshold: .12
+        }
+      );
+
+    document
+      .querySelectorAll(".reveal")
+      .forEach(element =>
+        observer.observe(element)
+      );
+
+    /* =========================================================
+       INITIALIZE
+    ========================================================= */
+
+    renderMenu();
+    renderCart();
+
+  </script>
+
 </body>
-</html>
+      </html>
