@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+name: Test & deploy to GitHub Pages
 
 on:
   push:
@@ -15,17 +15,25 @@ concurrency:
 
 jobs:
   test:
+    name: Lint & test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
-      - run: npm test
+          node-version: 22
+
+      - name: Smoke test
+        run: npm test
+
+      - name: Lint HTML
+        run: npm run lint:html
 
   deploy:
-    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    name: Deploy
     needs: test
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -36,13 +44,18 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - name: Assemble site
+
+      - name: Stage public files
         run: |
-          mkdir _site
+          mkdir -p _site
           cp -r index.html 404.html robots.txt sitemap.xml site.webmanifest assets _site/
+          rm -f _site/assets/img/README.md
+
       - uses: actions/configure-pages@v5
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
+
       - id: deployment
         uses: actions/deploy-pages@v4

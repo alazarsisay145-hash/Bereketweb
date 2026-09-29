@@ -2,57 +2,155 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Page not found | Bereket Juice &amp; Salad</title>
-  <meta name="description" content="This page could not be found. Head back to Bereket Juice &amp; Salad for fresh juices, smoothies and fruit salads." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page not found | Habesha Haven</title>
+  <meta name="description" content="The page you are looking for could not be found." />
   <meta name="robots" content="noindex" />
-  <meta name="theme-color" content="#0d0d0d" />
-  <link rel="icon" type="image/png" href="https://alazarsisay145-hash.github.io/Bereketweb/assets/img/logo.png" />
+  <meta name="theme-color" content="#f5f7f2" />
+  <link rel="icon" href="https://alazarsisay145-hash.github.io/Bereketweb/assets/img/favicon.svg" type="image/svg+xml" />
+
+  <!--
+    Styles are inlined on purpose: GitHub Pages serves this page for any
+    missing URL (at any depth), so relative stylesheet links would break.
+  -->
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green: #315d48;
+      --green-dark: #1d3c30;
+      --cream: #f6f5ef;
+      --text: #1c2822;
+      --muted: #5f6761;
+      --shadow: 0 20px 60px rgba(36,57,46,.12);
+      --transition: .35s cubic-bezier(.2,.8,.2,1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
       min-height: 100vh;
       display: grid;
       place-items: center;
       padding: 24px;
-      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
-      color: #f7f3ea;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background:
-        radial-gradient(600px 420px at 80% 10%, rgba(242, 184, 36, 0.14), transparent 70%),
-        radial-gradient(600px 420px at 10% 90%, rgba(111, 190, 68, 0.10), transparent 70%),
-        #0d0d0d;
-      text-align: center;
+        radial-gradient(circle at 10% 10%, rgba(116,154,129,.18), transparent 30%),
+        radial-gradient(circle at 90% 30%, rgba(184,151,116,.12), transparent 28%),
+        var(--cream);
+      color: var(--text);
+      line-height: 1.6;
     }
+
     main {
-      max-width: 480px;
-      padding: 44px 32px;
-      border-radius: 22px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(18px);
+      width: min(560px, 100%);
+      padding: 44px 36px;
+      border-radius: 28px;
+      text-align: center;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(255,255,255,.65);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      box-shadow: var(--shadow);
     }
-    .code { font-size: 4rem; font-weight: 800; color: #f2b824; line-height: 1; }
-    h1 { margin-top: 12px; font-size: 1.6rem; }
-    p { margin-top: 10px; color: #cdc6b6; }
-    a {
-      display: inline-block;
+
+    .logo-mark {
+      width: 56px;
+      height: 56px;
+      margin: 0 auto;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      color: white;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--green), #73977f);
+      box-shadow: 0 10px 25px rgba(49,93,72,.22);
+    }
+
+    .section-label {
       margin-top: 24px;
-      padding: 13px 26px;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #f2b824, #f58023);
-      color: #111;
-      font-weight: 700;
-      text-decoration: none;
+      color: var(--green);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .15em;
+      text-transform: uppercase;
     }
-    a:focus-visible { outline: 3px solid #f2b824; outline-offset: 3px; }
+
+    h1 {
+      margin-top: 9px;
+      font-size: clamp(34px, 8vw, 52px);
+      line-height: 1.05;
+      letter-spacing: -.055em;
+    }
+
+    p {
+      margin-top: 15px;
+      color: var(--muted);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 11px;
+      margin-top: 28px;
+    }
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 13px 20px;
+      border-radius: 15px;
+      font-size: 13px;
+      font-weight: 750;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .primary-btn {
+      background: var(--green);
+      color: white;
+      box-shadow: 0 12px 28px rgba(49,93,72,.22);
+    }
+
+    .secondary-btn {
+      background: rgba(255,255,255,.58);
+      border: 1px solid rgba(49,93,72,.15);
+      color: var(--green-dark);
+    }
+
+    a:hover { transform: translateY(-3px); }
+
+    a:focus-visible {
+      outline: 3px solid var(--green);
+      outline-offset: 3px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      a { transition: none; }
+      a:hover { transform: none; }
+    }
   </style>
 </head>
+
 <body>
   <main>
-    <p class="code" aria-hidden="true">404</p>
-    <h1>Page not found</h1>
-    <p>Sorry, we couldn't find that page. The juice is still fresh on the home page!</p>
-    <a href="https://alazarsisay145-hash.github.io/Bereketweb/">Back to Bereket Juice &amp; Salad</a>
+    <div class="logo-mark" aria-hidden="true">HH</div>
+
+    <div class="section-label">Error 404</div>
+
+    <h1>Page not found.</h1>
+
+    <p>
+      Sorry, we couldn’t find the page you were looking for. It may have been
+      moved, or the link may be incorrect.
+    </p>
+
+    <p lang="am">ይቅርታ፣ የፈለጉት ገጽ አልተገኘም።</p>
+
+    <div class="actions">
+      <a class="primary-btn" href="https://alazarsisay145-hash.github.io/Bereketweb/">Back to Home</a>
+      <a class="secondary-btn" href="https://alazarsisay145-hash.github.io/Bereketweb/#menu">View Café Menu</a>
+    </div>
   </main>
 </body>
 </html>

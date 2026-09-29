@@ -1,111 +1,101 @@
-# Bereket Juice & Salad 🍹
+# Habesha Haven — Hotel & Café
 
-Official website for **Bereket Juice & Salad** — *JUICE & SALAD*: fresh juices, smoothies and
-fruit salads made to order in **Hawassa, Sidama, Ethiopia**.
-
-Plain HTML + CSS + vanilla JS (no build step), deployed to GitHub Pages.
+Production-ready static website for **Habesha Haven**, an Ethiopian hotel and café.
+Plain HTML, CSS and vanilla JavaScript — no framework and no build step.
 
 ## Features
 
-- Black / gold / green / mango theme taken from the logo, with glass-style rounded cards (WCAG AA contrast)
-- Real brand imagery: logo, shop interior and signature juices & fruit salad
-- Menu with category filter (Juices, Smoothies, Salads, Combos, Specials) and debounced search
-- Order cart saved in `localStorage`; "Continue to order form" copies the order into the enquiry form
-- Contact / Order enquiry form (dine-in / takeaway / delivery) sent through **Formspree** without leaving the page
-- EN / አማርኛ language toggle
-- Accessibility: skip link, ARIA labels, focus-trapped cart dialog, keyboard support, `prefers-reduced-motion`
-- SEO: meta + Open Graph/Twitter tags, `Restaurant` JSON-LD, `robots.txt`, `sitemap.xml`, `site.webmanifest`, `404.html`
+- Responsive glassmorphism design (desktop and mobile).
+- Rooms with detail dialogs and a booking form with client-side validation,
+  inline error messages and an accessible success/status message.
+- Café menu with category filters, debounced search and an empty state.
+- Cart persisted in `localStorage` (add, increase/decrease, remove, subtotal,
+  header badge). Orders are sent via WhatsApp or e-mail.
+- English / አማርኛ language switcher (choice is remembered and updates `<html lang>`).
+- Accessibility: landmarks, skip link, keyboard-operable dialogs with focus
+  trap and <kbd>Esc</kbd> to close, visible focus rings, WCAG AA contrast,
+  `prefers-reduced-motion` support.
+- SEO: canonical URL, Open Graph / Twitter cards, JSON-LD (`Hotel` + `Restaurant`),
+  `robots.txt`, `sitemap.xml`, web app manifest and a styled `404.html`.
+- Progressive enhancement: all content (rooms, menu, contact, booking form)
+  is readable and usable without JavaScript; JS-only controls are hidden.
 
-## Running locally
+## Project structure
+
+```
+.
+├── index.html               # Semantic markup, meta tags, JSON-LD
+├── 404.html                 # Self-contained "page not found" page
+├── assets/
+│   ├── css/styles.css       # All styles (design tokens in :root)
+│   ├── js/main.js           # Nav, language switcher, menu, cart, booking
+│   └── img/                 # Favicons / app icons (see assets/img/README.md)
+├── site.webmanifest
+├── robots.txt
+├── sitemap.xml
+├── test/smoke.test.js       # Static smoke tests (no dependencies)
+├── .htmlvalidate.json       # html-validate config
+└── .github/workflows/deploy.yml
+```
+
+## Run locally
+
+Any static file server works. With Node.js installed:
 
 ```bash
-npm start        # serves the folder with `serve`
-npm test         # smoke test (files, branding, images, menu data, form, a11y)
+npm start            # serves the folder on http://localhost:3000
+# or
+python3 -m http.server 8080
 ```
 
-## Adding menu items and photos
+Opening `index.html` directly from disk also works, but a server is
+recommended so that `localStorage`, the manifest and absolute paths behave as
+in production.
 
-The whole menu is the `MENU_ITEMS` array at the top of [`assets/js/main.js`](assets/js/main.js).
+## Test and lint
 
-1. Drop the photo in **`assets/img/menu/`** (e.g. `assets/img/menu/papaya-juice.jpg`).
-   A 4:3 landscape photo about 800 px wide works best — keep it under ~150 KB.
-2. Append one object to `MENU_ITEMS`:
+```bash
+npm test             # smoke tests: structure, meta, a11y attributes, i18n keys, CSP hash
+npm run lint:html    # html-validate on index.html and 404.html
+```
 
-   ```js
-   {
-     id: "papaya-juice",                 // unique, lowercase, no spaces
-     name: "Papaya Juice",
-     description: "Fresh papaya with a squeeze of lime.",
-     price: 120,                         // ETB, numbers only
-     category: "juices",                 // juices | smoothies | salads | combos | specials
-     image: "assets/img/menu/papaya-juice.jpg"
-   },
-   ```
+Both run in CI on every push and pull request.
 
-That's all — the item appears in the menu, the filters, search and cart automatically.
-Leave `image: ""` if there is no photo yet and a branded Bereket placeholder tile is shown.
-The four seeded items (Avocado Juice, Mango Juice, Layered Mixed Juice, Fresh Fruit Salad) use
-placeholder prices — update them with the real prices.
+## Configuration — before going live
 
-## Formspree (contact / order form)
-
-Enquiries are delivered to **alazarsisay145@gmail.com** through [Formspree](https://formspree.io):
-
-1. Sign in to formspree.io with **alazarsisay145@gmail.com** and create a new form.
-2. Copy its endpoint (e.g. `https://formspree.io/f/abcdwxyz`).
-3. Replace the placeholder in `assets/js/main.js`:
-
-   ```js
-   const FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
-   ```
-
-   and the same placeholder in the form's `action` attribute in `index.html` (used only if
-   JavaScript is disabled).
-4. Submit the form once from the live site and confirm the verification email Formspree sends,
-   otherwise messages won't be delivered. (Free tier: 50 submissions/month.)
-
-The form already includes a `_subject`, a `_replyto` (filled from the customer's email) and a
-`_gotcha` honeypot for spam. Until the real ID is set, the form politely asks visitors to call or email.
-
-## Brand images
-
-| File | Used for |
+| What | Where |
 | --- | --- |
-| `assets/img/logo.png` | Nav + footer logo, favicon, apple-touch-icon, manifest icon, social share image |
-| `assets/img/juices-salad.jpg` | Hero background (1600×1000) |
-| `assets/img/interior.jpg` | "Our Space" section (1200×900) |
-| `assets/img/menu/*` | Menu item photos |
+| Booking form endpoint (Formspree, Getform, Basin, …) | `CONFIG.bookingEndpoint` in `assets/js/main.js` **and** the `action` of `#bookingForm` in `index.html` (used when JS is off). Replace `YOUR_FORM_ID`. Until then the form shows a "call or e-mail us" message instead of sending. |
+| WhatsApp number for café orders | `CONFIG.whatsappNumber` in `assets/js/main.js` (digits only, with country code). Empty = orders open an e-mail to `CONFIG.orderEmail`. |
+| Phone, e-mail, address, opening hours | Footer in `index.html`, the JSON-LD block in `<head>`, and `CONFIG.contactPhone` / `CONFIG.contactEmail`. The current values are **placeholders**. |
+| Site URL (`https://alazarsisay145-hash.github.io/Bereketweb/`) | `canonical`, `og:*`, `twitter:*` and JSON-LD in `index.html`, links in `404.html`, `sitemap.xml`, `robots.txt`. Update if you use a custom domain. |
+| Translations | `I18N.am` in `assets/js/main.js`. Every `data-i18n`, `data-i18n-html` and `data-i18n-attr` key used in `index.html` must exist there (`npm test` checks this). English text is read from the HTML. |
+| Photos | Served from Unsplash with `width`/`height`, `loading="lazy"` and `decoding="async"`. See `assets/img/README.md` to switch to local images. |
 
-> **Note:** the original photos attached to the rebrand request could not be downloaded by the build
-> agent, so the committed `logo.png`, `juices-salad.jpg` and `interior.jpg` are brand-coloured stand-ins.
-> Overwrite them with the original photos (same file names) and they will be used everywhere automatically.
+### Content Security Policy
 
-To update an image, overwrite the file with the same name — no code changes needed
-(photos are cropped with `object-fit: cover`, so other aspect ratios are fine).
+`index.html` sets a CSP via `<meta http-equiv>`. It allows scripts/styles only
+from the site itself (plus one hashed inline snippet that adds the `js` class),
+images from `images.unsplash.com`, and form/fetch requests to `formspree.io`.
+If you change the booking provider or image host, update the policy. If you
+edit the inline `<script>` in `<head>`, update its `sha256-…` hash
+(`npm test` fails when it is out of date).
 
-## Before go-live checklist
+## Deploy to GitHub Pages
 
-- [ ] Real phone number in the Contact section, footer and JSON-LD of `index.html` (currently `+251 900 000 000`)
-- [ ] Confirm opening hours (Contact, footer, JSON-LD and the `contact.hoursValue` translations in `main.js`)
-- [ ] Replace the map placeholder in the Contact section with a Google Maps embed of the exact location
-- [ ] Swap in the Formspree form ID (see above)
-- [ ] Add real menu items, prices and photos
+1. In the repository go to **Settings → Pages** and set **Source** to
+   **GitHub Actions**.
+2. Push to `main`. The workflow in `.github/workflows/deploy.yml` runs the tests
+   and the HTML linter, then publishes the site.
 
-## Deployment
+Only the public files (`index.html`, `404.html`, `assets/`, manifest,
+`robots.txt`, `sitemap.xml`) are deployed. GitHub Pages serves `404.html`
+automatically for unknown URLs.
 
-`.github/workflows/pages.yml` runs `npm test` on every push/PR and deploys the site to GitHub Pages
-on pushes to `main` (enable **Settings → Pages → Source: GitHub Actions**). If the site URL changes
-from `https://alazarsisay145-hash.github.io/Bereketweb/`, update the canonical/OG URLs and JSON-LD in
-`index.html`, `404.html`, `robots.txt` and `sitemap.xml`.
+> Note: on a project site (`username.github.io/Bereketweb/`) search engines only
+> read `robots.txt` from the domain root. The sitemap can still be submitted
+> directly in Google Search Console; with a custom domain `robots.txt` works as-is.
 
-## Structure
+## License
 
-```
-index.html               # single page: hero, menu, our space, why Bereket, visit us / order form
-404.html                 # not-found page
-assets/css/styles.css    # theme and layout
-assets/js/main.js        # MENU_ITEMS, menu, cart, language toggle, Formspree form
-assets/img/              # logo, hero + interior photos, menu/ photos
-robots.txt · sitemap.xml · site.webmanifest
-test/smoke.test.js       # smoke test
-```
+MIT

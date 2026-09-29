@@ -2,375 +2,1545 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Bereket Juice &amp; Salad | Fresh Juices, Smoothies &amp; Fruit Salads in Hawassa</title>
-  <meta name="description" content="Bereket Juice &amp; Salad — fresh juices, smoothies and fruit salads made to order with real fruit and no added sugar in Hawassa, Ethiopia." />
-  <meta name="theme-color" content="#0d0d0d" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self' 'sha256-WZRJfWvsnNCPcxzZwvyhovnZGqhZaC+8gPGPRbx6wTk='; style-src 'self'; img-src 'self' data: https://images.unsplash.com; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'"
+  />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+
+  <title>Habesha Haven | Hotel &amp; Café</title>
+
+  <meta
+    name="description"
+    content="Habesha Haven — a premium Ethiopian hotel and café. Comfortable rooms, traditional Ethiopian coffee, fresh café menu and warm hospitality."
+  />
   <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#f5f7f2" />
   <link rel="canonical" href="https://alazarsisay145-hash.github.io/Bereketweb/" />
 
-  <!-- Icons -->
-  <link rel="icon" type="image/png" sizes="512x512" href="assets/img/logo.png" />
-  <link rel="apple-touch-icon" href="assets/img/logo.png" />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Habesha Haven" />
+  <meta property="og:title" content="Habesha Haven | Hotel &amp; Café" />
+  <meta property="og:description" content="Stay. Taste. Experience Ethiopia. Comfortable rooms, Ethiopian coffee and a beautifully curated café." />
+  <meta property="og:url" content="https://alazarsisay145-hash.github.io/Bereketweb/" />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&amp;fit=crop&amp;w=1200&amp;h=630&amp;q=80" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Habesha Haven hotel exterior" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:locale:alternate" content="am_ET" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Habesha Haven | Hotel &amp; Café" />
+  <meta name="twitter:description" content="Stay. Taste. Experience Ethiopia. Comfortable rooms, Ethiopian coffee and a beautifully curated café." />
+  <meta name="twitter:image" content="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&amp;fit=crop&amp;w=1200&amp;h=630&amp;q=80" />
+  <meta name="twitter:image:alt" content="Habesha Haven hotel exterior" />
+
+  <!-- Icons & manifest -->
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="assets/img/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png" />
   <link rel="manifest" href="site.webmanifest" />
 
-  <!-- Open Graph / Twitter -->
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Bereket Juice &amp; Salad" />
-  <meta property="og:title" content="Bereket Juice &amp; Salad" />
-  <meta property="og:description" content="Fresh juices, smoothies and fruit salads — made to order in Hawassa." />
-  <meta property="og:url" content="https://alazarsisay145-hash.github.io/Bereketweb/" />
-  <meta property="og:image" content="https://alazarsisay145-hash.github.io/Bereketweb/assets/img/logo.png" />
-  <meta property="og:image:width" content="512" />
-  <meta property="og:image:height" content="512" />
-  <meta property="og:image:alt" content="Bereket Juice &amp; Salad logo" />
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Bereket Juice &amp; Salad" />
-  <meta name="twitter:description" content="Fresh juices, smoothies and fruit salads — made to order in Hawassa." />
-  <meta name="twitter:image" content="https://alazarsisay145-hash.github.io/Bereketweb/assets/img/logo.png" />
+  <!-- Performance -->
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+  <link
+    rel="preload"
+    as="image"
+    href="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&amp;fit=crop&amp;w=2000&amp;q=85"
+    media="(min-width: 701px)"
+    fetchpriority="high"
+  />
+  <link
+    rel="preload"
+    as="image"
+    href="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&amp;fit=crop&amp;w=1000&amp;q=75"
+    media="(max-width: 700px)"
+    fetchpriority="high"
+  />
 
   <link rel="stylesheet" href="assets/css/styles.css" />
+
+  <!-- Flag JS support before first paint (enables reveal animations & JS-only controls) -->
+  <script>document.documentElement.classList.add("js");</script>
   <script src="assets/js/main.js" defer></script>
 
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": ["Restaurant", "FoodEstablishment"],
-    "name": "Bereket Juice & Salad",
-    "slogan": "Juice & Salad",
-    "description": "Fresh juices, smoothies and fruit salads made to order in Hawassa, Ethiopia.",
-    "url": "https://alazarsisay145-hash.github.io/Bereketweb/",
-    "logo": "https://alazarsisay145-hash.github.io/Bereketweb/assets/img/logo.png",
-    "image": [
-      "https://alazarsisay145-hash.github.io/Bereketweb/assets/img/juices-salad.jpg",
-      "https://alazarsisay145-hash.github.io/Bereketweb/assets/img/interior.jpg"
-    ],
-    "email": "mailto:alazarsisay145@gmail.com",
-    "telephone": "+251900000000",
-    "servesCuisine": "Juice, Smoothies, Salads",
-    "acceptsReservations": false,
-    "hasMenu": "https://alazarsisay145-hash.github.io/Bereketweb/#menu",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Hawassa",
-      "addressRegion": "Sidama",
-      "addressCountry": "ET"
-    },
-    "openingHoursSpecification": [
+    "@graph": [
       {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-        "opens": "07:00",
-        "closes": "22:00"
+        "@type": "Hotel",
+        "@id": "https://alazarsisay145-hash.github.io/Bereketweb/#hotel",
+        "name": "Habesha Haven",
+        "description": "A premium Ethiopian hotel and café focused on comfort, culture and hospitality.",
+        "url": "https://alazarsisay145-hash.github.io/Bereketweb/",
+        "image": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&h=630&q=80",
+        "telephone": "+251110000000",
+        "email": "hello@habeshahaven.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "ET"
+        },
+        "priceRange": "ETB 2,450 – 4,900",
+        "currenciesAccepted": "ETB",
+        "openingHoursSpecification": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          "opens": "00:00",
+          "closes": "23:59"
+        },
+        "amenityFeature": [
+          { "@type": "LocationFeatureSpecification", "name": "Free Wi-Fi", "value": true },
+          { "@type": "LocationFeatureSpecification", "name": "Breakfast included", "value": true }
+        ]
+      },
+      {
+        "@type": "Restaurant",
+        "@id": "https://alazarsisay145-hash.github.io/Bereketweb/#cafe",
+        "name": "Habesha Haven Café",
+        "url": "https://alazarsisay145-hash.github.io/Bereketweb/#menu",
+        "menu": "https://alazarsisay145-hash.github.io/Bereketweb/#menu",
+        "image": "https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=1200&q=80",
+        "telephone": "+251110000000",
+        "email": "hello@habeshahaven.com",
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "ET"
+        },
+        "servesCuisine": ["Ethiopian", "Coffee", "Breakfast", "Desserts"],
+        "priceRange": "ETB 150 – 450",
+        "currenciesAccepted": "ETB",
+        "openingHoursSpecification": {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          "opens": "07:00",
+          "closes": "22:00"
+        },
+        "containedInPlace": { "@id": "https://alazarsisay145-hash.github.io/Bereketweb/#hotel" }
       }
-    ],
-    "sameAs": [
-      "https://www.instagram.com/bereketjuice/",
-      "https://www.tiktok.com/@bereketjuice"
     ]
   }
   </script>
 </head>
 
 <body>
+
   <a class="skip-link" href="#main" data-i18n="skip">Skip to main content</a>
 
-  <!-- ===================== HEADER / NAV ===================== -->
-  <header class="site-header">
-    <nav class="navbar container" aria-label="Main">
-      <a href="#home" class="logo" aria-label="Bereket Juice &amp; Salad — home">
-        <img class="logo-mark" src="assets/img/logo.png" width="48" height="48" alt="" loading="lazy" decoding="async" />
+  <!-- =========================================================
+       NAVIGATION
+  ========================================================== -->
+
+  <header>
+    <div class="navbar">
+
+      <a href="#home" class="logo">
+        <span class="logo-mark" aria-hidden="true">HH</span>
+
         <span class="logo-text">
-          <strong>Bereket</strong>
-          <span data-i18n="brand.tagline">Juice &amp; Salad</span>
+          <strong>Habesha Haven</strong>
+          <span data-i18n="brand.tagline">Hotel &amp; Café</span>
         </span>
       </a>
 
-      <ul class="nav-links" id="navLinks">
-        <li><a href="#menu" data-i18n="nav.menu">Menu</a></li>
-        <li><a href="#space" data-i18n="nav.space">Our Space</a></li>
-        <li><a href="#why" data-i18n="nav.why">Why Bereket</a></li>
-        <li><a href="#contact" data-i18n="nav.contact">Visit Us</a></li>
-      </ul>
+      <nav class="nav-links" aria-label="Primary" data-i18n-attr="aria-label:nav.primary">
+        <a href="#home" data-i18n="nav.home">Home</a>
+        <a href="#rooms" data-i18n="nav.rooms">Rooms</a>
+        <a href="#menu" data-i18n="nav.menu">Café &amp; Menu</a>
+        <a href="#booking" data-i18n="nav.booking">Booking</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
+      </nav>
 
       <div class="nav-actions">
-        <button type="button" class="icon-btn lang-btn" id="languageBtn" aria-label="አማ — Switch language to Amharic">አማ</button>
-        <button type="button" class="icon-btn cart-btn" id="cartButton" aria-haspopup="dialog" aria-controls="cartPanel" aria-label="Open your order (0 items)">
+
+        <button
+          type="button"
+          class="lang-btn"
+          id="languageBtn"
+          lang="en"
+          aria-label="EN: switch language to Amharic (አማርኛ)"
+          data-requires-js
+        >
+          EN
+        </button>
+
+        <button
+          type="button"
+          class="cart-btn"
+          id="cartButton"
+          aria-label="Open order"
+          aria-expanded="false"
+          aria-controls="cartPanel"
+          data-requires-js
+        >
           <span aria-hidden="true">🛒</span>
           <span class="cart-count" id="cartCount" aria-hidden="true">0</span>
         </button>
-        <a href="#order" class="btn btn-primary nav-cta" data-i18n="cta.order">Order Now</a>
-        <button type="button" class="icon-btn menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navLinks" aria-label="Open navigation">
+
+        <button
+          type="button"
+          class="menu-toggle"
+          id="menuToggle"
+          aria-label="Open navigation"
+          aria-expanded="false"
+          aria-controls="mobileMenu"
+          data-requires-js
+        >
           <span aria-hidden="true">☰</span>
         </button>
+
+        <a href="#booking" class="primary-btn" data-i18n="nav.book">
+          Book Now
+        </a>
+
       </div>
-    </nav>
+    </div>
   </header>
 
-  <main id="main">
-    <!-- ===================== HERO ===================== -->
-    <section class="hero" id="home" aria-labelledby="heroTitle">
-      <img class="hero-bg" src="assets/img/juices-salad.jpg" width="1600" height="1000"
-           alt="Avocado juice, layered mango-avocado-strawberry juice and mango juice beside a plate of fresh fruit salad"
-           loading="eager" fetchpriority="high" decoding="async" />
-      <div class="hero-overlay" aria-hidden="true"></div>
+  <!-- MOBILE MENU -->
 
-      <div class="container hero-content">
-        <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span><span data-i18n="hero.eyebrow">Fresh every day · Hawassa</span></p>
-        <h1 id="heroTitle">
-          <span class="brand-white">Bere</span><span class="brand-gold">Ket</span>
-          <span class="hero-tagline" data-i18n="hero.tagline">Juice &amp; Salad</span>
-        </h1>
-        <p class="hero-text" data-i18n="hero.text">Fresh juices, smoothies and fruit salads — pressed, blended and cut to order from real fruit.</p>
-        <div class="hero-buttons">
-          <a href="#menu" class="btn btn-primary" data-i18n="cta.viewMenu">View Menu</a>
-          <a href="#order" class="btn btn-ghost" data-i18n="cta.order">Order Now</a>
+  <nav class="mobile-menu glass" id="mobileMenu" aria-label="Mobile" data-i18n-attr="aria-label:nav.mobile">
+    <a href="#home" data-i18n="nav.home">Home</a>
+    <a href="#rooms" data-i18n="nav.rooms">Rooms</a>
+    <a href="#menu" data-i18n="nav.menu">Café &amp; Menu</a>
+    <a href="#booking" data-i18n="nav.booking">Booking</a>
+    <a href="#contact" data-i18n="nav.contact">Contact</a>
+  </nav>
+
+  <main id="main" tabindex="-1">
+
+    <!-- =======================================================
+         HERO
+    ======================================================== -->
+
+    <section class="hero" id="home" aria-labelledby="hero-title">
+
+      <div class="hero-bg" aria-hidden="true"></div>
+
+      <div class="container">
+
+        <div class="hero-content reveal">
+
+          <div class="eyebrow">
+            <span class="eyebrow-dot" aria-hidden="true"></span>
+            <span data-i18n="hero.eyebrow">Ethiopian Hospitality</span>
+          </div>
+
+          <h1 id="hero-title" data-i18n-html="hero.title">
+            Stay.
+            <span>Taste.</span>
+            Experience Ethiopia.
+          </h1>
+
+          <p data-i18n="hero.text">
+            A modern hospitality experience combining comfortable rooms,
+            Ethiopian warmth, specialty coffee and a beautifully curated café.
+          </p>
+
+          <div class="hero-buttons">
+
+            <a href="#booking" class="primary-btn" data-i18n="hero.cta1">
+              Book a Room →
+            </a>
+
+            <a href="#menu" class="secondary-btn" data-i18n="hero.cta2">
+              Explore Menu
+            </a>
+
+          </div>
+
+          <ul class="hero-stats">
+
+            <li class="stat">
+              <strong aria-hidden="true">★★★★★</strong>
+              <span class="visually-hidden" data-i18n="hero.stat1.sr">Five-star</span>
+              <span data-i18n="hero.stat1">Guest Experience</span>
+            </li>
+
+            <li class="stat">
+              <strong>10+</strong>
+              <span data-i18n="hero.stat2">Rooms</span>
+            </li>
+
+            <li class="stat">
+              <strong>24/7</strong>
+              <span data-i18n="hero.stat3">Hospitality</span>
+            </li>
+
+          </ul>
+
         </div>
+
       </div>
+
+      <div class="floating-card">
+
+        <img
+          src="https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&amp;fit=crop&amp;w=500&amp;h=270&amp;q=75"
+          width="500"
+          height="270"
+          alt="Hotel interior"
+          data-i18n-attr="alt:hero.card.alt"
+          loading="lazy"
+          decoding="async"
+        />
+
+        <strong data-i18n="hero.card.title">A quiet place to feel at home.</strong>
+        <small data-i18n="hero.card.text">Modern comfort • Ethiopian hospitality</small>
+
+      </div>
+
     </section>
 
-    <!-- ===================== MENU ===================== -->
-    <section class="section menu-section" id="menu" aria-labelledby="menuTitle">
+    <!-- =======================================================
+         EXPERIENCE
+    ======================================================== -->
+
+    <section aria-labelledby="experience-title">
+
       <div class="container">
-        <div class="section-heading center">
-          <p class="section-label" data-i18n="menu.label">Our Menu</p>
-          <h2 id="menuTitle" data-i18n="menu.title">Fresh from the fruit to your glass.</h2>
-          <p data-i18n="menu.text">Every drink and salad is made when you order it.</p>
+
+        <div class="section-heading reveal">
+
+          <div class="section-label" data-i18n="exp.label">
+            The Experience
+          </div>
+
+          <h2 id="experience-title" data-i18n="exp.title">
+            More than a stay.
+          </h2>
+
+          <p data-i18n="exp.text">
+            Designed around comfort, culture and memorable everyday moments.
+          </p>
+
         </div>
 
-        <div class="menu-controls">
-          <div class="menu-search">
-            <label for="menuSearch" class="visually-hidden" data-i18n="menu.searchLabel">Search the menu</label>
-            <input type="search" id="menuSearch" placeholder="Search the menu…" data-i18n-placeholder="menu.searchPlaceholder" autocomplete="off" />
+        <div class="experience-grid">
+
+          <article class="experience-card glass reveal">
+            <div class="experience-icon" aria-hidden="true">🛏</div>
+            <h3 data-i18n="exp.rooms.title">Comfortable Rooms</h3>
+            <p data-i18n="exp.rooms.text">
+              Thoughtfully designed spaces for business and leisure travelers.
+            </p>
+          </article>
+
+          <article class="experience-card glass reveal">
+            <div class="experience-icon" aria-hidden="true">☕</div>
+            <h3 data-i18n="exp.coffee.title">Ethiopian Coffee</h3>
+            <p data-i18n="exp.coffee.text">
+              Experience the rich tradition and character of Ethiopian coffee.
+            </p>
+          </article>
+
+          <article class="experience-card glass reveal">
+            <div class="experience-icon" aria-hidden="true">🍽</div>
+            <h3 data-i18n="exp.cafe.title">Fresh Café</h3>
+            <p data-i18n="exp.cafe.text">
+              Ethiopian favorites, modern dishes, coffee and refreshing drinks.
+            </p>
+          </article>
+
+          <article class="experience-card glass reveal">
+            <div class="experience-icon" aria-hidden="true">✦</div>
+            <h3 data-i18n="exp.hosp.title">Warm Hospitality</h3>
+            <p data-i18n="exp.hosp.text">
+              A calm and welcoming environment inspired by Ethiopian culture.
+            </p>
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =======================================================
+         ROOMS
+    ======================================================== -->
+
+    <section class="rooms-section" id="rooms" aria-labelledby="rooms-title">
+
+      <div class="container">
+
+        <div class="section-heading reveal">
+
+          <div class="section-label" data-i18n="rooms.label">
+            Stay With Us
           </div>
-          <div class="category-list" role="group" aria-label="Filter menu by category" data-i18n-aria-label="menu.filterLabel">
-            <button type="button" class="category-btn active" data-category="all" aria-pressed="true" data-i18n="cat.all">All</button>
-            <button type="button" class="category-btn" data-category="juices" aria-pressed="false" data-i18n="cat.juices">Juices</button>
-            <button type="button" class="category-btn" data-category="smoothies" aria-pressed="false" data-i18n="cat.smoothies">Smoothies</button>
-            <button type="button" class="category-btn" data-category="salads" aria-pressed="false" data-i18n="cat.salads">Salads</button>
-            <button type="button" class="category-btn" data-category="combos" aria-pressed="false" data-i18n="cat.combos">Combos</button>
-            <button type="button" class="category-btn" data-category="specials" aria-pressed="false" data-i18n="cat.specials">Specials</button>
+
+          <h2 id="rooms-title" data-i18n="rooms.title">
+            Rooms designed for rest.
+          </h2>
+
+          <p data-i18n="rooms.text">
+            Every room includes Wi-Fi and breakfast. Rates are per night in Ethiopian birr.
+          </p>
+
+        </div>
+
+        <div class="rooms-grid">
+
+          <!-- ROOM 1 -->
+
+          <article class="room-card glass reveal" data-room="Haven Deluxe" data-price="2450">
+
+            <div class="room-image">
+
+              <img
+                src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&amp;fit=crop&amp;w=800&amp;h=570&amp;q=75"
+                srcset="https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&amp;fit=crop&amp;w=500&amp;h=356&amp;q=75 500w, https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&amp;fit=crop&amp;w=800&amp;h=570&amp;q=75 800w"
+                sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 380px"
+                width="800"
+                height="570"
+                alt="Haven Deluxe hotel room"
+                data-i18n-attr="alt:rooms.deluxe.alt"
+                loading="lazy"
+                decoding="async"
+              />
+
+              <span class="room-tag" data-i18n="rooms.tag.popular">
+                MOST POPULAR
+              </span>
+
+            </div>
+
+            <div class="room-body">
+
+              <div class="room-title">
+                <h3 id="room-deluxe">Haven Deluxe</h3>
+
+                <div class="price">
+                  ETB 2,450
+                  <small data-i18n="rooms.night">/night</small>
+                </div>
+              </div>
+
+              <p data-i18n="rooms.deluxe.text">
+                A comfortable modern room designed for relaxing stays.
+              </p>
+
+              <ul class="features">
+                <li class="feature" data-i18n="feature.king">King Bed</li>
+                <li class="feature" data-i18n="feature.wifi">Wi-Fi</li>
+                <li class="feature" data-i18n="feature.tv">TV</li>
+                <li class="feature" data-i18n="feature.breakfast">Breakfast</li>
+              </ul>
+
+              <div class="room-actions">
+
+                <button
+                  type="button"
+                  class="secondary-btn"
+                  data-room-details
+                  aria-describedby="room-deluxe"
+                  aria-haspopup="dialog"
+                  data-requires-js
+                  data-i18n="rooms.details"
+                >
+                  Details
+                </button>
+
+                <a
+                  href="#booking"
+                  class="primary-btn"
+                  data-select-room
+                  aria-describedby="room-deluxe"
+                  data-i18n="rooms.book"
+                >
+                  Book
+                </a>
+
+              </div>
+
+            </div>
+
+          </article>
+
+          <!-- ROOM 2 -->
+
+          <article class="room-card glass reveal" data-room="Garden Suite" data-price="3800">
+
+            <div class="room-image">
+
+              <img
+                src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&amp;fit=crop&amp;w=800&amp;h=570&amp;q=75"
+                srcset="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&amp;fit=crop&amp;w=500&amp;h=356&amp;q=75 500w, https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&amp;fit=crop&amp;w=800&amp;h=570&amp;q=75 800w"
+                sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 380px"
+                width="800"
+                height="570"
+                alt="Garden Suite hotel room"
+                data-i18n-attr="alt:rooms.garden.alt"
+                loading="lazy"
+                decoding="async"
+              />
+
+              <span class="room-tag" data-i18n="rooms.tag.suite">
+                SUITE
+              </span>
+
+            </div>
+
+            <div class="room-body">
+
+              <div class="room-title">
+                <h3 id="room-garden">Garden Suite</h3>
+
+                <div class="price">
+                  ETB 3,800
+                  <small data-i18n="rooms.night">/night</small>
+                </div>
+              </div>
+
+              <p data-i18n="rooms.garden.text">
+                A spacious suite with a calm garden-inspired atmosphere.
+              </p>
+
+              <ul class="features">
+                <li class="feature" data-i18n="feature.king">King Bed</li>
+                <li class="feature" data-i18n="feature.garden">Garden View</li>
+                <li class="feature" data-i18n="feature.lounge">Lounge</li>
+                <li class="feature" data-i18n="feature.breakfast">Breakfast</li>
+              </ul>
+
+              <div class="room-actions">
+
+                <button
+                  type="button"
+                  class="secondary-btn"
+                  data-room-details
+                  aria-describedby="room-garden"
+                  aria-haspopup="dialog"
+                  data-requires-js
+                  data-i18n="rooms.details"
+                >
+                  Details
+                </button>
+
+                <a
+                  href="#booking"
+                  class="primary-btn"
+                  data-select-room
+                  aria-describedby="room-garden"
+                  data-i18n="rooms.book"
+                >
+                  Book
+                </a>
+
+              </div>
+
+            </div>
+
+          </article>
+
+          <!-- ROOM 3 -->
+
+          <article class="room-card glass reveal" data-room="Executive Room" data-price="4900">
+
+            <div class="room-image">
+
+              <img
+                src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&amp;fit=crop&amp;w=800&amp;h=570&amp;q=75"
+                srcset="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&amp;fit=crop&amp;w=500&amp;h=356&amp;q=75 500w, https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&amp;fit=crop&amp;w=800&amp;h=570&amp;q=75 800w"
+                sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 380px"
+                width="800"
+                height="570"
+                alt="Executive hotel room"
+                data-i18n-attr="alt:rooms.exec.alt"
+                loading="lazy"
+                decoding="async"
+              />
+
+              <span class="room-tag" data-i18n="rooms.tag.business">
+                BUSINESS
+              </span>
+
+            </div>
+
+            <div class="room-body">
+
+              <div class="room-title">
+                <h3 id="room-exec">Executive Room</h3>
+
+                <div class="price">
+                  ETB 4,900
+                  <small data-i18n="rooms.night">/night</small>
+                </div>
+              </div>
+
+              <p data-i18n="rooms.exec.text">
+                Premium accommodation with additional workspace and comfort.
+              </p>
+
+              <ul class="features">
+                <li class="feature" data-i18n="feature.king">King Bed</li>
+                <li class="feature" data-i18n="feature.city">City View</li>
+                <li class="feature" data-i18n="feature.workspace">Workspace</li>
+                <li class="feature" data-i18n="feature.breakfast">Breakfast</li>
+              </ul>
+
+              <div class="room-actions">
+
+                <button
+                  type="button"
+                  class="secondary-btn"
+                  data-room-details
+                  aria-describedby="room-exec"
+                  aria-haspopup="dialog"
+                  data-requires-js
+                  data-i18n="rooms.details"
+                >
+                  Details
+                </button>
+
+                <a
+                  href="#booking"
+                  class="primary-btn"
+                  data-select-room
+                  aria-describedby="room-exec"
+                  data-i18n="rooms.book"
+                >
+                  Book
+                </a>
+
+              </div>
+
+            </div>
+
+          </article>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =======================================================
+         COFFEE
+    ======================================================== -->
+
+    <section aria-labelledby="coffee-title">
+
+      <div class="container">
+
+        <div class="coffee-layout">
+
+          <div class="coffee-image reveal">
+
+            <img
+              src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&amp;fit=crop&amp;w=1200&amp;q=85"
+              srcset="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&amp;fit=crop&amp;w=700&amp;q=80 700w, https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&amp;fit=crop&amp;w=1200&amp;q=85 1200w"
+              sizes="(max-width: 700px) 100vw, 580px"
+              width="1200"
+              height="800"
+              alt="A cup of Ethiopian coffee"
+              data-i18n-attr="alt:coffee.alt"
+              loading="lazy"
+              decoding="async"
+            />
+
+            <div class="coffee-overlay">
+              <small data-i18n="coffee.overlay.label">ETHIOPIAN COFFEE EXPERIENCE</small>
+              <strong data-i18n="coffee.overlay.title">From bean to cup.</strong>
+            </div>
+
           </div>
+
+          <div class="coffee-copy reveal">
+
+            <div class="section-label" data-i18n="coffee.label">
+              Café Culture
+            </div>
+
+            <h2 id="coffee-title" data-i18n="coffee.title">
+              Coffee is more than a drink.
+            </h2>
+
+            <p data-i18n="coffee.text">
+              Ethiopia is the birthplace of coffee. Our café experience
+              celebrates that heritage while bringing it into a modern,
+              relaxed environment.
+            </p>
+
+            <ul class="coffee-points">
+
+              <li class="coffee-point">
+                <div class="check" aria-hidden="true">✓</div>
+                <div>
+                  <strong data-i18n="exp.coffee.title">Ethiopian Coffee</strong>
+                  <p data-i18n="coffee.p1">Rich aromas and distinctive local character.</p>
+                </div>
+              </li>
+
+              <li class="coffee-point">
+                <div class="check" aria-hidden="true">✓</div>
+                <div>
+                  <strong data-i18n="coffee.p2.title">Fresh Café Menu</strong>
+                  <p data-i18n="coffee.p2">Breakfast, Ethiopian dishes and modern favorites.</p>
+                </div>
+              </li>
+
+              <li class="coffee-point">
+                <div class="check" aria-hidden="true">✓</div>
+                <div>
+                  <strong data-i18n="coffee.p3.title">Relaxed Atmosphere</strong>
+                  <p data-i18n="coffee.p3">A comfortable space to meet, work or unwind.</p>
+                </div>
+              </li>
+
+            </ul>
+
+            <a href="#menu" class="primary-btn" data-i18n="coffee.cta">
+              Explore the Menu →
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =======================================================
+         MENU
+    ======================================================== -->
+
+    <section class="menu-section" id="menu" aria-labelledby="menu-title">
+
+      <div class="container">
+
+        <div class="section-heading center reveal">
+
+          <div class="section-label" data-i18n="menu.label">
+            Café Menu
+          </div>
+
+          <h2 id="menu-title" data-i18n="menu.title">
+            Taste Ethiopia.
+          </h2>
+
+          <p data-i18n="menu.text">
+            Freshly prepared every day. Prices are in Ethiopian birr (ETB).
+          </p>
+
+        </div>
+
+        <div class="menu-controls reveal" data-requires-js>
+
+          <div class="menu-search" role="search">
+            <label for="menuSearch" class="visually-hidden" data-i18n="menu.searchLabel">Search menu</label>
+            <input
+              type="search"
+              id="menuSearch"
+              placeholder="Search the menu..."
+              data-i18n-attr="placeholder:menu.searchPlaceholder"
+              autocomplete="off"
+              aria-controls="menuGrid"
+            />
+          </div>
+
+          <div class="menu-categories" role="group" aria-label="Filter by category" data-i18n-attr="aria-label:menu.filterLabel">
+
+            <button type="button" class="category-btn active" data-category="all" aria-pressed="true" data-i18n="cat.all">
+              All
+            </button>
+
+            <button type="button" class="category-btn" data-category="breakfast" aria-pressed="false" data-i18n="cat.breakfast">
+              Breakfast
+            </button>
+
+            <button type="button" class="category-btn" data-category="ethiopian" aria-pressed="false" data-i18n="cat.ethiopian">
+              Ethiopian
+            </button>
+
+            <button type="button" class="category-btn" data-category="coffee" aria-pressed="false" data-i18n="cat.coffee">
+              Coffee
+            </button>
+
+            <button type="button" class="category-btn" data-category="drinks" aria-pressed="false" data-i18n="cat.drinks">
+              Drinks
+            </button>
+
+            <button type="button" class="category-btn" data-category="dessert" aria-pressed="false" data-i18n="cat.dessert">
+              Dessert
+            </button>
+
+          </div>
+
+        </div>
+
+        <div class="menu-grid" id="menuGrid">
+
+          <article class="menu-item glass" data-id="1" data-category="coffee" data-price="250">
+            <div class="menu-image">
+              <img
+                src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&amp;fit=crop&amp;w=600&amp;h=400&amp;q=75"
+                srcset="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&amp;fit=crop&amp;w=400&amp;h=267&amp;q=75 400w, https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&amp;fit=crop&amp;w=600&amp;h=400&amp;q=75 600w"
+                sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 380px"
+                width="600"
+                height="400"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="menu-body">
+              <div class="menu-top">
+                <h3 id="menu-item-1" data-i18n="menu.item1.name">Ethiopian Coffee Ceremony</h3>
+                <span class="menu-price">ETB 250</span>
+              </div>
+              <p data-i18n="menu.item1.desc">Traditional Ethiopian coffee experience.</p>
+              <button type="button" class="add-btn" data-add-to-cart aria-describedby="menu-item-1" data-requires-js data-i18n="menu.add">+ Add to Order</button>
+            </div>
+          </article>
+
+          <article class="menu-item glass" data-id="2" data-category="coffee" data-price="180">
+            <div class="menu-image">
+              <img
+                src="https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?auto=format&amp;fit=crop&amp;w=600&amp;h=400&amp;q=75"
+                srcset="https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?auto=format&amp;fit=crop&amp;w=400&amp;h=267&amp;q=75 400w, https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?auto=format&amp;fit=crop&amp;w=600&amp;h=400&amp;q=75 600w"
+                sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 380px"
+                width="600"
+                height="400"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="menu-body">
+              <div class="menu-top">
+                <h3 id="menu-item-2" data-i18n="menu.item2.name">Macchiato</h3>
+                <span class="menu-price">ETB 180</span>
+              </div>
+              <p data-i18n="menu.item2.desc">Rich espresso with steamed milk.</p>
+              <button type="button" class="add-btn" data-add-to-cart aria-describedby="menu-item-2" data-requires-js data-i18n="menu.add">+ Add to Order</button>
+            </div>
+          </article>
+
+          <article class="menu-item glass" data-id="3" data-category="coffee" data-price="220">
+            <div class="menu-image">
+              <img
+                src="https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&amp;fit=crop&amp;w=600&amp;h=400&amp;q=75"
+                srcset="https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&amp;fit=crop&amp;w=400&amp;h=267&amp;q=75 400w, https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&amp;fit=crop&amp;w=600&amp;h=400&amp;q=75 600w"
+                sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 380px"
+                width="600"
+                height="400"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="menu-body">
+              <div class="menu-top">
+                <h3 id="menu-item-3" data-i18n="menu.item3.name">Cappuccino</h3>
+                <span class="menu-price">ETB 220</span>
+              </div>
+              <p data-i18n="menu.item3.desc">Smooth espresso with creamy foam.</p>
+              <button type="button" class="add-btn" data-add-to-cart aria-describedby="menu-item-3" data-requires-js data-i18n="menu.add">+ Add to Order</button>
+            </div>
+          </article>
+
+          <article class="menu-item glass" data-id="4" data-category="breakfast" data-price="220">
+            <div class="menu-image">
+              <img
+                src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?auto=format&amp;fit=crop&amp;w=600&amp;h=400&amp;q=75"
+                srcset="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?auto=format&amp;fit=crop&amp;w=400&amp;h=267&amp;q=75 400w, https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?auto=format&amp;fit=crop&amp;w=600&amp;h=400&amp;q=75 600w"
+                sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 380px"
+                width="600"
+                height="400"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="menu-body">
+              <div class="menu-top">
+                <h3 id="menu-item-4" data-i18n="menu.item4.name">Chechebsa</h3>
+                <span class="menu-price">ETB 220</span>
+              </div>
+              <p data-i18n="menu.item4.desc">Traditional Ethiopian breakfast with honey and butter.</p>
+              <button type="button" class="add-btn" data-add-to-cart aria-describedby="menu-item-4" data-requires-js data-i18n="menu.add">+ Add to Order</button>
+            </div>
+          </article>
+
+          <article class="menu-item glass" data-id="5" data-category="breakfast" data-price="190">
+            <div class="menu-image">
+              <img
+                src="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&amp;fit=crop&amp;w=600&amp;h=400&amp;q=75"
+                srcset="https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&amp;fit=crop&amp;w=400&amp;h=267&amp;q=75 400w, https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&amp;fit=crop&amp;w=600&amp;h=400&amp;q=75 600w"
+                sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 380px"
+                width="600"
+                height="400"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="menu-body">
+              <div class="menu-top">
+                <h3 id="menu-item-5" data-i18n="menu.item5.name">Foul</h3>
+                <span class="menu-price">ETB 190</span>
+              </div>
+              <p data-i18n="menu.item5.desc">Seasoned fava beans served with fresh toppings.</p>
+              <button type="button" class="add-btn" data-add-to-cart aria-describedby="menu-item-5" data-requires-js data-i18n="menu.add">+ Add to Order</button>
+            </div>
+          </article>
+
+          <article class="menu-item glass" data-id="6" data-category="ethiopian" data-price="450">
+            <div class="menu-image">
+              <img
+                src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&amp;fit=crop&amp;w=600&amp;h=400&amp;q=75"
+                srcset="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&amp;fit=crop&amp;w=400&amp;h=267&amp;q=75 400w, https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&amp;fit=crop&amp;w=600&amp;h=400&amp;q=75 600w"
+                sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 380px"
+                width="600"
+                height="400"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="menu-body">
+              <div class="menu-top">
+                <h3 id="menu-item-6" data-i18n="menu.item6.name">Tibs</h3>
+                <span class="menu-price">ETB 450</span>
+              </div>
+              <p data-i18n="menu.item6.desc">Sautéed beef with Ethiopian spices.</p>
+              <button type="button" class="add-btn" data-add-to-cart aria-describedby="menu-item-6" data-requires-js data-i18n="menu.add">+ Add to Order</button>
+            </div>
+          </article>
+
+          <article class="menu-item glass" data-id="7" data-category="ethiopian" data-price="280">
+            <div class="menu-image">
+              <img
+                src="https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&amp;fit=crop&amp;w=600&amp;h=400&amp;q=75"
+                srcset="https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&amp;fit=crop&amp;w=400&amp;h=267&amp;q=75 400w, https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&amp;fit=crop&amp;w=600&amp;h=400&amp;q=75 600w"
+                sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 380px"
+                width="600"
+                height="400"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="menu-body">
+              <div class="menu-top">
+                <h3 id="menu-item-7" data-i18n="menu.item7.name">Shiro</h3>
+                <span class="menu-price">ETB 280</span>
+              </div>
+              <p data-i18n="menu.item7.desc">Traditional chickpea stew served with injera.</p>
+              <button type="button" class="add-btn" data-add-to-cart aria-describedby="menu-item-7" data-requires-js data-i18n="menu.add">+ Add to Order</button>
+            </div>
+          </article>
+
+          <article class="menu-item glass" data-id="8" data-category="ethiopian" data-price="250">
+            <div class="menu-image">
+              <img
+                src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&amp;fit=crop&amp;w=600&amp;h=400&amp;q=75"
+                srcset="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&amp;fit=crop&amp;w=400&amp;h=267&amp;q=75 400w, https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&amp;fit=crop&amp;w=600&amp;h=400&amp;q=75 600w"
+                sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 380px"
+                width="600"
+                height="400"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="menu-body">
+              <div class="menu-top">
+                <h3 id="menu-item-8" data-i18n="menu.item8.name">Firfir</h3>
+                <span class="menu-price">ETB 250</span>
+              </div>
+              <p data-i18n="menu.item8.desc">Spiced injera pieces with berbere.</p>
+              <button type="button" class="add-btn" data-add-to-cart aria-describedby="menu-item-8" data-requires-js data-i18n="menu.add">+ Add to Order</button>
+            </div>
+          </article>
+
+          <article class="menu-item glass" data-id="9" data-category="ethiopian" data-price="320">
+            <div class="menu-image">
+              <img
+                src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&amp;fit=crop&amp;w=600&amp;h=400&amp;q=75"
+                srcset="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&amp;fit=crop&amp;w=400&amp;h=267&amp;q=75 400w, https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&amp;fit=crop&amp;w=600&amp;h=400&amp;q=75 600w"
+                sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 380px"
+                width="600"
+                height="400"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="menu-body">
+              <div class="menu-top">
+                <h3 id="menu-item-9" data-i18n="menu.item9.name">Vegetable Pasta</h3>
+                <span class="menu-price">ETB 320</span>
+              </div>
+              <p data-i18n="menu.item9.desc">Fresh pasta with seasonal vegetables.</p>
+              <button type="button" class="add-btn" data-add-to-cart aria-describedby="menu-item-9" data-requires-js data-i18n="menu.add">+ Add to Order</button>
+            </div>
+          </article>
+
+          <article class="menu-item glass" data-id="10" data-category="drinks" data-price="180">
+            <div class="menu-image">
+              <img
+                src="https://images.unsplash.com/photo-1546173159-315724a31696?auto=format&amp;fit=crop&amp;w=600&amp;h=400&amp;q=75"
+                srcset="https://images.unsplash.com/photo-1546173159-315724a31696?auto=format&amp;fit=crop&amp;w=400&amp;h=267&amp;q=75 400w, https://images.unsplash.com/photo-1546173159-315724a31696?auto=format&amp;fit=crop&amp;w=600&amp;h=400&amp;q=75 600w"
+                sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 380px"
+                width="600"
+                height="400"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="menu-body">
+              <div class="menu-top">
+                <h3 id="menu-item-10" data-i18n="menu.item10.name">Fresh Mango Juice</h3>
+                <span class="menu-price">ETB 180</span>
+              </div>
+              <p data-i18n="menu.item10.desc">Freshly prepared mango juice.</p>
+              <button type="button" class="add-btn" data-add-to-cart aria-describedby="menu-item-10" data-requires-js data-i18n="menu.add">+ Add to Order</button>
+            </div>
+          </article>
+
+          <article class="menu-item glass" data-id="11" data-category="drinks" data-price="200">
+            <div class="menu-image">
+              <img
+                src="https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?auto=format&amp;fit=crop&amp;w=600&amp;h=400&amp;q=75"
+                srcset="https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?auto=format&amp;fit=crop&amp;w=400&amp;h=267&amp;q=75 400w, https://images.unsplash.com/photo-1623065422902-30a2d299bbe4?auto=format&amp;fit=crop&amp;w=600&amp;h=400&amp;q=75 600w"
+                sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 380px"
+                width="600"
+                height="400"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="menu-body">
+              <div class="menu-top">
+                <h3 id="menu-item-11" data-i18n="menu.item11.name">Fresh Avocado Juice</h3>
+                <span class="menu-price">ETB 200</span>
+              </div>
+              <p data-i18n="menu.item11.desc">Creamy fresh avocado juice.</p>
+              <button type="button" class="add-btn" data-add-to-cart aria-describedby="menu-item-11" data-requires-js data-i18n="menu.add">+ Add to Order</button>
+            </div>
+          </article>
+
+          <article class="menu-item glass" data-id="12" data-category="drinks" data-price="150">
+            <div class="menu-image">
+              <img
+                src="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&amp;fit=crop&amp;w=600&amp;h=400&amp;q=75"
+                srcset="https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&amp;fit=crop&amp;w=400&amp;h=267&amp;q=75 400w, https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&amp;fit=crop&amp;w=600&amp;h=400&amp;q=75 600w"
+                sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 380px"
+                width="600"
+                height="400"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="menu-body">
+              <div class="menu-top">
+                <h3 id="menu-item-12" data-i18n="menu.item12.name">Lemon Mint</h3>
+                <span class="menu-price">ETB 150</span>
+              </div>
+              <p data-i18n="menu.item12.desc">Refreshing lemon and fresh mint.</p>
+              <button type="button" class="add-btn" data-add-to-cart aria-describedby="menu-item-12" data-requires-js data-i18n="menu.add">+ Add to Order</button>
+            </div>
+          </article>
+
+          <article class="menu-item glass" data-id="13" data-category="dessert" data-price="240">
+            <div class="menu-image">
+              <img
+                src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&amp;fit=crop&amp;w=600&amp;h=400&amp;q=75"
+                srcset="https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&amp;fit=crop&amp;w=400&amp;h=267&amp;q=75 400w, https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&amp;fit=crop&amp;w=600&amp;h=400&amp;q=75 600w"
+                sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 380px"
+                width="600"
+                height="400"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="menu-body">
+              <div class="menu-top">
+                <h3 id="menu-item-13" data-i18n="menu.item13.name">Chocolate Cake</h3>
+                <span class="menu-price">ETB 240</span>
+              </div>
+              <p data-i18n="menu.item13.desc">Rich chocolate cake.</p>
+              <button type="button" class="add-btn" data-add-to-cart aria-describedby="menu-item-13" data-requires-js data-i18n="menu.add">+ Add to Order</button>
+            </div>
+          </article>
+
+          <article class="menu-item glass" data-id="14" data-category="dessert" data-price="260">
+            <div class="menu-image">
+              <img
+                src="https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&amp;fit=crop&amp;w=600&amp;h=400&amp;q=75"
+                srcset="https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&amp;fit=crop&amp;w=400&amp;h=267&amp;q=75 400w, https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&amp;fit=crop&amp;w=600&amp;h=400&amp;q=75 600w"
+                sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 380px"
+                width="600"
+                height="400"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="menu-body">
+              <div class="menu-top">
+                <h3 id="menu-item-14" data-i18n="menu.item14.name">Cheesecake</h3>
+                <span class="menu-price">ETB 260</span>
+              </div>
+              <p data-i18n="menu.item14.desc">Creamy cheesecake with a soft crust.</p>
+              <button type="button" class="add-btn" data-add-to-cart aria-describedby="menu-item-14" data-requires-js data-i18n="menu.add">+ Add to Order</button>
+            </div>
+          </article>
+
+          <article class="menu-item glass" data-id="15" data-category="breakfast" data-price="210">
+            <div class="menu-image">
+              <img
+                src="https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&amp;fit=crop&amp;w=600&amp;h=400&amp;q=75"
+                srcset="https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&amp;fit=crop&amp;w=400&amp;h=267&amp;q=75 400w, https://images.unsplash.com/photo-1490474418585-ba9bad8fd0ea?auto=format&amp;fit=crop&amp;w=600&amp;h=400&amp;q=75 600w"
+                sizes="(max-width: 700px) 100vw, (max-width: 1000px) 50vw, 380px"
+                width="600"
+                height="400"
+                alt=""
+                loading="lazy"
+                decoding="async"
+              />
+            </div>
+            <div class="menu-body">
+              <div class="menu-top">
+                <h3 id="menu-item-15" data-i18n="menu.item15.name">Fruit Bowl</h3>
+                <span class="menu-price">ETB 210</span>
+              </div>
+              <p data-i18n="menu.item15.desc">Fresh seasonal fruit selection.</p>
+              <button type="button" class="add-btn" data-add-to-cart aria-describedby="menu-item-15" data-requires-js data-i18n="menu.add">+ Add to Order</button>
+            </div>
+          </article>
+
+          <div class="menu-empty glass" id="menuEmpty" hidden>
+            <strong data-i18n="menu.empty.title">No menu items found.</strong>
+            <p data-i18n="menu.empty.text">Try another search or category.</p>
+          </div>
+
         </div>
 
         <p class="visually-hidden" id="menuStatus" role="status" aria-live="polite"></p>
-        <div class="menu-grid" id="menuGrid">
-          <noscript><p class="menu-empty glass">Please enable JavaScript to browse the menu, or call us to order.</p></noscript>
-        </div>
+
       </div>
+
     </section>
 
-    <!-- ===================== OUR SPACE ===================== -->
-    <section class="section space-section" id="space" aria-labelledby="spaceTitle">
-      <div class="container space-layout">
-        <figure class="space-image">
-          <img src="assets/img/interior.jpg" width="1200" height="900"
-               alt="Inside Bereket: wooden slat benches and tables, marble floor and feature wall, a green ivy wall and the Bereket logo"
-               loading="lazy" decoding="async" />
-        </figure>
-        <div class="space-copy">
-          <p class="section-label" data-i18n="space.label">Our Space</p>
-          <h2 id="spaceTitle" data-i18n="space.title">A bright, clean place to slow down.</h2>
-          <p data-i18n="space.text1">Warm wood benches, cool marble and a living green ivy wall — our shop is made for catching up with friends, a quick healthy break or a relaxed afternoon.</p>
-          <p data-i18n="space.text2">Sit in and watch your juice being made, or grab it to go.</p>
-          <a href="#contact" class="btn btn-ghost" data-i18n="space.cta">Plan your visit</a>
-        </div>
-      </div>
-    </section>
+    <!-- =======================================================
+         BOOKING
+    ======================================================== -->
 
-    <!-- ===================== WHY BEREKET ===================== -->
-    <section class="section" id="why" aria-labelledby="whyTitle">
+    <section class="booking-section" id="booking" aria-labelledby="booking-title">
+
       <div class="container">
-        <div class="section-heading center">
-          <p class="section-label" data-i18n="why.label">Why Bereket</p>
-          <h2 id="whyTitle" data-i18n="why.title">Simple, honest and fresh.</h2>
-        </div>
-        <div class="experience-grid">
-          <article class="experience-card glass">
-            <div class="experience-icon" aria-hidden="true">🥭</div>
-            <h3 data-i18n="why.fresh.title">Fresh fruit</h3>
-            <p data-i18n="why.fresh.text">Ripe, seasonal fruit bought fresh and prepared every day.</p>
-          </article>
-          <article class="experience-card glass">
-            <div class="experience-icon" aria-hidden="true">🍃</div>
-            <h3 data-i18n="why.sugar.title">No added sugar</h3>
-            <p data-i18n="why.sugar.text">Just the natural sweetness of the fruit — nothing artificial.</p>
-          </article>
-          <article class="experience-card glass">
-            <div class="experience-icon" aria-hidden="true">🥤</div>
-            <h3 data-i18n="why.made.title">Made to order</h3>
-            <p data-i18n="why.made.text">Your juice, smoothie or salad is made the moment you order it.</p>
-          </article>
-          <article class="experience-card glass">
-            <div class="experience-icon" aria-hidden="true">✨</div>
-            <h3 data-i18n="why.clean.title">Clean space</h3>
-            <p data-i18n="why.clean.text">A spotless kitchen and a comfortable, welcoming shop.</p>
-          </article>
-        </div>
-      </div>
-    </section>
 
-    <!-- ===================== CONTACT / VISIT US ===================== -->
-    <section class="section contact-section" id="contact" aria-labelledby="contactTitle">
-      <div class="container">
-        <div class="section-heading center">
-          <p class="section-label" data-i18n="contact.label">Visit Us</p>
-          <h2 id="contactTitle" data-i18n="contact.title">Come by or send us your order.</h2>
-        </div>
+        <div class="booking-box glass reveal">
 
-        <div class="contact-layout">
-          <div class="contact-info glass">
-            <h3 data-i18n="contact.infoTitle">Bereket Juice &amp; Salad</h3>
-            <dl class="info-list">
-              <div>
-                <dt data-i18n="contact.address">Address</dt>
-                <dd>Hawassa, Sidama, Ethiopia</dd>
-              </div>
-              <div>
-                <dt data-i18n="contact.phone">Phone</dt>
-                <!-- TODO: replace with the real business phone number (also in the JSON-LD above) -->
-                <dd><a href="tel:+251900000000">+251 900 000 000</a></dd>
-              </div>
-              <div>
-                <dt data-i18n="contact.email">Email</dt>
-                <dd><a class="js-email" href="#contact" data-user="alazarsisay145" data-domain="gmail.com">alazarsisay145 [at] gmail [dot] com</a></dd>
-              </div>
-              <div>
-                <dt data-i18n="contact.hours">Hours</dt>
-                <dd data-i18n="contact.hoursValue">Every day, 7:00 AM – 10:00 PM</dd>
-              </div>
-            </dl>
+          <div class="section-heading">
 
-            <ul class="social-links" aria-label="Social media">
-              <li><a href="https://www.instagram.com/bereketjuice/" target="_blank" rel="noopener noreferrer">Instagram <span class="handle">@bereketjuice</span></a></li>
-              <li><a href="https://www.tiktok.com/@bereketjuice" target="_blank" rel="noopener noreferrer">TikTok <span class="handle">@bereketjuice</span></a></li>
-            </ul>
-
-            <div class="map-placeholder">
-              <!-- Map placeholder: replace this block with a Google Maps <iframe loading="lazy"> embed of the shop's exact location. -->
-              <img src="assets/img/logo.png" width="64" height="64" alt="" loading="lazy" decoding="async" />
-              <p data-i18n="contact.mapText">Find us in Hawassa</p>
-              <a href="https://www.google.com/maps/search/?api=1&amp;query=Bereket+Juice+%26+Salad+Hawassa" target="_blank" rel="noopener noreferrer" data-i18n="contact.mapLink">Open in Google Maps</a>
+            <div class="section-label" data-i18n="booking.label">
+              Plan Your Stay
             </div>
+
+            <h2 id="booking-title" data-i18n="booking.title">
+              Book your experience.
+            </h2>
+
+            <p data-i18n="booking.text">
+              Send us a booking request and our team will confirm availability by email or phone.
+            </p>
+
           </div>
 
-          <!-- Contact / Order enquiry form (Formspree — see FORMSPREE_ENDPOINT in assets/js/main.js) -->
-          <div class="order-box glass" id="order">
-            <h3 data-i18n="form.title">Contact / Order enquiry</h3>
-            <p class="form-intro" data-i18n="form.intro">Send us a message or an order for dine-in, takeaway or delivery and we'll get back to you.</p>
+          <form
+            id="bookingForm"
+            action="https://formspree.io/f/YOUR_FORM_ID"
+            method="POST"
+          >
 
-            <form id="orderForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" novalidate>
-              <input type="hidden" name="_subject" value="New enquiry — Bereket Juice &amp; Salad website" />
-              <input type="hidden" name="_replyto" id="replyTo" value="" />
-              <div class="honeypot" aria-hidden="true">
-                <label for="gotcha">Leave this field empty</label>
-                <input type="text" id="gotcha" name="_gotcha" tabindex="-1" autocomplete="off" />
+            <input type="hidden" name="_subject" value="New booking request — Habesha Haven" />
+
+            <!-- Spam honeypot (leave empty) -->
+            <div class="visually-hidden" aria-hidden="true">
+              <label for="website">Website</label>
+              <input id="website" type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <div class="booking-grid">
+
+              <div class="field">
+                <label for="name" data-i18n="booking.name">Full Name *</label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  autocomplete="name"
+                  placeholder="Your name"
+                  data-i18n-attr="placeholder:booking.namePlaceholder"
+                  aria-describedby="name-error"
+                />
+                <p class="field-error" id="name-error" hidden></p>
               </div>
 
-              <div class="form-grid">
-                <div class="field">
-                  <label for="name"><span data-i18n="form.name">Full name</span> <span aria-hidden="true">*</span></label>
-                  <input id="name" name="name" type="text" autocomplete="name" required aria-describedby="name-error" />
-                  <p class="field-error" id="name-error"></p>
-                </div>
-
-                <div class="field">
-                  <label for="email"><span data-i18n="form.email">Email</span> <span aria-hidden="true">*</span></label>
-                  <input id="email" name="email" type="email" autocomplete="email" required aria-describedby="email-error" />
-                  <p class="field-error" id="email-error"></p>
-                </div>
-
-                <div class="field">
-                  <label for="phone"><span data-i18n="form.phone">Phone</span> <span aria-hidden="true">*</span></label>
-                  <input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required pattern="[+0-9 ()\-]{7,20}" aria-describedby="phone-error" />
-                  <p class="field-error" id="phone-error"></p>
-                </div>
-
-                <div class="field">
-                  <label for="orderType"><span data-i18n="form.orderType">Order type</span> <span aria-hidden="true">*</span></label>
-                  <select id="orderType" name="order_type" required aria-describedby="orderType-error">
-                    <option value="" data-i18n="form.choose">Choose…</option>
-                    <option value="Dine-in" data-i18n="form.dineIn">Dine-in</option>
-                    <option value="Takeaway" data-i18n="form.takeaway">Takeaway</option>
-                    <option value="Delivery" data-i18n="form.delivery">Delivery</option>
-                  </select>
-                  <p class="field-error" id="orderType-error"></p>
-                </div>
-
-                <div class="field field-full">
-                  <label for="message"><span data-i18n="form.message">Message / order details</span> <span aria-hidden="true">*</span></label>
-                  <textarea id="message" name="message" rows="5" required aria-describedby="message-error"></textarea>
-                  <p class="field-error" id="message-error"></p>
-                </div>
-
-                <div class="field-full form-actions">
-                  <button class="btn btn-primary" type="submit" id="submitBtn" data-i18n="form.submit">Send enquiry</button>
-                  <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
-                </div>
+              <div class="field">
+                <label for="email" data-i18n="booking.email">Email *</label>
+                <input
+                  id="email"
+                  type="email"
+                  name="email"
+                  required
+                  autocomplete="email"
+                  placeholder="you@example.com"
+                  aria-describedby="email-error"
+                />
+                <p class="field-error" id="email-error" hidden></p>
               </div>
-            </form>
-          </div>
+
+              <div class="field">
+                <label for="phone" data-i18n="booking.phone">Phone *</label>
+                <input
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  required
+                  autocomplete="tel"
+                  placeholder="+251 ..."
+                  aria-describedby="phone-error"
+                />
+                <p class="field-error" id="phone-error" hidden></p>
+              </div>
+
+              <div class="field">
+                <label for="guests" data-i18n="booking.guests">Guests</label>
+                <select id="guests" name="guests" required aria-describedby="guests-error">
+                  <option value="1" data-i18n="booking.guests1">1 Guest</option>
+                  <option value="2" selected data-i18n="booking.guests2">2 Guests</option>
+                  <option value="3" data-i18n="booking.guests3">3 Guests</option>
+                  <option value="4" data-i18n="booking.guests4">4 Guests</option>
+                  <option value="5" data-i18n="booking.guests5">5+ Guests</option>
+                </select>
+                <p class="field-error" id="guests-error" hidden></p>
+              </div>
+
+              <div class="field">
+                <label for="checkin" data-i18n="booking.checkin">Check-in *</label>
+                <input
+                  id="checkin"
+                  name="checkin"
+                  type="date"
+                  required
+                  aria-describedby="checkin-error"
+                />
+                <p class="field-error" id="checkin-error" hidden></p>
+              </div>
+
+              <div class="field">
+                <label for="checkout" data-i18n="booking.checkout">Check-out *</label>
+                <input
+                  id="checkout"
+                  name="checkout"
+                  type="date"
+                  required
+                  aria-describedby="checkout-error"
+                />
+                <p class="field-error" id="checkout-error" hidden></p>
+              </div>
+
+              <div class="field">
+                <label for="room" data-i18n="booking.room">Room Type</label>
+                <select id="room" name="room">
+                  <option value="Haven Deluxe">Haven Deluxe — ETB 2,450</option>
+                  <option value="Garden Suite">Garden Suite — ETB 3,800</option>
+                  <option value="Executive Room">Executive Room — ETB 4,900</option>
+                </select>
+              </div>
+
+              <div class="field">
+                <label for="requests" data-i18n="booking.requests">Special Requests</label>
+                <input
+                  id="requests"
+                  name="requests"
+                  type="text"
+                  maxlength="500"
+                  placeholder="Optional"
+                  data-i18n-attr="placeholder:booking.optional"
+                />
+              </div>
+
+              <div class="booking-full">
+
+                <button
+                  class="primary-btn"
+                  type="submit"
+                  id="bookingSubmit"
+                  data-i18n="booking.submit"
+                >
+                  Send Booking Request →
+                </button>
+
+                <div
+                  class="booking-result"
+                  id="bookingResult"
+                  role="status"
+                  aria-live="polite"
+                  tabindex="-1"
+                ></div>
+
+                <p class="form-note" data-i18n="booking.note">
+                  Fields marked * are required. No payment is taken online — our team will confirm your reservation directly.
+                </p>
+
+              </div>
+
+            </div>
+
+          </form>
+
         </div>
+
       </div>
+
     </section>
+
+    <!-- =======================================================
+         CTA
+    ======================================================== -->
+
+    <section class="cta" aria-labelledby="cta-title">
+
+      <div class="container">
+
+        <div class="cta-box reveal">
+
+          <div class="section-label">
+            Habesha Haven
+          </div>
+
+          <h2 id="cta-title" data-i18n="cta.title">
+            A place to stay. A place to connect.
+          </h2>
+
+          <p data-i18n="cta.text">
+            Experience modern comfort with the warmth of Ethiopian hospitality.
+          </p>
+
+          <div class="hero-buttons">
+
+            <a href="#booking" class="secondary-btn" data-i18n="cta.planStay">
+              Plan Your Stay
+            </a>
+
+            <a href="#menu" class="secondary-btn" data-i18n="cta.menu">
+              View Café Menu
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
   </main>
 
-  <!-- ===================== FOOTER ===================== -->
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      <div>
-        <a href="#home" class="logo" aria-label="Bereket Juice &amp; Salad — back to top">
-          <img class="logo-mark" src="assets/img/logo.png" width="48" height="48" alt="" loading="lazy" decoding="async" />
-          <span class="logo-text">
-            <strong>Bereket</strong>
-            <span data-i18n="brand.tagline">Juice &amp; Salad</span>
-          </span>
-        </a>
-        <p class="footer-description" data-i18n="footer.text">Fresh juices, smoothies and fruit salads, made to order in Hawassa.</p>
+  <!-- =========================================================
+       FOOTER
+  ========================================================== -->
+
+  <footer id="contact">
+
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <div>
+
+          <a href="#home" class="logo">
+
+            <span class="logo-mark" aria-hidden="true">
+              HH
+            </span>
+
+            <span class="logo-text">
+
+              <strong>
+                Habesha Haven
+              </strong>
+
+              <span data-i18n="brand.tagline">
+                Hotel &amp; Café
+              </span>
+
+            </span>
+
+          </a>
+
+          <p class="footer-description" data-i18n="footer.text">
+            A premium Ethiopian hotel and café focused on comfort,
+            culture and hospitality.
+          </p>
+
+        </div>
+
+        <nav class="footer-column" aria-labelledby="footer-explore">
+
+          <h2 id="footer-explore" data-i18n="footer.explore">Explore</h2>
+
+          <a href="#rooms" data-i18n="nav.rooms">Rooms</a>
+          <a href="#menu" data-i18n="footer.menu">Menu</a>
+          <a href="#booking" data-i18n="nav.booking">Booking</a>
+          <a href="#contact" data-i18n="nav.contact">Contact</a>
+
+        </nav>
+
+        <div class="footer-column">
+
+          <h2 data-i18n="footer.contact">Contact</h2>
+
+          <address>
+            <p><span aria-hidden="true">📍</span> <span data-i18n="footer.country">Ethiopia</span></p>
+            <a href="tel:+251110000000"><span aria-hidden="true">☎</span> +251&nbsp;11&nbsp;000&nbsp;0000</a>
+            <a href="mailto:hello@habeshahaven.com"><span aria-hidden="true">✉</span> hello@habeshahaven.com</a>
+          </address>
+
+        </div>
+
+        <div class="footer-column">
+
+          <h2 data-i18n="footer.hours">Hours</h2>
+
+          <p data-i18n="footer.hours.cafe">Café: 7:00 AM – 10:00 PM</p>
+          <p data-i18n="footer.hours.hotel">Hotel: 24/7</p>
+          <p data-i18n="footer.hours.days">Open every day</p>
+
+        </div>
+
       </div>
 
-      <nav class="footer-column" aria-label="Footer">
-        <h2 class="footer-heading" data-i18n="footer.explore">Explore</h2>
-        <a href="#menu" data-i18n="nav.menu">Menu</a>
-        <a href="#space" data-i18n="nav.space">Our Space</a>
-        <a href="#why" data-i18n="nav.why">Why Bereket</a>
-        <a href="#order" data-i18n="cta.order">Order Now</a>
-      </nav>
+      <div class="footer-bottom">
 
-      <div class="footer-column">
-        <h2 class="footer-heading" data-i18n="footer.contact">Contact</h2>
-        <p>Hawassa, Sidama, Ethiopia</p>
-        <p><a href="tel:+251900000000">+251 900 000 000</a></p>
-        <p><a class="js-email" href="#contact" data-user="alazarsisay145" data-domain="gmail.com">alazarsisay145 [at] gmail [dot] com</a></p>
-        <p><a href="https://www.instagram.com/bereketjuice/" target="_blank" rel="noopener noreferrer">Instagram @bereketjuice</a></p>
-        <p><a href="https://www.tiktok.com/@bereketjuice" target="_blank" rel="noopener noreferrer">TikTok @bereketjuice</a></p>
+        <span>
+          © <span id="year">2026</span> Habesha Haven. <span data-i18n="footer.rights">All rights reserved.</span>
+        </span>
+
+        <span data-i18n="footer.made">
+          Ethiopian hospitality, every day.
+        </span>
+
       </div>
 
-      <div class="footer-column">
-        <h2 class="footer-heading" data-i18n="contact.hours">Hours</h2>
-        <p data-i18n="contact.hoursValue">Every day, 7:00 AM – 10:00 PM</p>
-      </div>
     </div>
 
-    <div class="container footer-bottom">
-      <p>© <span id="year">2026</span> Bereket Juice &amp; Salad. <span data-i18n="footer.rights">All rights reserved.</span></p>
-    </div>
   </footer>
 
-  <!-- ===================== CART (dialog) ===================== -->
-  <div class="cart-backdrop" id="cartBackdrop" hidden></div>
-  <aside class="cart-panel" id="cartPanel" role="dialog" aria-modal="true" aria-labelledby="cartTitle" hidden>
+  <!-- =========================================================
+       CART
+  ========================================================== -->
+
+  <div
+    class="cart-panel"
+    id="cartPanel"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="cartTitle"
+    data-requires-js
+  >
+
     <div class="cart-header">
-      <h2 id="cartTitle" data-i18n="cart.title">Your Order</h2>
-      <button type="button" class="icon-btn" id="closeCart" aria-label="Close your order" data-i18n-aria-label="cart.close">✕</button>
+
+      <div>
+        <div class="section-label" data-i18n="cart.label">
+          Café
+        </div>
+
+        <h2 id="cartTitle" data-i18n="cart.title">Your Order</h2>
+      </div>
+
+      <button
+        type="button"
+        class="close-btn"
+        id="closeCart"
+        aria-label="Close order"
+        data-i18n-attr="aria-label:cart.close"
+      >
+        <span aria-hidden="true">✕</span>
+      </button>
+
     </div>
-    <div class="cart-items" id="cartItems"></div>
+
+    <ul class="cart-items" id="cartItems"></ul>
+
     <div class="cart-total">
-      <span data-i18n="cart.total">Total</span>
-      <strong id="cartTotal">ETB 0</strong>
+
+      <span data-i18n="cart.subtotal">Subtotal</span>
+
+      <span id="cartTotal">
+        ETB 0
+      </span>
+
     </div>
-    <button type="button" class="btn btn-primary cart-checkout" id="checkoutBtn" data-i18n="cart.checkout">Continue to order form</button>
-    <button type="button" class="btn btn-ghost cart-clear" id="clearCart" data-i18n="cart.clear">Clear order</button>
-  </aside>
+
+    <a
+      class="primary-btn cart-checkout"
+      id="checkoutBtn"
+      href="#menu"
+      rel="noopener noreferrer"
+      data-i18n="cart.checkout"
+    >
+      Send Order
+    </a>
+
+    <p class="form-note" data-i18n="cart.note">
+      Your order is sent directly to our café team. Pay on pickup or at your table.
+    </p>
+
+  </div>
+
+  <!-- =========================================================
+       MODAL
+  ========================================================== -->
+
+  <div class="modal" id="modal" data-requires-js>
+
+    <div
+      class="modal-box"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalTitle"
+    >
+
+      <div class="modal-header">
+
+        <div id="modalContent"></div>
+
+        <button
+          type="button"
+          class="close-btn"
+          id="modalClose"
+          aria-label="Close"
+          data-i18n-attr="aria-label:modal.close"
+        >
+          <span aria-hidden="true">✕</span>
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <p class="visually-hidden" id="liveRegion" role="status" aria-live="polite"></p>
+
 </body>
 </html>

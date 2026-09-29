@@ -1,4 +1,19 @@
+# Dependencies
 node_modules/
+
+# Build / deploy staging
 _site/
+
+# Lighthouse & test reports
+.lighthouseci/
+*.report.html
+*.report.json
+
+# Logs
+npm-debug.log*
+
+# OS / editor files
 .DS_Store
-*.log
+Thumbs.db
+.vscode/
+.idea/

@@ -1,11 +1,12 @@
 {
-  "name": "bereketweb",
+  "name": "habesha-haven",
   "version": "1.0.0",
-  "description": "Bereket Juice & Salad — fresh juices, smoothies and fruit salads in Hawassa, Ethiopia.",
+  "description": "Habesha Haven — Ethiopian hotel & café static website.",
   "private": true,
   "scripts": {
-    "start": "npx --yes serve .",
-    "test": "node test/smoke.test.js"
+    "start": "npx --yes serve@14 .",
+    "test": "node test/smoke.test.js",
+    "lint:html": "npx --yes html-validate@9.7.1 index.html 404.html"
   },
   "repository": {
     "type": "git",

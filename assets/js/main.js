@@ -1,754 +1,1163 @@
 /* ==========================================================================
-   Bereket Juice & Salad — main script
-   Menu (filter + search) · cart (localStorage) · EN/አማርኛ · order form
+   Habesha Haven — Hotel & Café
+   Navigation · language switcher · menu filtering · cart · booking form
    ========================================================================== */
-
-/* --------------------------------------------------------------------------
-   FORM ENDPOINT
-   Create a form at https://formspree.io for alazarsisay145@gmail.com and
-   replace YOUR_FORM_ID with the real form ID (e.g. "https://formspree.io/f/abcdwxyz").
-   -------------------------------------------------------------------------- */
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
-
-/* --------------------------------------------------------------------------
-   MENU_ITEMS — the whole menu lives in this one array.
-
-   HOW TO ADD A MENU ITEM
-   1. Save the photo in  assets/img/menu/  (e.g. assets/img/menu/papaya-juice.jpg).
-      A roughly 4:3 landscape photo, ~800px wide, works best.
-   2. Append ONE object to the array below:
-
-        {
-          id: "papaya-juice",                    // unique, lowercase, no spaces
-          name: "Papaya Juice",
-          description: "Fresh papaya with a squeeze of lime.",
-          price: 120,                            // in ETB, numbers only
-          category: "juices",                    // juices | smoothies | salads | combos | specials
-          image: "assets/img/menu/papaya-juice.jpg"
-        },
-
-   That's it — no other code changes needed. Leave `image: ""` if there is no
-   photo yet; a branded Bereket placeholder tile is shown instead.
-   -------------------------------------------------------------------------- */
-const MENU_ITEMS = [
-  {
-    id: "avocado-juice",
-    name: "Avocado Juice",
-    description: "Thick, creamy avocado blended fresh to order.",
-    price: 130,
-    category: "juices",
-    image: ""
-  },
-  {
-    id: "mango-juice",
-    name: "Mango Juice",
-    description: "Ripe, sweet mango — nothing added, nothing removed.",
-    price: 140,
-    category: "juices",
-    image: ""
-  },
-  {
-    id: "layered-mixed-juice",
-    name: "Layered Mixed Juice",
-    description: "Our signature layers of mango, avocado and strawberry in one glass.",
-    price: 185,
-    category: "specials",
-    image: ""
-  },
-  {
-    id: "fresh-fruit-salad",
-    name: "Fresh Fruit Salad",
-    description: "Watermelon, mango, avocado and pineapple, cut fresh.",
-    price: 200,
-    category: "salads",
-    image: ""
-  }
-  // ↑ Add new items above this line (remember the comma after the previous item).
-];
-
 (function () {
-  "use strict";
-
-  const CURRENCY = "ETB";
-  const CART_KEY = "bereketCart";
-  const LANG_KEY = "bereketLang";
-  const LOGO_SRC = "assets/img/logo.png";
+  'use strict';
 
   /* ------------------------------------------------------------------
-     Translations (EN / አማርኛ)
+     CONFIG — update these values before going live (see README.md).
   ------------------------------------------------------------------ */
-  const I18N = {
-    en: {
-      "skip": "Skip to main content",
-      "brand.tagline": "Juice & Salad",
-      "nav.menu": "Menu",
-      "nav.space": "Our Space",
-      "nav.why": "Why Bereket",
-      "nav.contact": "Visit Us",
-      "nav.open": "Open navigation",
-      "nav.close": "Close navigation",
-      "lang.switch": "Switch language to Amharic",
-      "cta.order": "Order Now",
-      "cta.viewMenu": "View Menu",
-      "hero.eyebrow": "Fresh every day · Hawassa",
-      "hero.tagline": "Juice & Salad",
-      "hero.text": "Fresh juices, smoothies and fruit salads — pressed, blended and cut to order from real fruit.",
-      "menu.label": "Our Menu",
-      "menu.title": "Fresh from the fruit to your glass.",
-      "menu.text": "Every drink and salad is made when you order it.",
-      "menu.searchLabel": "Search the menu",
-      "menu.searchPlaceholder": "Search the menu…",
-      "menu.filterLabel": "Filter menu by category",
-      "menu.add": "+ Add to order",
-      "menu.emptyTitle": "Nothing here yet.",
-      "menu.emptyText": "New items are coming soon — try another category or search.",
-      "menu.count": "{n} menu items shown",
-      "menu.photoSoon": "Photo coming soon",
-      "cat.all": "All",
-      "cat.juices": "Juices",
-      "cat.smoothies": "Smoothies",
-      "cat.salads": "Salads",
-      "cat.combos": "Combos",
-      "cat.specials": "Specials",
-      "space.label": "Our Space",
-      "space.title": "A bright, clean place to slow down.",
-      "space.text1": "Warm wood benches, cool marble and a living green ivy wall — our shop is made for catching up with friends, a quick healthy break or a relaxed afternoon.",
-      "space.text2": "Sit in and watch your juice being made, or grab it to go.",
-      "space.cta": "Plan your visit",
-      "why.label": "Why Bereket",
-      "why.title": "Simple, honest and fresh.",
-      "why.fresh.title": "Fresh fruit",
-      "why.fresh.text": "Ripe, seasonal fruit bought fresh and prepared every day.",
-      "why.sugar.title": "No added sugar",
-      "why.sugar.text": "Just the natural sweetness of the fruit — nothing artificial.",
-      "why.made.title": "Made to order",
-      "why.made.text": "Your juice, smoothie or salad is made the moment you order it.",
-      "why.clean.title": "Clean space",
-      "why.clean.text": "A spotless kitchen and a comfortable, welcoming shop.",
-      "contact.label": "Visit Us",
-      "contact.title": "Come by or send us your order.",
-      "contact.infoTitle": "Bereket Juice & Salad",
-      "contact.address": "Address",
-      "contact.phone": "Phone",
-      "contact.email": "Email",
-      "contact.hours": "Hours",
-      "contact.hoursValue": "Every day, 7:00 AM – 10:00 PM",
-      "contact.mapText": "Find us in Hawassa",
-      "contact.mapLink": "Open in Google Maps",
-      "form.title": "Contact / Order enquiry",
-      "form.intro": "Send us a message or an order for dine-in, takeaway or delivery and we'll get back to you.",
-      "form.name": "Full name",
-      "form.email": "Email",
-      "form.phone": "Phone",
-      "form.orderType": "Order type",
-      "form.choose": "Choose…",
-      "form.dineIn": "Dine-in",
-      "form.takeaway": "Takeaway",
-      "form.delivery": "Delivery",
-      "form.message": "Message / order details",
-      "form.submit": "Send enquiry",
-      "form.sending": "Sending…",
-      "form.success": "Thank you! Your message has been sent — we'll get back to you soon.",
-      "form.error": "Sorry, something went wrong. Please try again or call us.",
-      "form.notConfigured": "Online enquiries are not connected yet — please call or email us directly.",
-      "form.fixErrors": "Please fix the highlighted fields.",
-      "err.name": "Please enter your name.",
-      "err.email": "Please enter a valid email address.",
-      "err.phone": "Please enter a valid phone number.",
-      "err.orderType": "Please choose an order type.",
-      "err.message": "Please add a message or your order details.",
-      "footer.text": "Fresh juices, smoothies and fruit salads, made to order in Hawassa.",
-      "footer.explore": "Explore",
-      "footer.contact": "Contact",
-      "footer.rights": "All rights reserved.",
-      "cart.title": "Your Order",
-      "cart.open": "Open your order ({n} items)",
-      "cart.close": "Close your order",
-      "cart.total": "Total",
-      "cart.checkout": "Continue to order form",
-      "cart.clear": "Clear order",
-      "cart.empty": "Your order is empty.",
-      "cart.emptyHint": "Add something fresh from the menu.",
-      "cart.decrease": "Remove one {name}",
-      "cart.increase": "Add one more {name}",
-      "cart.orderIntro": "I'd like to order:",
-      "cart.added": "{name} added to your order."
-    },
-    am: {
-      "skip": "ወደ ዋናው ይዘት ይሂዱ",
-      "brand.tagline": "ጁስ እና ሰላጣ",
-      "nav.menu": "ምናሌ",
-      "nav.space": "ቦታችን",
-      "nav.why": "ለምን በረከት",
-      "nav.contact": "ይጎብኙን",
-      "nav.open": "ማውጫውን ክፈት",
-      "nav.close": "ማውጫውን ዝጋ",
-      "lang.switch": "ቋንቋውን ወደ እንግሊዝኛ ቀይር",
-      "cta.order": "አሁን ይዘዙ",
-      "cta.viewMenu": "ምናሌውን ይመልከቱ",
-      "hero.eyebrow": "በየቀኑ ትኩስ · ሀዋሳ",
-      "hero.tagline": "ጁስ እና ሰላጣ",
-      "hero.text": "ትኩስ ጁሶች፣ ስሞዚዎች እና የፍራፍሬ ሰላጣዎች — ከእውነተኛ ፍራፍሬ በትዕዛዝዎ የሚዘጋጁ።",
-      "menu.label": "ምናሌያችን",
-      "menu.title": "ከፍራፍሬው በቀጥታ ወደ ብርጭቆዎ።",
-      "menu.text": "እያንዳንዱ መጠጥና ሰላጣ በሚያዙበት ጊዜ ይዘጋጃል።",
-      "menu.searchLabel": "ምናሌውን ይፈልጉ",
-      "menu.searchPlaceholder": "ምናሌውን ይፈልጉ…",
-      "menu.filterLabel": "ምናሌውን በምድብ አጣራ",
-      "menu.add": "+ ወደ ትዕዛዝ ጨምር",
-      "menu.emptyTitle": "እስካሁን ምንም የለም።",
-      "menu.emptyText": "አዳዲስ ምግቦች በቅርቡ ይመጣሉ — ሌላ ምድብ ወይም ፍለጋ ይሞክሩ።",
-      "menu.count": "{n} የምናሌ ዝርዝሮች ታይተዋል",
-      "menu.photoSoon": "ፎቶ በቅርቡ",
-      "cat.all": "ሁሉም",
-      "cat.juices": "ጁሶች",
-      "cat.smoothies": "ስሞዚዎች",
-      "cat.salads": "ሰላጣዎች",
-      "cat.combos": "ጥምሮች",
-      "cat.specials": "ልዩ",
-      "space.label": "ቦታችን",
-      "space.title": "ንጹህና ብሩህ የእረፍት ቦታ።",
-      "space.text1": "ሞቃታማ የእንጨት መቀመጫዎች፣ ቀዝቃዛ እብነበረድ እና ሕያው አረንጓዴ ግድግዳ — ከጓደኞች ጋር ለመገናኘት፣ ለጤናማ እረፍት ወይም ለተረጋጋ ከሰዓት የተዘጋጀ።",
-      "space.text2": "ተቀምጠው ጁስዎ ሲዘጋጅ ይመልከቱ፣ ወይም ይዘው ይሂዱ።",
-      "space.cta": "ጉብኝትዎን ያቅዱ",
-      "why.label": "ለምን በረከት",
-      "why.title": "ቀላል፣ ታማኝ እና ትኩስ።",
-      "why.fresh.title": "ትኩስ ፍራፍሬ",
-      "why.fresh.text": "የበሰለ ወቅታዊ ፍራፍሬ በየቀኑ ተገዝቶ ይዘጋጃል።",
-      "why.sugar.title": "ስኳር አልተጨመረም",
-      "why.sugar.text": "የፍራፍሬው ተፈጥሯዊ ጣፋጭነት ብቻ — ምንም ሰው ሰራሽ ነገር የለም።",
-      "why.made.title": "በትዕዛዝ የሚዘጋጅ",
-      "why.made.text": "ጁስዎ፣ ስሞዚዎ ወይም ሰላጣዎ ባዘዙበት ቅጽበት ይዘጋጃል።",
-      "why.clean.title": "ንጹህ ቦታ",
-      "why.clean.text": "ንጹህ ማዕድ ቤት እና ምቹ፣ እንግዳ ተቀባይ ሱቅ።",
-      "contact.label": "ይጎብኙን",
-      "contact.title": "ይምጡ ወይም ትዕዛዝዎን ይላኩልን።",
-      "contact.infoTitle": "በረከት ጁስ እና ሰላጣ",
-      "contact.address": "አድራሻ",
-      "contact.phone": "ስልክ",
-      "contact.email": "ኢሜይል",
-      "contact.hours": "የሥራ ሰዓት",
-      "contact.hoursValue": "በየቀኑ፣ ከጠዋቱ 1:00 – ምሽት 4:00",
-      "contact.mapText": "በሀዋሳ ያገኙናል",
-      "contact.mapLink": "በጎግል ካርታ ይክፈቱ",
-      "form.title": "መልእክት / የትዕዛዝ ጥያቄ",
-      "form.intro": "ለመመገቢያ፣ ይዞ ለመሄድ ወይም ለማድረስ መልእክት ወይም ትዕዛዝ ይላኩልን፣ በቅርቡ እንመልስልዎታለን።",
-      "form.name": "ሙሉ ስም",
-      "form.email": "ኢሜይል",
-      "form.phone": "ስልክ",
-      "form.orderType": "የትዕዛዝ አይነት",
-      "form.choose": "ይምረጡ…",
-      "form.dineIn": "እዚሁ መመገብ",
-      "form.takeaway": "ይዞ መሄድ",
-      "form.delivery": "ማድረስ",
-      "form.message": "መልእክት / የትዕዛዝ ዝርዝር",
-      "form.submit": "ላክ",
-      "form.sending": "በመላክ ላይ…",
-      "form.success": "እናመሰግናለን! መልእክትዎ ተልኳል — በቅርቡ እንመልስልዎታለን።",
-      "form.error": "ይቅርታ፣ ችግር ተፈጥሯል። እባክዎ እንደገና ይሞክሩ ወይም ይደውሉልን።",
-      "form.notConfigured": "የመስመር ላይ ቅጹ ገና አልተገናኘም — እባክዎ በቀጥታ ይደውሉ ወይም ኢሜይል ያድርጉ።",
-      "form.fixErrors": "እባክዎ የተመለከቱትን መስኮች ያስተካክሉ።",
-      "err.name": "እባክዎ ስምዎን ያስገቡ።",
-      "err.email": "እባክዎ ትክክለኛ ኢሜይል ያስገቡ።",
-      "err.phone": "እባክዎ ትክክለኛ ስልክ ቁጥር ያስገቡ።",
-      "err.orderType": "እባክዎ የትዕዛዝ አይነት ይምረጡ።",
-      "err.message": "እባክዎ መልእክት ወይም የትዕዛዝ ዝርዝር ያስገቡ።",
-      "footer.text": "ትኩስ ጁሶች፣ ስሞዚዎች እና የፍራፍሬ ሰላጣዎች — በሀዋሳ በትዕዛዝ የሚዘጋጁ።",
-      "footer.explore": "ያስሱ",
-      "footer.contact": "አድራሻ",
-      "footer.rights": "መብቱ በሕግ የተጠበቀ ነው።",
-      "cart.title": "ትዕዛዝዎ",
-      "cart.open": "ትዕዛዝዎን ክፈት ({n} እቃዎች)",
-      "cart.close": "ትዕዛዝዎን ዝጋ",
-      "cart.total": "ድምር",
-      "cart.checkout": "ወደ ትዕዛዝ ቅጹ ይቀጥሉ",
-      "cart.clear": "ትዕዛዙን አጽዳ",
-      "cart.empty": "ትዕዛዝዎ ባዶ ነው።",
-      "cart.emptyHint": "ከምናሌው ትኩስ ነገር ይጨምሩ።",
-      "cart.decrease": "አንድ {name} ቀንስ",
-      "cart.increase": "አንድ ተጨማሪ {name} ጨምር",
-      "cart.orderIntro": "ማዘዝ የምፈልገው:",
-      "cart.added": "{name} ወደ ትዕዛዝዎ ተጨምሯል።"
+  const CONFIG = {
+    // Form backend that receives booking requests (Formspree, Getform, Basin…).
+    // Create a form at https://formspree.io and replace YOUR_FORM_ID. Keep the
+    // `action` attribute of #bookingForm in index.html in sync (used without JS).
+    bookingEndpoint: 'https://formspree.io/f/YOUR_FORM_ID',
+
+    // WhatsApp number that receives café orders: country code + number,
+    // digits only (e.g. '2519XXXXXXXX'). Leave empty to send orders by email.
+    whatsappNumber: '',
+
+    orderEmail: 'hello@habeshahaven.com',
+    contactPhone: '+251 11 000 0000',
+    contactEmail: 'hello@habeshahaven.com',
+    currency: 'ETB',
+    searchDebounceMs: 200,
+    storageKeys: {
+      cart: 'habeshaCart',
+      language: 'habeshaLanguage'
     }
   };
 
-  let lang = readStorage(LANG_KEY) === "am" ? "am" : "en";
+  /* ------------------------------------------------------------------
+     TRANSLATIONS
+     English copy for [data-i18n] elements is read from index.html, so the
+     `en` dictionary only needs strings generated by this script.
+  ------------------------------------------------------------------ */
+  const I18N = {
+    en: {
+      'doc.title': 'Habesha Haven | Hotel & Café',
+      'lang.switch': 'EN: switch language to Amharic (አማርኛ)',
+      'nav.open': 'Open navigation',
+      'nav.close': 'Close navigation',
+      'cart.open': 'Open order ({count} items)',
+      'cart.empty.title': 'Your order is empty.',
+      'cart.empty.text': 'Add something delicious from the menu.',
+      'cart.decrease': 'Decrease quantity of {name}',
+      'cart.increase': 'Increase quantity of {name}',
+      'cart.remove': 'Remove',
+      'cart.removeLabel': 'Remove {name} from order',
+      'cart.qty': 'Quantity',
+      'cart.added': '{name} added to your order.',
+      'cart.removed': '{name} removed from your order.',
+      'cart.emptyModal.label': 'Café',
+      'cart.emptyModal.title': 'Your order is empty',
+      'cart.emptyModal.text': 'Add menu items before sending an order.',
+      'cart.continue': 'Continue browsing',
+      'order.greeting': "Hello Habesha Haven! I'd like to order:",
+      'order.subject': 'Café order',
+      'menu.count': '{count} menu items shown.',
+      'rooms.modal.label': 'Room details',
+      'rooms.modal.perNight': 'ETB {price} / night',
+      'rooms.modal.includes': 'All rooms include breakfast, Wi-Fi and a private bathroom.',
+      'rooms.modal.book': 'Book This Room',
+      'booking.sending': 'Sending…',
+      'err.name': 'Please enter your full name.',
+      'err.email': 'Please enter a valid email address.',
+      'err.phone': 'Please enter a valid phone number (7–15 digits).',
+      'err.guests': 'Please select at least 1 guest.',
+      'err.checkin.required': 'Please choose a check-in date.',
+      'err.checkin.past': 'Check-in cannot be in the past.',
+      'err.checkout.required': 'Please choose a check-out date.',
+      'err.checkout.order': 'Check-out must be after check-in.',
+      'err.summary': 'Please fix the highlighted fields and try again.',
+      'booking.success.title': 'Thank you, {name}! Your booking request has been sent.',
+      'booking.success.text': '{nights} night(s) · {room} · Estimated total: ETB {total}. We will contact you shortly to confirm.',
+      'booking.failed': 'Sorry, we could not send your request. Please try again or contact us at {phone} or {email}.',
+      'booking.notConfigured': 'Online booking is not available yet. Please call {phone} or email {email} to reserve.'
+    },
+
+    am: {
+      'doc.title': 'ሀበሻ ሄቨን | ሆቴል እና ካፌ',
+      'lang.switch': 'አማ: ቋንቋ ወደ እንግሊዝኛ (English) ቀይር',
+      'skip': 'ወደ ዋናው ይዘት ይለፉ',
+      'brand.tagline': 'ሆቴል እና ካፌ',
+
+      'nav.primary': 'ዋና ማውጫ',
+      'nav.mobile': 'የሞባይል ማውጫ',
+      'nav.home': 'መነሻ',
+      'nav.rooms': 'ክፍሎች',
+      'nav.menu': 'ካፌ እና ምናሌ',
+      'nav.booking': 'ቦታ ማስያዝ',
+      'nav.contact': 'ያግኙን',
+      'nav.book': 'አሁን ይያዙ',
+      'nav.open': 'ማውጫ ክፈት',
+      'nav.close': 'ማውጫ ዝጋ',
+
+      'hero.eyebrow': 'የኢትዮጵያ እንግዳ ተቀባይነት',
+      'hero.title': 'ይቆዩ። <span>ይቅመሱ።</span> ኢትዮጵያን ይለማመዱ።',
+      'hero.text': 'ምቹ ክፍሎችን፣ የኢትዮጵያን ሞቅ ያለ መስተንግዶ፣ ልዩ ቡና እና በጥንቃቄ የተዘጋጀ ካፌን ያጣመረ ዘመናዊ የመስተንግዶ ተሞክሮ።',
+      'hero.cta1': 'ክፍል ይያዙ →',
+      'hero.cta2': 'ምናሌውን ይመልከቱ',
+      'hero.stat1.sr': 'ባለ አምስት ኮከብ',
+      'hero.stat1': 'የእንግዶች ተሞክሮ',
+      'hero.stat2': 'ክፍሎች',
+      'hero.stat3': 'መስተንግዶ',
+      'hero.card.alt': 'የሆቴል ውስጠኛ ክፍል',
+      'hero.card.title': 'እንደ ቤትዎ የሚሰማዎት ጸጥ ያለ ቦታ።',
+      'hero.card.text': 'ዘመናዊ ምቾት • የኢትዮጵያ መስተንግዶ',
+
+      'exp.label': 'ተሞክሮው',
+      'exp.title': 'ከማረፊያ በላይ።',
+      'exp.text': 'በምቾት፣ በባህል እና በማይረሱ የዕለት ተዕለት ጊዜያት ላይ ተመስርቶ የተዘጋጀ።',
+      'exp.rooms.title': 'ምቹ ክፍሎች',
+      'exp.rooms.text': 'ለንግድ እና ለመዝናኛ ተጓዦች በጥንቃቄ የተዘጋጁ ቦታዎች።',
+      'exp.coffee.title': 'የኢትዮጵያ ቡና',
+      'exp.coffee.text': 'የኢትዮጵያ ቡናን የበለጸገ ወግ እና ልዩ ባህሪ ይለማመዱ።',
+      'exp.cafe.title': 'ትኩስ ካፌ',
+      'exp.cafe.text': 'ተወዳጅ የኢትዮጵያ ምግቦች፣ ዘመናዊ ምግቦች፣ ቡና እና የሚያድሱ መጠጦች።',
+      'exp.hosp.title': 'ሞቅ ያለ መስተንግዶ',
+      'exp.hosp.text': 'በኢትዮጵያ ባህል የተቃኘ ጸጥ ያለ እና እንግዳ ተቀባይ አካባቢ።',
+
+      'rooms.label': 'ከእኛ ጋር ይቆዩ',
+      'rooms.title': 'ለእረፍት የተዘጋጁ ክፍሎች።',
+      'rooms.text': 'ሁሉም ክፍሎች ዋይ-ፋይ እና ቁርስ ያካትታሉ። ዋጋዎቹ ለአንድ ሌሊት በኢትዮጵያ ብር ናቸው።',
+      'rooms.tag.popular': 'በጣም ተወዳጅ',
+      'rooms.tag.suite': 'ስዊት',
+      'rooms.tag.business': 'ለንግድ',
+      'rooms.night': '/ሌሊት',
+      'rooms.details': 'ዝርዝር',
+      'rooms.book': 'ይያዙ',
+      'rooms.deluxe.alt': 'የሀቨን ዴሉክስ የሆቴል ክፍል',
+      'rooms.deluxe.text': 'ለእረፍት ቆይታ የተዘጋጀ ምቹ ዘመናዊ ክፍል።',
+      'rooms.garden.alt': 'የጋርደን ስዊት የሆቴል ክፍል',
+      'rooms.garden.text': 'በአትክልት ስፍራ የተቃኘ ጸጥ ያለ ድባብ ያለው ሰፊ ስዊት።',
+      'rooms.exec.alt': 'ኤክዘኪዩቲቭ የሆቴል ክፍል',
+      'rooms.exec.text': 'ተጨማሪ የሥራ ቦታ እና ምቾት ያለው ልዩ ማረፊያ።',
+      'rooms.modal.label': 'የክፍል ዝርዝር',
+      'rooms.modal.perNight': 'ETB {price} / ሌሊት',
+      'rooms.modal.includes': 'ሁሉም ክፍሎች ቁርስ፣ ዋይ-ፋይ እና የግል መታጠቢያ ቤት ያካትታሉ።',
+      'rooms.modal.book': 'ይህንን ክፍል ይያዙ',
+
+      'feature.king': 'ትልቅ አልጋ',
+      'feature.wifi': 'ዋይ-ፋይ',
+      'feature.tv': 'ቴሌቪዥን',
+      'feature.breakfast': 'ቁርስ',
+      'feature.garden': 'የአትክልት ስፍራ እይታ',
+      'feature.lounge': 'ሳሎን',
+      'feature.city': 'የከተማ እይታ',
+      'feature.workspace': 'የሥራ ቦታ',
+
+      'coffee.alt': 'በሲኒ የቀረበ የኢትዮጵያ ቡና',
+      'coffee.overlay.label': 'የኢትዮጵያ ቡና ተሞክሮ',
+      'coffee.overlay.title': 'ከፍሬ እስከ ሲኒ።',
+      'coffee.label': 'የካፌ ባህል',
+      'coffee.title': 'ቡና ከመጠጥ በላይ ነው።',
+      'coffee.text': 'ኢትዮጵያ የቡና መገኛ ናት። የካፌ ተሞክሮአችን ያንን ቅርስ እያከበረ ወደ ዘመናዊ እና ዘና ያለ አካባቢ ያመጣዋል።',
+      'coffee.p1': 'የበለጸገ መዓዛ እና ልዩ የአገር ውስጥ ባህሪ።',
+      'coffee.p2.title': 'ትኩስ የካፌ ምናሌ',
+      'coffee.p2': 'ቁርስ፣ የኢትዮጵያ ምግቦች እና ዘመናዊ ተወዳጆች።',
+      'coffee.p3.title': 'ዘና ያለ ድባብ',
+      'coffee.p3': 'ለመገናኘት፣ ለመሥራት ወይም ለመዝናናት ምቹ ቦታ።',
+      'coffee.cta': 'ምናሌውን ይመልከቱ →',
+
+      'menu.label': 'የካፌ ምናሌ',
+      'menu.title': 'ኢትዮጵያን ይቅመሱ።',
+      'menu.text': 'በየቀኑ አዲስ የሚዘጋጁ። ዋጋዎቹ በኢትዮጵያ ብር (ETB) ናቸው።',
+      'menu.searchLabel': 'ምናሌ ፈልግ',
+      'menu.searchPlaceholder': 'ምናሌውን ይፈልጉ...',
+      'menu.filterLabel': 'በምድብ አጣራ',
+      'menu.empty.title': 'ምንም የምናሌ ንጥል አልተገኘም።',
+      'menu.empty.text': 'ሌላ ፍለጋ ወይም ምድብ ይሞክሩ።',
+      'menu.add': '+ ወደ ትዕዛዝ ጨምር',
+      'menu.count': '{count} የምናሌ ንጥሎች ይታያሉ።',
+      'cat.all': 'ሁሉም',
+      'cat.breakfast': 'ቁርስ',
+      'cat.ethiopian': 'የኢትዮጵያ',
+      'cat.coffee': 'ቡና',
+      'cat.drinks': 'መጠጦች',
+      'cat.dessert': 'ጣፋጭ',
+
+      'menu.item1.name': 'የኢትዮጵያ ቡና ሥነ-ሥርዓት',
+      'menu.item1.desc': 'ባህላዊ የኢትዮጵያ ቡና ተሞክሮ።',
+      'menu.item2.name': 'ማኪያቶ',
+      'menu.item2.desc': 'ከእንፋሎት ወተት ጋር የበለጸገ ኤስፕሬሶ።',
+      'menu.item3.name': 'ካፑቺኖ',
+      'menu.item3.desc': 'ለስላሳ ኤስፕሬሶ ከክሬማዊ አረፋ ጋር።',
+      'menu.item4.name': 'ጨጨብሳ',
+      'menu.item4.desc': 'ከማር እና ከቅቤ ጋር የሚቀርብ ባህላዊ የኢትዮጵያ ቁርስ።',
+      'menu.item5.name': 'ፉል',
+      'menu.item5.desc': 'በትኩስ ማጣፈጫዎች የሚቀርብ የተቀመመ ባቄላ።',
+      'menu.item6.name': 'ጥብስ',
+      'menu.item6.desc': 'በኢትዮጵያ ቅመማ ቅመም የተጠበሰ የበሬ ሥጋ።',
+      'menu.item7.name': 'ሽሮ',
+      'menu.item7.desc': 'ከእንጀራ ጋር የሚቀርብ ባህላዊ የሽምብራ ወጥ።',
+      'menu.item8.name': 'ፍርፍር',
+      'menu.item8.desc': 'በበርበሬ የተቀመመ የእንጀራ ፍርፍር።',
+      'menu.item9.name': 'የአትክልት ፓስታ',
+      'menu.item9.desc': 'ከወቅታዊ አትክልቶች ጋር ትኩስ ፓስታ።',
+      'menu.item10.name': 'የማንጎ ጭማቂ',
+      'menu.item10.desc': 'አዲስ የተዘጋጀ የማንጎ ጭማቂ።',
+      'menu.item11.name': 'የአቮካዶ ጭማቂ',
+      'menu.item11.desc': 'ክሬማዊ ትኩስ የአቮካዶ ጭማቂ።',
+      'menu.item12.name': 'ሎሚ እና ናና',
+      'menu.item12.desc': 'የሚያድስ ሎሚ እና ትኩስ ናና።',
+      'menu.item13.name': 'የቸኮሌት ኬክ',
+      'menu.item13.desc': 'የበለጸገ የቸኮሌት ኬክ።',
+      'menu.item14.name': 'ቺዝ ኬክ',
+      'menu.item14.desc': 'ለስላሳ ቅርፊት ያለው ክሬማዊ ቺዝ ኬክ።',
+      'menu.item15.name': 'የፍራፍሬ ሳህን',
+      'menu.item15.desc': 'ትኩስ ወቅታዊ ፍራፍሬዎች።',
+
+      'booking.label': 'ቆይታዎን ያቅዱ',
+      'cta.planStay': 'ቆይታዎን ያቅዱ',
+      'booking.title': 'ቆይታዎን ያስይዙ።',
+      'booking.text': 'የቦታ ማስያዣ ጥያቄ ይላኩልን፤ ቡድናችን ክፍት መሆኑን በኢሜይል ወይም በስልክ ያረጋግጥልዎታል።',
+      'booking.name': 'ሙሉ ስም *',
+      'booking.namePlaceholder': 'ስምዎ',
+      'booking.email': 'ኢሜይል *',
+      'booking.phone': 'ስልክ *',
+      'booking.guests': 'እንግዶች',
+      'booking.guests1': '1 እንግዳ',
+      'booking.guests2': '2 እንግዶች',
+      'booking.guests3': '3 እንግዶች',
+      'booking.guests4': '4 እንግዶች',
+      'booking.guests5': '5+ እንግዶች',
+      'booking.checkin': 'የመግቢያ ቀን *',
+      'booking.checkout': 'የመውጫ ቀን *',
+      'booking.room': 'የክፍል ዓይነት',
+      'booking.requests': 'ልዩ ጥያቄዎች',
+      'booking.optional': 'አማራጭ',
+      'booking.submit': 'የማስያዣ ጥያቄ ላክ →',
+      'booking.sending': 'በመላክ ላይ…',
+      'booking.note': '* ምልክት ያላቸው መስኮች አስፈላጊ ናቸው። ክፍያ በመስመር ላይ አይወሰድም — ቡድናችን ቦታ ማስያዣዎን በቀጥታ ያረጋግጣል።',
+      'booking.success.title': 'እናመሰግናለን፣ {name}! የቦታ ማስያዣ ጥያቄዎ ተልኳል።',
+      'booking.success.text': '{nights} ሌሊት · {room} · የሚገመት ጠቅላላ ዋጋ፦ ETB {total}። ለማረጋገጥ በቅርቡ እናገኝዎታለን።',
+      'booking.failed': 'ይቅርታ፣ ጥያቄዎን መላክ አልተቻለም። እባክዎ እንደገና ይሞክሩ ወይም በ{phone} ወይም በ{email} ያግኙን።',
+      'booking.notConfigured': 'የመስመር ላይ ቦታ ማስያዝ ገና አልተጀመረም። ለማስያዝ በ{phone} ይደውሉ ወይም ወደ {email} ኢሜይል ይላኩ።',
+
+      'err.name': 'እባክዎ ሙሉ ስምዎን ያስገቡ።',
+      'err.email': 'እባክዎ ትክክለኛ የኢሜይል አድራሻ ያስገቡ።',
+      'err.phone': 'እባክዎ ትክክለኛ ስልክ ቁጥር ያስገቡ (7–15 አሃዞች)።',
+      'err.guests': 'እባክዎ ቢያንስ 1 እንግዳ ይምረጡ።',
+      'err.checkin.required': 'እባክዎ የመግቢያ ቀን ይምረጡ።',
+      'err.checkin.past': 'የመግቢያ ቀን ያለፈ ቀን ሊሆን አይችልም።',
+      'err.checkout.required': 'እባክዎ የመውጫ ቀን ይምረጡ።',
+      'err.checkout.order': 'የመውጫ ቀን ከመግቢያ ቀን በኋላ መሆን አለበት።',
+      'err.summary': 'እባክዎ ምልክት የተደረገባቸውን መስኮች አስተካክለው እንደገና ይሞክሩ።',
+
+      'cta.title': 'የሚያርፉበት። የሚገናኙበት።',
+      'cta.text': 'ዘመናዊ ምቾትን ከኢትዮጵያ ሞቅ ያለ መስተንግዶ ጋር ይለማመዱ።',
+      'cta.menu': 'የካፌ ምናሌ ይመልከቱ',
+
+      'footer.text': 'በምቾት፣ በባህል እና በመስተንግዶ ላይ ያተኮረ ልዩ የኢትዮጵያ ሆቴል እና ካፌ።',
+      'footer.explore': 'ያስሱ',
+      'footer.menu': 'ምናሌ',
+      'footer.contact': 'ያግኙን',
+      'footer.country': 'ኢትዮጵያ',
+      'footer.hours': 'የሥራ ሰዓት',
+      'footer.hours.cafe': 'ካፌ፦ 7:00 AM – 10:00 PM',
+      'footer.hours.hotel': 'ሆቴል፦ 24/7',
+      'footer.hours.days': 'በየቀኑ ክፍት',
+      'footer.rights': 'መብቱ በህግ የተጠበቀ ነው።',
+      'footer.made': 'የኢትዮጵያ መስተንግዶ፣ በየቀኑ።',
+
+      'cart.label': 'ካፌ',
+      'cart.title': 'የእርስዎ ትዕዛዝ',
+      'cart.close': 'ትዕዛዙን ዝጋ',
+      'cart.subtotal': 'ንዑስ ድምር',
+      'cart.checkout': 'ትዕዛዝ ላክ',
+      'cart.note': 'ትዕዛዝዎ በቀጥታ ለካፌ ቡድናችን ይላካል። ሲወስዱ ወይም በጠረጴዛዎ ላይ ይክፈሉ።',
+      'cart.open': 'ትዕዛዝ ክፈት ({count} ንጥሎች)',
+      'cart.empty.title': 'ትዕዛዝዎ ባዶ ነው።',
+      'cart.empty.text': 'ከምናሌው ጣፋጭ ነገር ይጨምሩ።',
+      'cart.decrease': 'የ{name} ብዛት ቀንስ',
+      'cart.increase': 'የ{name} ብዛት ጨምር',
+      'cart.remove': 'አስወግድ',
+      'cart.removeLabel': '{name}ን ከትዕዛዝ አስወግድ',
+      'cart.qty': 'ብዛት',
+      'cart.added': '{name} ወደ ትዕዛዝዎ ተጨምሯል።',
+      'cart.removed': '{name} ከትዕዛዝዎ ተወግዷል።',
+      'cart.emptyModal.label': 'ካፌ',
+      'cart.emptyModal.title': 'ትዕዛዝዎ ባዶ ነው',
+      'cart.emptyModal.text': 'ትዕዛዝ ከመላክዎ በፊት የምናሌ ንጥሎችን ይጨምሩ።',
+      'cart.continue': 'ማሰሳዎን ይቀጥሉ',
+      'order.greeting': 'ሰላም ሀበሻ ሄቨን! ማዘዝ የምፈልገው፦',
+      'order.subject': 'የካፌ ትዕዛዝ',
+
+      'modal.close': 'ዝጋ'
+    }
+  };
+
+  const SUPPORTED_LANGUAGES = ['en', 'am'];
+
+  /* ------------------------------------------------------------------
+     Helpers
+  ------------------------------------------------------------------ */
+  const $ = (selector, root) => (root || document).querySelector(selector);
+  const $$ = (selector, root) => Array.from((root || document).querySelectorAll(selector));
+
+  const storage = {
+    get(key) {
+      try {
+        return window.localStorage.getItem(key);
+      } catch (error) {
+        return null;
+      }
+    },
+    set(key, value) {
+      try {
+        window.localStorage.setItem(key, value);
+      } catch (error) {
+        /* Storage may be unavailable (private mode / quota) — fail silently. */
+      }
+    }
+  };
+
+  const formatPrice = (value) => `${CONFIG.currency} ${Number(value).toLocaleString('en-US')}`;
+
+  const debounce = (fn, wait) => {
+    let timer;
+    return (...args) => {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(() => fn(...args), wait);
+    };
+  };
+
+  const el = (tag, className, text) => {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined) node.textContent = text;
+    return node;
+  };
+
+  const FOCUSABLE = [
+    'a[href]',
+    'button:not([disabled])',
+    'input:not([disabled]):not([type="hidden"])',
+    'select:not([disabled])',
+    'textarea:not([disabled])',
+    '[tabindex]:not([tabindex="-1"])'
+  ].join(',');
+
+  const focusableIn = (container) =>
+    $$(FOCUSABLE, container).filter((node) => !node.hidden && node.getClientRects().length > 0);
+
+  // Keep Tab / Shift+Tab inside `container`.
+  function trapFocus(event, container) {
+    if (event.key !== 'Tab') return;
+    const items = focusableIn(container);
+    if (!items.length) {
+      event.preventDefault();
+      return;
+    }
+    const first = items[0];
+    const last = items[items.length - 1];
+    if (event.shiftKey && (document.activeElement === first || !container.contains(document.activeElement))) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && (document.activeElement === last || !container.contains(document.activeElement))) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+
+  const liveRegion = $('#liveRegion');
+  function announce(message) {
+    if (!liveRegion) return;
+    liveRegion.textContent = '';
+    window.setTimeout(() => {
+      liveRegion.textContent = message;
+    }, 50);
+  }
+
+  /* ------------------------------------------------------------------
+     Language
+  ------------------------------------------------------------------ */
+  const englishFromDom = {};
+  const englishHtmlFromDom = {};
+  let language = 'en';
 
   function t(key, vars) {
-    let str = (I18N[lang] && I18N[lang][key]) || I18N.en[key] || key;
+    const dict = I18N[language] || I18N.en;
+    let str = dict[key];
+    if (str === undefined) str = I18N.en[key];
+    if (str === undefined) str = englishFromDom[key];
+    if (str === undefined) str = key;
     if (vars) {
-      Object.keys(vars).forEach((k) => { str = str.split("{" + k + "}").join(String(vars[k])); });
+      Object.keys(vars).forEach((name) => {
+        str = str.split(`{${name}}`).join(String(vars[name]));
+      });
     }
     return str;
   }
 
-  /* ------------------------------------------------------------------
-     Safe localStorage helpers (private mode / disabled storage)
-  ------------------------------------------------------------------ */
-  function readStorage(key) {
-    try { return window.localStorage.getItem(key); } catch (e) { return null; }
-  }
-  function writeStorage(key, value) {
-    try { window.localStorage.setItem(key, value); } catch (e) { /* ignore */ }
-  }
+  const parseAttrBindings = (value) =>
+    value.split(';').map((pair) => pair.split(':').map((part) => part.trim())).filter((pair) => pair.length === 2);
 
-  const $ = (sel, root) => (root || document).querySelector(sel);
-  const $$ = (sel, root) => Array.from((root || document).querySelectorAll(sel));
-
-  const formatPrice = (n) => CURRENCY + " " + Number(n).toLocaleString("en-US");
-  const findItem = (id) => MENU_ITEMS.find((item) => item.id === id);
-
-  function el(tag, attrs, children) {
-    const node = document.createElement(tag);
-    if (attrs) {
-      Object.keys(attrs).forEach((k) => {
-        if (k === "text") node.textContent = attrs[k];
-        else if (k === "className") node.className = attrs[k];
-        else node.setAttribute(k, attrs[k]);
+  function captureEnglishCopy() {
+    $$('[data-i18n]').forEach((node) => {
+      const key = node.dataset.i18n;
+      if (!(key in englishFromDom)) englishFromDom[key] = node.textContent.trim().replace(/\s+/g, ' ');
+    });
+    $$('[data-i18n-html]').forEach((node) => {
+      const key = node.dataset.i18nHtml;
+      if (!(key in englishHtmlFromDom)) englishHtmlFromDom[key] = node.cloneNode(true);
+    });
+    $$('[data-i18n-attr]').forEach((node) => {
+      parseAttrBindings(node.dataset.i18nAttr).forEach(([attr, key]) => {
+        if (!(key in englishFromDom)) englishFromDom[key] = node.getAttribute(attr) || '';
       });
-    }
-    (children || []).forEach((c) => c && node.appendChild(c));
-    return node;
-  }
-
-  /* Branded placeholder tile: Bereket logo on the black/gold gradient */
-  function placeholderTile() {
-    return el("div", { className: "menu-placeholder", role: "img", "aria-label": t("menu.photoSoon") }, [
-      el("img", { src: LOGO_SRC, alt: "", width: "512", height: "512", loading: "lazy", decoding: "async" })
-    ]);
-  }
-
-  /* Item photo, falling back to the placeholder if the file is missing */
-  function itemImage(item, width, height) {
-    if (!item.image) return placeholderTile();
-    const img = el("img", {
-      src: item.image,
-      alt: item.name,
-      width: String(width),
-      height: String(height),
-      loading: "lazy",
-      decoding: "async"
-    });
-    img.addEventListener("error", () => img.replaceWith(placeholderTile()), { once: true });
-    return img;
-  }
-
-  /* ------------------------------------------------------------------
-     Menu: render, category filter, debounced search
-  ------------------------------------------------------------------ */
-  const menuGrid = $("#menuGrid");
-  const menuSearch = $("#menuSearch");
-  const menuStatus = $("#menuStatus");
-  let activeCategory = "all";
-
-  function renderMenu() {
-    if (!menuGrid) return;
-    const query = (menuSearch ? menuSearch.value : "").toLowerCase().trim();
-    const filtered = MENU_ITEMS.filter((item) => {
-      const inCategory = activeCategory === "all" || item.category === activeCategory;
-      const text = (item.name + " " + item.description).toLowerCase();
-      return inCategory && (!query || text.includes(query));
-    });
-
-    menuGrid.textContent = "";
-
-    if (!filtered.length) {
-      menuGrid.appendChild(el("div", { className: "menu-empty glass" }, [
-        el("strong", { text: t("menu.emptyTitle") }),
-        el("span", { text: t("menu.emptyText") })
-      ]));
-    } else {
-      const frag = document.createDocumentFragment();
-      filtered.forEach((item) => {
-        frag.appendChild(el("article", { className: "menu-item glass" }, [
-          el("div", { className: "menu-image" }, [itemImage(item, 800, 600)]),
-          el("div", { className: "menu-body" }, [
-            el("span", { className: "menu-tag", text: t("cat." + item.category) }),
-            el("div", { className: "menu-top" }, [
-              el("h3", { text: item.name }),
-              el("span", { className: "menu-price", text: formatPrice(item.price) })
-            ]),
-            el("p", { text: item.description }),
-            el("button", { type: "button", className: "add-btn", "data-id": item.id }, [
-              document.createTextNode(t("menu.add")),
-              el("span", { className: "visually-hidden", text: ": " + item.name })
-            ])
-          ])
-        ]));
-      });
-      menuGrid.appendChild(frag);
-    }
-
-    if (menuStatus) menuStatus.textContent = t("menu.count", { n: filtered.length });
-  }
-
-  function debounce(fn, wait) {
-    let timer;
-    return function () {
-      clearTimeout(timer);
-      timer = setTimeout(fn, wait);
-    };
-  }
-
-  $$(".category-btn").forEach((button) => {
-    button.addEventListener("click", () => {
-      $$(".category-btn").forEach((b) => {
-        b.classList.remove("active");
-        b.setAttribute("aria-pressed", "false");
-      });
-      button.classList.add("active");
-      button.setAttribute("aria-pressed", "true");
-      activeCategory = button.dataset.category;
-      renderMenu();
-    });
-  });
-
-  if (menuSearch) menuSearch.addEventListener("input", debounce(renderMenu, 200));
-
-  if (menuGrid) {
-    menuGrid.addEventListener("click", (event) => {
-      const btn = event.target.closest(".add-btn");
-      if (btn) addToCart(btn.dataset.id);
     });
   }
 
-  /* ------------------------------------------------------------------
-     Cart (persisted in localStorage as [{ id, qty }])
-  ------------------------------------------------------------------ */
-  const cartPanel = $("#cartPanel");
-  const cartBackdrop = $("#cartBackdrop");
-  const cartItemsEl = $("#cartItems");
-  const cartCount = $("#cartCount");
-  const cartTotal = $("#cartTotal");
-  const cartButton = $("#cartButton");
-  let lastFocused = null;
+  function applyLanguage(next) {
+    language = SUPPORTED_LANGUAGES.includes(next) ? next : 'en';
+    document.documentElement.lang = language;
+    document.title = t('doc.title');
 
-  function loadCart() {
-    try {
-      const raw = JSON.parse(readStorage(CART_KEY) || "[]");
-      if (!Array.isArray(raw)) return [];
-      return raw
-        .filter((line) => line && findItem(line.id) && Number.isInteger(line.qty) && line.qty > 0)
-        .map((line) => ({ id: line.id, qty: Math.min(line.qty, 99) }));
-    } catch (e) {
-      return [];
-    }
-  }
-
-  let cart = loadCart();
-
-  function saveCart() { writeStorage(CART_KEY, JSON.stringify(cart)); }
-
-  function cartQuantity() { return cart.reduce((sum, line) => sum + line.qty, 0); }
-  function cartSum() { return cart.reduce((sum, line) => sum + findItem(line.id).price * line.qty, 0); }
-
-  function addToCart(id) {
-    const item = findItem(id);
-    if (!item) return;
-    const line = cart.find((l) => l.id === id);
-    if (line) line.qty = Math.min(line.qty + 1, 99);
-    else cart.push({ id: id, qty: 1 });
-    saveCart();
-    renderCart();
-    if (menuStatus) menuStatus.textContent = t("cart.added", { name: item.name });
-  }
-
-  function changeQuantity(id, delta) {
-    const line = cart.find((l) => l.id === id);
-    if (!line) return;
-    line.qty += delta;
-    if (line.qty <= 0) cart = cart.filter((l) => l.id !== id);
-    if (line.qty > 99) line.qty = 99;
-    saveCart();
-    renderCart();
-  }
-
-  function renderCart() {
-    const count = cartQuantity();
-    if (cartCount) cartCount.textContent = String(count);
-    if (cartButton) cartButton.setAttribute("aria-label", t("cart.open", { n: count }));
-    if (!cartItemsEl) return;
-
-    cartItemsEl.textContent = "";
-    if (!cart.length) {
-      cartItemsEl.appendChild(el("div", { className: "cart-empty" }, [
-        el("p", { text: t("cart.empty") }),
-        el("small", { text: t("cart.emptyHint") })
-      ]));
-    } else {
-      cart.forEach((line) => {
-        const item = findItem(line.id);
-        cartItemsEl.appendChild(el("div", { className: "cart-item" }, [
-          el("div", { className: "cart-thumb" }, [itemImage(item, 56, 56)]),
-          el("div", { className: "cart-item-info" }, [
-            el("strong", { text: item.name }),
-            el("small", { text: formatPrice(item.price) })
-          ]),
-          el("div", { className: "quantity" }, [
-            el("button", { type: "button", "data-id": item.id, "data-delta": "-1", "aria-label": t("cart.decrease", { name: item.name }), text: "−" }),
-            el("span", { text: String(line.qty) }),
-            el("button", { type: "button", "data-id": item.id, "data-delta": "1", "aria-label": t("cart.increase", { name: item.name }), text: "+" })
-          ])
-        ]));
-      });
-    }
-    if (cartTotal) cartTotal.textContent = formatPrice(cartSum());
-  }
-
-  if (cartItemsEl) {
-    cartItemsEl.addEventListener("click", (event) => {
-      const btn = event.target.closest("button[data-delta]");
-      if (btn) changeQuantity(btn.dataset.id, Number(btn.dataset.delta));
+    $$('[data-i18n]').forEach((node) => {
+      node.textContent = t(node.dataset.i18n);
     });
-  }
-
-  /* --- dialog open/close with focus trap --- */
-  function focusableIn(root) {
-    return $$('a[href], button:not([disabled]), input:not([disabled]), select, textarea, [tabindex]:not([tabindex="-1"])', root)
-      .filter((node) => node.offsetParent !== null);
-  }
-
-  function openCart() {
-    if (!cartPanel) return;
-    lastFocused = document.activeElement;
-    cartPanel.hidden = false;
-    if (cartBackdrop) cartBackdrop.hidden = false;
-    document.body.classList.add("no-scroll");
-    const first = focusableIn(cartPanel)[0];
-    if (first) first.focus();
-  }
-
-  function closeCart(restoreFocus) {
-    if (!cartPanel || cartPanel.hidden) return;
-    cartPanel.hidden = true;
-    if (cartBackdrop) cartBackdrop.hidden = true;
-    document.body.classList.remove("no-scroll");
-    if (restoreFocus !== false && lastFocused && lastFocused.focus) lastFocused.focus();
-  }
-
-  if (cartButton) cartButton.addEventListener("click", openCart);
-  const closeCartBtn = $("#closeCart");
-  if (closeCartBtn) closeCartBtn.addEventListener("click", () => closeCart());
-  if (cartBackdrop) cartBackdrop.addEventListener("click", () => closeCart());
-
-  document.addEventListener("keydown", (event) => {
-    if (!cartPanel || cartPanel.hidden) {
-      if (event.key === "Escape") closeNav(true);
-      return;
-    }
-    if (event.key === "Escape") {
-      closeCart();
-    } else if (event.key === "Tab") {
-      const nodes = focusableIn(cartPanel);
-      if (!nodes.length) return;
-      const first = nodes[0];
-      const last = nodes[nodes.length - 1];
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      } else if (!cartPanel.contains(document.activeElement)) {
-        event.preventDefault();
-        first.focus();
+    // Only trusted, static dictionary strings are written as HTML; English
+    // markup is restored from the original DOM nodes.
+    $$('[data-i18n-html]').forEach((node) => {
+      const key = node.dataset.i18nHtml;
+      const markup = language === 'en' ? undefined : (I18N[language] || {})[key];
+      if (markup !== undefined) {
+        node.innerHTML = markup;
+      } else if (englishHtmlFromDom[key]) {
+        node.replaceChildren(...englishHtmlFromDom[key].cloneNode(true).childNodes);
       }
-    }
-  });
-
-  const clearBtn = $("#clearCart");
-  if (clearBtn) {
-    clearBtn.addEventListener("click", () => {
-      cart = [];
-      saveCart();
-      renderCart();
     });
+    $$('[data-i18n-attr]').forEach((node) => {
+      parseAttrBindings(node.dataset.i18nAttr).forEach(([attr, key]) => node.setAttribute(attr, t(key)));
+    });
+
+    const languageBtn = $('#languageBtn');
+    if (languageBtn) {
+      languageBtn.textContent = language === 'en' ? 'EN' : 'አማ';
+      languageBtn.lang = language;
+      languageBtn.setAttribute('aria-label', t('lang.switch'));
+    }
+
+    updateMenuToggleLabel();
+    renderCart();
+    refreshFieldErrors();
   }
 
-  /* Checkout: copy the cart into the order form's message and jump to it */
-  const checkoutBtn = $("#checkoutBtn");
-  if (checkoutBtn) {
-    checkoutBtn.addEventListener("click", () => {
-      const message = $("#message");
-      if (message && cart.length) {
-        const lines = cart.map((line) => {
-          const item = findItem(line.id);
-          return line.qty + " × " + item.name + " — " + formatPrice(item.price * line.qty);
-        });
-        message.value = t("cart.orderIntro") + "\n" + lines.join("\n") + "\n" + t("cart.total") + ": " + formatPrice(cartSum());
-      }
-      closeCart(false);
-      const order = $("#order");
-      if (order) order.scrollIntoView({ block: "start" });
-      const nameInput = $("#name");
-      if (nameInput) nameInput.focus({ preventScroll: true });
+  function initLanguage() {
+    captureEnglishCopy();
+    const saved = storage.get(CONFIG.storageKeys.language);
+    applyLanguage(SUPPORTED_LANGUAGES.includes(saved) ? saved : 'en');
+
+    const languageBtn = $('#languageBtn');
+    if (!languageBtn) return;
+    languageBtn.addEventListener('click', () => {
+      const next = language === 'en' ? 'am' : 'en';
+      storage.set(CONFIG.storageKeys.language, next);
+      applyLanguage(next);
     });
   }
 
   /* ------------------------------------------------------------------
      Mobile navigation
   ------------------------------------------------------------------ */
-  const menuToggle = $("#menuToggle");
-  const navLinks = $("#navLinks");
+  const menuToggle = $('#menuToggle');
+  const mobileMenu = $('#mobileMenu');
 
-  function closeNav(restoreFocus) {
-    if (!navLinks || !navLinks.classList.contains("open")) return;
-    navLinks.classList.remove("open");
-    menuToggle.setAttribute("aria-expanded", "false");
-    menuToggle.setAttribute("aria-label", t("nav.open"));
-    if (restoreFocus) menuToggle.focus();
+  function updateMenuToggleLabel() {
+    if (!menuToggle || !mobileMenu) return;
+    const open = mobileMenu.classList.contains('open');
+    menuToggle.setAttribute('aria-expanded', String(open));
+    menuToggle.setAttribute('aria-label', t(open ? 'nav.close' : 'nav.open'));
   }
 
-  if (menuToggle && navLinks) {
-    menuToggle.addEventListener("click", () => {
-      const open = navLinks.classList.toggle("open");
-      menuToggle.setAttribute("aria-expanded", String(open));
-      menuToggle.setAttribute("aria-label", t(open ? "nav.close" : "nav.open"));
+  function setMobileMenu(open, returnFocus) {
+    if (!mobileMenu) return;
+    mobileMenu.classList.toggle('open', open);
+    updateMenuToggleLabel();
+    if (!open && returnFocus && menuToggle) menuToggle.focus();
+  }
+
+  function initNavigation() {
+    if (!menuToggle || !mobileMenu) return;
+
+    menuToggle.addEventListener('click', () => {
+      setMobileMenu(!mobileMenu.classList.contains('open'));
     });
-    navLinks.addEventListener("click", (event) => {
-      if (event.target.closest("a")) closeNav(false);
+
+    $$('a', mobileMenu).forEach((link) => {
+      link.addEventListener('click', () => setMobileMenu(false));
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && mobileMenu.classList.contains('open')) {
+        setMobileMenu(false, true);
+      }
+    });
+
+    const desktop = window.matchMedia('(min-width: 1001px)');
+    const onChange = (event) => {
+      if (event.matches) setMobileMenu(false);
+    };
+    if (desktop.addEventListener) desktop.addEventListener('change', onChange);
+  }
+
+  /* ------------------------------------------------------------------
+     Modal dialog
+  ------------------------------------------------------------------ */
+  const modal = $('#modal');
+  const modalBox = modal ? $('.modal-box', modal) : null;
+  const modalContent = $('#modalContent');
+  let modalReturnFocus = null;
+
+  function openModal(nodes) {
+    if (!modal || !modalContent) return;
+    modalReturnFocus = document.activeElement;
+    modalContent.replaceChildren(...nodes);
+    modal.classList.add('open');
+    const items = focusableIn(modalBox);
+    if (items.length) items[0].focus();
+  }
+
+  function closeModal(restoreFocus = true) {
+    if (!modal || !modal.classList.contains('open')) return;
+    modal.classList.remove('open');
+    if (restoreFocus && modalReturnFocus && typeof modalReturnFocus.focus === 'function') {
+      modalReturnFocus.focus();
+    }
+    modalReturnFocus = null;
+  }
+
+  function modalHeading(label, title) {
+    const labelNode = el('div', 'section-label', label);
+    const heading = el('h2', '', title);
+    heading.id = 'modalTitle';
+    return [labelNode, heading];
+  }
+
+  function initModal() {
+    if (!modal) return;
+    $('#modalClose').addEventListener('click', () => closeModal());
+    modal.addEventListener('click', (event) => {
+      if (event.target === modal) closeModal();
+    });
+    modal.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        event.stopPropagation();
+        closeModal();
+        return;
+      }
+      trapFocus(event, modalBox);
     });
   }
 
   /* ------------------------------------------------------------------
-     Language toggle (EN / አማርኛ)
+     Menu: category filter + debounced search
   ------------------------------------------------------------------ */
-  const langBtn = $("#languageBtn");
+  const menuGrid = $('#menuGrid');
+  const menuItems = $$('.menu-item');
+  const menuEmpty = $('#menuEmpty');
+  const menuSearch = $('#menuSearch');
+  const menuStatus = $('#menuStatus');
+  const categoryButtons = $$('.category-btn');
+  let activeCategory = 'all';
 
-  function applyLanguage() {
-    document.documentElement.lang = lang;
-    $$("[data-i18n]").forEach((node) => { node.textContent = t(node.dataset.i18n); });
-    $$("[data-i18n-placeholder]").forEach((node) => { node.setAttribute("placeholder", t(node.dataset.i18nPlaceholder)); });
-    $$("[data-i18n-aria-label]").forEach((node) => { node.setAttribute("aria-label", t(node.dataset.i18nAriaLabel)); });
-    if (langBtn) {
-      langBtn.textContent = lang === "en" ? "አማ" : "EN";
-      langBtn.setAttribute("aria-label", langBtn.textContent + " — " + t("lang.switch"));
+  const products = new Map(
+    menuItems.map((item) => [
+      item.dataset.id,
+      {
+        id: item.dataset.id,
+        price: Number(item.dataset.price) || 0,
+        element: item
+      }
+    ])
+  );
+
+  const productName = (id) => {
+    const product = products.get(id);
+    return product ? $('h3', product.element).textContent.trim() : '';
+  };
+
+  const productImage = (id) => {
+    const product = products.get(id);
+    const img = product ? $('img', product.element) : null;
+    return img ? img.getAttribute('src') : '';
+  };
+
+  function filterMenu(announceResult) {
+    const query = menuSearch ? menuSearch.value.trim().toLowerCase() : '';
+    let visible = 0;
+
+    menuItems.forEach((item) => {
+      const categoryMatch = activeCategory === 'all' || item.dataset.category === activeCategory;
+      const text = `${$('h3', item).textContent} ${$('p', item).textContent}`.toLowerCase();
+      const match = categoryMatch && (!query || text.includes(query));
+      item.hidden = !match;
+      if (match) visible += 1;
+    });
+
+    if (menuEmpty) menuEmpty.hidden = visible > 0;
+    if (announceResult && menuStatus) menuStatus.textContent = t('menu.count', { count: visible });
+  }
+
+  function initMenu() {
+    if (!menuGrid) return;
+
+    categoryButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        categoryButtons.forEach((btn) => {
+          const active = btn === button;
+          btn.classList.toggle('active', active);
+          btn.setAttribute('aria-pressed', String(active));
+        });
+        activeCategory = button.dataset.category;
+        filterMenu(true);
+      });
+    });
+
+    if (menuSearch) {
+      menuSearch.addEventListener('input', debounce(() => filterMenu(true), CONFIG.searchDebounceMs));
     }
-    if (menuToggle) {
-      menuToggle.setAttribute("aria-label", t(menuToggle.getAttribute("aria-expanded") === "true" ? "nav.close" : "nav.open"));
+
+    menuGrid.addEventListener('click', (event) => {
+      const button = event.target.closest('[data-add-to-cart]');
+      if (!button) return;
+      const item = button.closest('.menu-item');
+      if (item) addToCart(item.dataset.id);
+    });
+
+    filterMenu(false);
+  }
+
+  /* ------------------------------------------------------------------
+     Cart (persisted in localStorage)
+  ------------------------------------------------------------------ */
+  const cartPanel = $('#cartPanel');
+  const cartButton = $('#cartButton');
+  const cartItemsList = $('#cartItems');
+  const cartCount = $('#cartCount');
+  const cartTotal = $('#cartTotal');
+  const checkoutBtn = $('#checkoutBtn');
+  const closeCartBtn = $('#closeCart');
+  let cartReturnFocus = null;
+
+  const MAX_QTY = 99;
+
+  function loadCart() {
+    let raw;
+    try {
+      raw = JSON.parse(storage.get(CONFIG.storageKeys.cart) || '[]');
+    } catch (error) {
+      raw = [];
     }
-    renderMenu();
+    if (!Array.isArray(raw)) return [];
+
+    const merged = new Map();
+    raw.forEach((entry) => {
+      if (!entry || typeof entry !== 'object') return;
+      const id = String(entry.id);
+      const qty = Math.floor(Number(entry.qty !== undefined ? entry.qty : entry.quantity));
+      if (!products.has(id) || !Number.isFinite(qty) || qty < 1) return;
+      merged.set(id, Math.min(MAX_QTY, (merged.get(id) || 0) + qty));
+    });
+    return Array.from(merged, ([id, qty]) => ({ id, qty }));
+  }
+
+  let cart = loadCart();
+
+  const saveCart = () => storage.set(CONFIG.storageKeys.cart, JSON.stringify(cart));
+  const cartQuantity = () => cart.reduce((sum, line) => sum + line.qty, 0);
+  const cartSubtotal = () =>
+    cart.reduce((sum, line) => sum + line.qty * (products.get(line.id) ? products.get(line.id).price : 0), 0);
+
+  function addToCart(id) {
+    if (!products.has(id)) return;
+    const line = cart.find((entry) => entry.id === id);
+    if (line) {
+      line.qty = Math.min(MAX_QTY, line.qty + 1);
+    } else {
+      cart.push({ id, qty: 1 });
+    }
+    saveCart();
+    renderCart();
+    announce(t('cart.added', { name: productName(id) }));
+    openCart();
+  }
+
+  function changeQuantity(id, delta) {
+    const line = cart.find((entry) => entry.id === id);
+    if (!line) return;
+    line.qty = Math.min(MAX_QTY, line.qty + delta);
+    if (line.qty <= 0) {
+      removeFromCart(id);
+      return;
+    }
+    saveCart();
     renderCart();
   }
 
-  if (langBtn) {
-    langBtn.addEventListener("click", () => {
-      lang = lang === "en" ? "am" : "en";
-      writeStorage(LANG_KEY, lang);
-      applyLanguage();
+  function removeFromCart(id) {
+    const name = productName(id);
+    cart = cart.filter((entry) => entry.id !== id);
+    saveCart();
+    renderCart();
+    announce(t('cart.removed', { name }));
+  }
+
+  function buildOrderMessage() {
+    const lines = cart.map((line) => {
+      const product = products.get(line.id);
+      return `• ${line.qty} × ${productName(line.id)} — ${formatPrice(product.price * line.qty)}`;
+    });
+    return [t('order.greeting'), '', ...lines, '', `${t('cart.subtotal')}: ${formatPrice(cartSubtotal())}`].join('\n');
+  }
+
+  function updateCheckoutLink() {
+    if (!checkoutBtn) return;
+    if (!cart.length) {
+      checkoutBtn.setAttribute('href', '#menu');
+      checkoutBtn.setAttribute('aria-disabled', 'true');
+      checkoutBtn.removeAttribute('target');
+      return;
+    }
+    checkoutBtn.removeAttribute('aria-disabled');
+    const message = buildOrderMessage();
+    const number = CONFIG.whatsappNumber.replace(/\D/g, '');
+    if (number) {
+      checkoutBtn.setAttribute('href', `https://wa.me/${number}?text=${encodeURIComponent(message)}`);
+      checkoutBtn.setAttribute('target', '_blank');
+    } else {
+      checkoutBtn.setAttribute(
+        'href',
+        `mailto:${CONFIG.orderEmail}?subject=${encodeURIComponent(t('order.subject'))}&body=${encodeURIComponent(message)}`
+      );
+      checkoutBtn.removeAttribute('target');
+    }
+  }
+
+  function cartLine(line) {
+    const product = products.get(line.id);
+    const name = productName(line.id);
+
+    const li = el('li', 'cart-item');
+    li.dataset.id = line.id;
+
+    const img = el('img');
+    img.src = productImage(line.id);
+    img.alt = '';
+    img.width = 55;
+    img.height = 55;
+    img.loading = 'lazy';
+    img.decoding = 'async';
+
+    const info = el('div', 'cart-item-info');
+    info.append(el('strong', '', name), el('small', '', formatPrice(product.price)));
+
+    const qty = el('div', 'quantity');
+
+    const dec = el('button', '', '−');
+    dec.type = 'button';
+    dec.dataset.action = 'decrease';
+    dec.setAttribute('aria-label', t('cart.decrease', { name }));
+
+    const count = el('span');
+    count.append(el('span', 'visually-hidden', `${t('cart.qty')}: `), String(line.qty));
+
+    const inc = el('button', '', '+');
+    inc.type = 'button';
+    inc.dataset.action = 'increase';
+    inc.setAttribute('aria-label', t('cart.increase', { name }));
+    inc.disabled = line.qty >= MAX_QTY;
+
+    const remove = el('button', 'remove-btn', t('cart.remove'));
+    remove.type = 'button';
+    remove.dataset.action = 'remove';
+    remove.setAttribute('aria-label', t('cart.removeLabel', { name }));
+
+    qty.append(dec, count, inc, remove);
+    info.append(qty);
+    li.append(img, info);
+    return li;
+  }
+
+  function renderCart() {
+    if (!cartItemsList) return;
+
+    const count = cartQuantity();
+    if (cartCount) cartCount.textContent = String(count);
+    if (cartButton) cartButton.setAttribute('aria-label', t('cart.open', { count }));
+
+    if (!cart.length) {
+      const empty = el('li', 'cart-empty');
+      const icon = el('div', 'cart-empty-icon', '☕');
+      icon.setAttribute('aria-hidden', 'true');
+      empty.append(icon, el('p', '', t('cart.empty.title')), el('small', '', t('cart.empty.text')));
+      cartItemsList.replaceChildren(empty);
+    } else {
+      cartItemsList.replaceChildren(...cart.map(cartLine));
+    }
+
+    if (cartTotal) cartTotal.textContent = formatPrice(cartSubtotal());
+    updateCheckoutLink();
+  }
+
+  function openCart() {
+    if (!cartPanel || cartPanel.classList.contains('open')) return;
+    cartReturnFocus = document.activeElement;
+    cartPanel.classList.add('open');
+    if (cartButton) cartButton.setAttribute('aria-expanded', 'true');
+    if (closeCartBtn) closeCartBtn.focus();
+  }
+
+  function closeCart() {
+    if (!cartPanel || !cartPanel.classList.contains('open')) return;
+    cartPanel.classList.remove('open');
+    if (cartButton) cartButton.setAttribute('aria-expanded', 'false');
+    const target = cartReturnFocus && document.contains(cartReturnFocus) ? cartReturnFocus : cartButton;
+    if (target) target.focus();
+    cartReturnFocus = null;
+  }
+
+  function initCart() {
+    if (!cartPanel) return;
+
+    if (cartButton) cartButton.addEventListener('click', openCart);
+    if (closeCartBtn) closeCartBtn.addEventListener('click', closeCart);
+
+    cartPanel.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        closeCart();
+        return;
+      }
+      trapFocus(event, cartPanel);
+    });
+
+    cartItemsList.addEventListener('click', (event) => {
+      const button = event.target.closest('button[data-action]');
+      if (!button) return;
+      const id = button.closest('.cart-item').dataset.id;
+      const action = button.dataset.action;
+
+      if (action === 'increase') changeQuantity(id, 1);
+      else if (action === 'decrease') changeQuantity(id, -1);
+      else if (action === 'remove') removeFromCart(id);
+
+      // Keep keyboard focus stable after the list re-renders.
+      const row = $(`.cart-item[data-id="${CSS.escape(id)}"]`, cartItemsList);
+      const sameButton = row ? $(`button[data-action="${action}"]`, row) : null;
+      if (sameButton && !sameButton.disabled) sameButton.focus();
+      else if (closeCartBtn) closeCartBtn.focus();
+    });
+
+    if (checkoutBtn) {
+      checkoutBtn.addEventListener('click', (event) => {
+        if (cart.length) return;
+        event.preventDefault();
+        const button = el('button', 'primary-btn', t('cart.continue'));
+        button.type = 'button';
+        button.addEventListener('click', () => {
+          closeModal(false);
+          closeCart();
+        });
+        openModal([
+          ...modalHeading(t('cart.emptyModal.label'), t('cart.emptyModal.title')),
+          el('p', 'modal-text', t('cart.emptyModal.text')),
+          button
+        ]);
+      });
+    }
+
+    // Keep multiple open tabs in sync.
+    window.addEventListener('storage', (event) => {
+      if (event.key !== CONFIG.storageKeys.cart) return;
+      cart = loadCart();
+      renderCart();
+    });
+
+    renderCart();
+  }
+
+  /* ------------------------------------------------------------------
+     Rooms
+  ------------------------------------------------------------------ */
+  const roomSelect = $('#room');
+
+  function selectRoom(roomName, focusForm) {
+    if (roomSelect && $$('option', roomSelect).some((option) => option.value === roomName)) {
+      roomSelect.value = roomName;
+    }
+    if (focusForm) {
+      const booking = $('#booking');
+      if (booking) booking.scrollIntoView({ block: 'start' });
+      const nameField = $('#name');
+      if (nameField) nameField.focus({ preventScroll: true });
+    }
+  }
+
+  function openRoomDetails(card) {
+    const room = card.dataset.room;
+    const price = Number(card.dataset.price) || 0;
+    const features = $('.features', card);
+    const description = $('.room-body > p', card);
+
+    const book = el('button', 'primary-btn', t('rooms.modal.book'));
+    book.type = 'button';
+    book.addEventListener('click', () => {
+      closeModal(false);
+      selectRoom(room, true);
+    });
+
+    const nodes = [
+      ...modalHeading(t('rooms.modal.label'), room),
+      el('p', 'modal-text', t('rooms.modal.perNight', { price: price.toLocaleString('en-US') }))
+    ];
+    if (description) nodes.push(el('p', 'modal-text', description.textContent.trim()));
+    if (features) nodes.push(features.cloneNode(true));
+    nodes.push(el('p', 'modal-text', t('rooms.modal.includes')), book);
+
+    openModal(nodes);
+  }
+
+  function initRooms() {
+    $$('.room-card').forEach((card) => {
+      const details = $('[data-room-details]', card);
+      if (details) details.addEventListener('click', () => openRoomDetails(card));
+
+      const book = $('[data-select-room]', card);
+      if (book) book.addEventListener('click', () => selectRoom(card.dataset.room, false));
     });
   }
 
   /* ------------------------------------------------------------------
-     Email obfuscation — build the mailto: link at runtime
+     Booking form
   ------------------------------------------------------------------ */
-  $$(".js-email").forEach((link) => {
-    const address = link.dataset.user + "@" + link.dataset.domain;
-    link.href = "mailto:" + address;
-    link.textContent = address;
-  });
+  const form = $('#bookingForm');
+  const result = $('#bookingResult');
+  const submitBtn = $('#bookingSubmit');
 
-  const year = $("#year");
-  if (year) year.textContent = String(new Date().getFullYear());
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  const PHONE_RE = /^\+?[\d\s\-().]{7,20}$/;
 
-  /* ------------------------------------------------------------------
-     Contact / Order enquiry form → Formspree (fetch, stays on page)
-  ------------------------------------------------------------------ */
-  const form = $("#orderForm");
-  const formStatus = $("#formStatus");
-  const submitBtn = $("#submitBtn");
-  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  const RULES = {
-    name: (v) => v.trim().length >= 2,
-    email: (v) => EMAIL_RE.test(v.trim()),
-    phone: (v) => /^[+0-9 ()-]{7,20}$/.test(v.trim()),
-    orderType: (v) => v !== "",
-    message: (v) => v.trim().length >= 2
+  // Local date as YYYY-MM-DD (avoids UTC off-by-one from toISOString).
+  const isoDate = (date) => {
+    const pad = (n) => String(n).padStart(2, '0');
+    return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
   };
 
-  function setFieldError(id, message) {
-    const input = document.getElementById(id);
-    const error = document.getElementById(id + "-error");
-    if (!input) return;
-    if (message) input.setAttribute("aria-invalid", "true");
-    else input.removeAttribute("aria-invalid");
-    if (error) error.textContent = message || "";
+  const addDays = (value, days) => {
+    const [y, m, d] = value.split('-').map(Number);
+    return isoDate(new Date(y, m - 1, d + days));
+  };
+
+  const nightsBetween = (start, end) => {
+    const [y1, m1, d1] = start.split('-').map(Number);
+    const [y2, m2, d2] = end.split('-').map(Number);
+    return Math.round((Date.UTC(y2, m2 - 1, d2) - Date.UTC(y1, m1 - 1, d1)) / 86400000);
+  };
+
+  const validators = {
+    name: (value) => (value.trim().length >= 2 ? '' : 'err.name'),
+    email: (value) => (EMAIL_RE.test(value.trim()) ? '' : 'err.email'),
+    phone: (value) => {
+      const trimmed = value.trim();
+      const digits = trimmed.replace(/\D/g, '').length;
+      return PHONE_RE.test(trimmed) && digits >= 7 && digits <= 15 ? '' : 'err.phone';
+    },
+    guests: (value) => (Number.parseInt(value, 10) >= 1 ? '' : 'err.guests'),
+    checkin: (value) => {
+      if (!value) return 'err.checkin.required';
+      return value < isoDate(new Date()) ? 'err.checkin.past' : '';
+    },
+    checkout: (value) => {
+      if (!value) return 'err.checkout.required';
+      const checkin = form.elements.checkin.value;
+      return checkin && value <= checkin ? 'err.checkout.order' : '';
+    }
+  };
+
+  function setFieldError(field, key) {
+    const error = document.getElementById(`${field.id}-error`);
+    if (key) {
+      field.setAttribute('aria-invalid', 'true');
+      field.dataset.errorKey = key;
+    } else {
+      field.removeAttribute('aria-invalid');
+      delete field.dataset.errorKey;
+    }
+    if (error) {
+      error.textContent = key ? t(key) : '';
+      error.hidden = !key;
+    }
   }
 
-  function validateField(id) {
-    const input = document.getElementById(id);
-    const ok = RULES[id](input.value);
-    setFieldError(id, ok ? "" : t("err." + id));
-    return ok;
+  function validateField(field) {
+    const validate = validators[field.name];
+    if (!validate) return true;
+    const key = validate(field.value);
+    setFieldError(field, key);
+    return !key;
   }
 
-  function setStatus(message, type) {
-    if (!formStatus) return;
-    formStatus.textContent = message;
-    formStatus.className = "form-status" + (type ? " " + type : "");
+  function refreshFieldErrors() {
+    if (!form) return;
+    $$('[data-error-key]', form).forEach((field) => setFieldError(field, field.dataset.errorKey));
+    if (result && result.dataset.messageKey) {
+      result.textContent = t(result.dataset.messageKey, JSON.parse(result.dataset.messageVars || '{}'));
+    }
   }
 
-  if (form) {
-    form.action = FORMSPREE_ENDPOINT;
+  function showResult(type, key, vars) {
+    if (!result) return;
+    result.classList.add('show');
+    result.classList.toggle('error', type === 'error');
+    result.dataset.messageKey = key;
+    result.dataset.messageVars = JSON.stringify(vars || {});
+    result.textContent = t(key, vars);
+  }
 
-    Object.keys(RULES).forEach((id) => {
-      const input = document.getElementById(id);
-      if (!input) return;
-      input.addEventListener("blur", () => { if (input.value) validateField(id); });
-      input.addEventListener("input", () => { if (input.getAttribute("aria-invalid") === "true") validateField(id); });
+  function showSuccess(data) {
+    if (!result) return;
+    result.classList.add('show');
+    result.classList.remove('error');
+    delete result.dataset.messageKey;
+    const title = el('strong', '', t('booking.success.title', { name: data.name }));
+    const text = el('p', '', t('booking.success.text', data));
+    result.replaceChildren(title, text);
+    result.focus();
+  }
+
+  function updateDateLimits() {
+    const today = isoDate(new Date());
+    form.elements.checkin.min = today;
+    const checkin = form.elements.checkin.value;
+    form.elements.checkout.min = addDays(checkin && checkin >= today ? checkin : today, 1);
+  }
+
+  function initBooking() {
+    if (!form) return;
+
+    form.noValidate = true;
+    updateDateLimits();
+
+    const fields = Object.keys(validators).map((name) => form.elements[name]);
+
+    fields.forEach((field) => {
+      field.addEventListener('blur', () => {
+        if (field.value || field.dataset.errorKey) validateField(field);
+      });
+      field.addEventListener('input', () => {
+        if (field.dataset.errorKey) validateField(field);
+      });
     });
 
-    form.addEventListener("submit", async (event) => {
+    form.elements.checkin.addEventListener('change', () => {
+      updateDateLimits();
+      if (form.elements.checkout.value || form.elements.checkout.dataset.errorKey) {
+        validateField(form.elements.checkout);
+      }
+    });
+
+    form.addEventListener('submit', async (event) => {
       event.preventDefault();
 
-      const invalid = Object.keys(RULES).filter((id) => !validateField(id));
+      const invalid = fields.filter((field) => !validateField(field));
       if (invalid.length) {
-        setStatus(t("form.fixErrors"), "error");
-        document.getElementById(invalid[0]).focus();
+        showResult('error', 'err.summary');
+        invalid[0].focus();
         return;
       }
 
-      if (FORMSPREE_ENDPOINT.includes("YOUR_FORM_ID")) {
-        setStatus(t("form.notConfigured"), "error");
+      const data = new FormData(form);
+      const room = data.get('room');
+      const card = $$('.room-card').find((node) => node.dataset.room === room);
+      const nights = nightsBetween(data.get('checkin'), data.get('checkout'));
+      const total = nights * (card ? Number(card.dataset.price) : 0);
+      data.append('nights', String(nights));
+      data.append('estimatedTotal', formatPrice(total));
+      data.append('language', language);
+
+      const summary = {
+        name: String(data.get('name')).trim(),
+        nights,
+        room,
+        total: total.toLocaleString('en-US')
+      };
+
+      // Bots fill the hidden honeypot — pretend success without sending.
+      if (data.get('_gotcha')) {
+        showSuccess(summary);
+        form.reset();
         return;
       }
 
-      $("#replyTo").value = $("#email").value.trim();
+      const contact = { phone: CONFIG.contactPhone, email: CONFIG.contactEmail };
+      const endpoint = CONFIG.bookingEndpoint;
+      if (!/^https:\/\//.test(endpoint) || endpoint.includes('YOUR_FORM_ID')) {
+        showResult('error', 'booking.notConfigured', contact);
+        result.focus();
+        return;
+      }
+
       submitBtn.disabled = true;
-      submitBtn.textContent = t("form.sending");
-      setStatus("", "");
+      submitBtn.textContent = t('booking.sending');
 
       try {
-        const response = await fetch(FORMSPREE_ENDPOINT, {
-          method: "POST",
-          body: new FormData(form),
-          headers: { Accept: "application/json" }
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          body: data,
+          headers: { Accept: 'application/json' }
         });
-        if (response.ok) {
-          form.reset();
-          setStatus(t("form.success"), "success");
-        } else {
-          let message = t("form.error");
-          try {
-            const data = await response.json();
-            if (data && Array.isArray(data.errors) && data.errors.length) {
-              message = data.errors.map((e) => e.message).join(" ");
-            }
-          } catch (e) { /* keep generic message */ }
-          setStatus(message, "error");
-        }
-      } catch (e) {
-        setStatus(t("form.error"), "error");
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        form.reset();
+        updateDateLimits();
+        showSuccess(summary);
+      } catch (error) {
+        showResult('error', 'booking.failed', contact);
+        result.focus();
       } finally {
         submitBtn.disabled = false;
-        submitBtn.textContent = t("form.submit");
+        submitBtn.textContent = t('booking.submit');
       }
     });
+  }
+
+  /* ------------------------------------------------------------------
+     Scroll reveal
+  ------------------------------------------------------------------ */
+  function initReveal() {
+    const items = $$('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      items.forEach((item) => item.classList.add('visible'));
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+    items.forEach((item) => observer.observe(item));
   }
 
   /* ------------------------------------------------------------------
      Init
   ------------------------------------------------------------------ */
-  applyLanguage();
+  const year = $('#year');
+  if (year) year.textContent = String(new Date().getFullYear());
+
+  initNavigation();
+  initModal();
+  initMenu();
+  initCart();
+  initRooms();
+  initBooking();
+  initLanguage();
+  initReveal();
 })();

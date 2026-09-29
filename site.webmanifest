@@ -1,18 +1,17 @@
 {
-  "name": "Bereket Juice & Salad",
-  "short_name": "Bereket",
-  "description": "Fresh juices, smoothies and fruit salads made to order in Hawassa.",
+  "name": "Habesha Haven | Hotel & Café",
+  "short_name": "Habesha Haven",
+  "description": "A premium Ethiopian hotel and café — comfortable rooms, Ethiopian coffee and warm hospitality.",
+  "lang": "en",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#0d0d0d",
-  "theme_color": "#0d0d0d",
+  "background_color": "#f6f5ef",
+  "theme_color": "#f5f7f2",
   "icons": [
-    {
-      "src": "assets/img/logo.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    }
+    { "src": "assets/img/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/img/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/img/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "assets/img/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
   ]
 }
