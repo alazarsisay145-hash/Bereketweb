@@ -76,9 +76,9 @@ The form already includes a `_subject`, a `_replyto` (filled from the customer's
 | `assets/img/interior.jpg` | "Our Space" section (1200×900) |
 | `assets/img/menu/*` | Menu item photos |
 
-> **Note:** the original photos attached to the rebrand request could not be downloaded by the build
-> agent, so the committed `logo.png`, `juices-salad.jpg` and `interior.jpg` are brand-coloured stand-ins.
-> Overwrite them with the original photos (same file names) and they will be used everywhere automatically.
+> **Note:** `interior.jpg` is a real photo of the shop. The committed `logo.png` and
+> `juices-salad.jpg` are still brand-coloured stand-ins — overwrite them with the original
+> photos (same file names) and they will be used everywhere automatically.
 
 To update an image, overwrite the file with the same name — no code changes needed
 (photos are cropped with `object-fit: cover`, so other aspect ratios are fine).
