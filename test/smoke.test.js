@@ -70,12 +70,16 @@ check('has apple-touch-icon', /rel="apple-touch-icon" href="assets\/img\/apple-t
 check('links web app manifest', /rel="manifest" href="site\.webmanifest"/.test(html));
 
 const ldMatch = html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/);
+check('has a JSON-LD block', Boolean(ldMatch));
 let graph = [];
+let ldValid = false;
 try {
-  graph = JSON.parse(ldMatch[1])['@graph'] || [];
+  graph = JSON.parse(ldMatch ? ldMatch[1] : '')['@graph'] || [];
+  ldValid = true;
 } catch (error) {
   graph = [];
 }
+check('JSON-LD is valid JSON', ldValid);
 ['Hotel', 'Restaurant'].forEach((type) => {
   const node = graph.find((n) => n['@type'] === type);
   check(`JSON-LD ${type} present`, Boolean(node));
@@ -148,7 +152,8 @@ check('menu has empty state', /id="menuEmpty"/.test(html));
 check('language switch updates <html lang>', /documentElement\.lang = language/.test(js));
 
 const amStart = js.indexOf('am: {');
-const amKeys = new Set([...js.slice(amStart).matchAll(/'([a-z0-9.]+)':/gi)].map((m) => m[1]));
+check('main.js defines an Amharic (am) dictionary', amStart >= 0);
+const amKeys = new Set([...(amStart >= 0 ? js.slice(amStart) : '').matchAll(/'([a-z0-9.]+)':/gi)].map((m) => m[1]));
 const htmlKeys = new Set([
   ...[...html.matchAll(/data-i18n(?:-html)?="([^"]+)"/g)].map((m) => m[1]),
   ...[...html.matchAll(/data-i18n-attr="([^"]+)"/g)]
